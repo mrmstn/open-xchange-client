@@ -4,26 +4,31 @@
 
 defmodule OpenXchangeClient.Model.InfoItemSharingNotificationBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"entities",
-    :"notification"
+    :entities,
+    :notification
   ]
 
   @type t :: %__MODULE__{
-    :"entities" => [String.t],
-    :"notification" => OpenXchangeClient.Model.InfoItemBodyNotification.t | nil
-  }
+          :entities => [String.t()],
+          :notification => OpenXchangeClient.Model.InfoItemBodyNotification.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoItemSharingNotificationBody do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"notification", :struct, OpenXchangeClient.Model.InfoItemBodyNotification, options)
+    |> deserialize(
+      :notification,
+      :struct,
+      OpenXchangeClient.Model.InfoItemBodyNotification,
+      options
+    )
   end
 end
-

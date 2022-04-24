@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Export do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Exports contact data to a CSV file.
 
@@ -27,22 +26,24 @@ defmodule OpenXchangeClient.Api.Export do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec export_as_csv(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec export_as_csv(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def export_as_csv(connection, session, folder, opts \\ []) do
     optional_params = %{
-      :"columns" => :query,
-      :"export_dlists" => :query
+      :columns => :query,
+      :export_dlists => :query
     }
+
     %{}
     |> method(:get)
     |> url("/export?action&#x3D;CSV")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -61,17 +62,22 @@ defmodule OpenXchangeClient.Api.Export do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec export_as_csv_0(Tesla.Env.client, String.t, list(OpenXchangeClient.Model.InfoItemExport.t), keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec export_as_csv_0(
+          Tesla.Env.client(),
+          String.t(),
+          list(OpenXchangeClient.Model.InfoItemExport.t()),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def export_as_csv_0(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/export?action&#x3D;CSV")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -89,17 +95,18 @@ defmodule OpenXchangeClient.Api.Export do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec export_as_i_cal(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec export_as_i_cal(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def export_as_i_cal(connection, session, folder, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/export?action&#x3D;ICAL")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -118,17 +125,22 @@ defmodule OpenXchangeClient.Api.Export do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec export_as_i_cal_0(Tesla.Env.client, String.t, list(OpenXchangeClient.Model.InfoItemExport.t), keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec export_as_i_cal_0(
+          Tesla.Env.client(),
+          String.t(),
+          list(OpenXchangeClient.Model.InfoItemExport.t()),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def export_as_i_cal_0(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/export?action&#x3D;ICAL")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -146,20 +158,22 @@ defmodule OpenXchangeClient.Api.Export do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec export_as_v_card(Tesla.Env.client, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec export_as_v_card(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def export_as_v_card(connection, session, opts \\ []) do
     optional_params = %{
-      :"folder" => :query
+      :folder => :query
     }
+
     %{}
     |> method(:get)
     |> url("/export?action&#x3D;VCARD")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -178,17 +192,22 @@ defmodule OpenXchangeClient.Api.Export do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec export_as_v_card_0(Tesla.Env.client, String.t, list(OpenXchangeClient.Model.InfoItemExport.t), keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec export_as_v_card_0(
+          Tesla.Env.client(),
+          String.t(),
+          list(OpenXchangeClient.Model.InfoItemExport.t()),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def export_as_v_card_0(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/export?action&#x3D;VCARD")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 end

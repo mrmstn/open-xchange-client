@@ -4,26 +4,31 @@
 
 defmodule OpenXchangeClient.Model.AppointmentCreationData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"conflicts"
+    :id,
+    :conflicts
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"conflicts" => [OpenXchangeClient.Model.AppointmentCreationConflict.t] | nil
-  }
+          :id => String.t() | nil,
+          :conflicts => [OpenXchangeClient.Model.AppointmentCreationConflict.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.AppointmentCreationData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"conflicts", :list, OpenXchangeClient.Model.AppointmentCreationConflict, options)
+    |> deserialize(
+      :conflicts,
+      :list,
+      OpenXchangeClient.Model.AppointmentCreationConflict,
+      options
+    )
   end
 end
-

@@ -4,23 +4,23 @@
 
 defmodule OpenXchangeClient.Model.OAuthAccountInteraction do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"authUrl",
-    :"type",
-    :"token",
-    :"uuid"
+    :authUrl,
+    :type,
+    :token,
+    :uuid
   ]
 
   @type t :: %__MODULE__{
-    :"authUrl" => String.t | nil,
-    :"type" => String.t | nil,
-    :"token" => String.t | nil,
-    :"uuid" => String.t | nil
-  }
+          :authUrl => String.t() | nil,
+          :type => String.t() | nil,
+          :token => String.t() | nil,
+          :uuid => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.OAuthAccountInteraction do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.OAuthAccountInteraction do
     value
   end
 end
-

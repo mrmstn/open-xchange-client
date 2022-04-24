@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.AppointmentInfoResponse do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"data"
+    :data
   ]
 
   @type t :: %__MODULE__{
-    :"data" => [boolean()] | nil
-  }
+          :data => [boolean()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.AppointmentInfoResponse do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.AppointmentInfoResponse do
     value
   end
 end
-

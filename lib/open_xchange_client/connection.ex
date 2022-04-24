@@ -10,9 +10,9 @@ defmodule OpenXchangeClient.Connection do
   use Tesla
 
   # Add any middleware here (authentication)
-  plug Tesla.Middleware.BaseUrl, "https://example.com/ajax"
-  plug Tesla.Middleware.Headers, [{"user-agent", "Elixir"}]
-  plug Tesla.Middleware.EncodeJson, engine: Poison
+  plug(Tesla.Middleware.BaseUrl, "https://example.com/ajax")
+  plug(Tesla.Middleware.Headers, [{"user-agent", "Elixir"}])
+  plug(Tesla.Middleware.EncodeJson, engine: Poison)
 
   @doc """
   Configure an authless client connection
@@ -21,7 +21,7 @@ defmodule OpenXchangeClient.Connection do
 
   Tesla.Env.client
   """
-  @spec new() :: Tesla.Env.client
+  @spec new() :: Tesla.Env.client()
   def new do
     Tesla.client([])
   end

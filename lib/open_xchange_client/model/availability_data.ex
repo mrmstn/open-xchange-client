@@ -4,24 +4,24 @@
 
 defmodule OpenXchangeClient.Model.AvailabilityData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"availableTimes"
+    :availableTimes
   ]
 
   @type t :: %__MODULE__{
-    :"availableTimes" => [OpenXchangeClient.Model.Available.t] | nil
-  }
+          :availableTimes => [OpenXchangeClient.Model.Available.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.AvailabilityData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"availableTimes", :list, OpenXchangeClient.Model.Available, options)
+    |> deserialize(:availableTimes, :list, OpenXchangeClient.Model.Available, options)
   end
 end
-

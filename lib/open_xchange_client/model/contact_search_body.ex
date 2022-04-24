@@ -4,45 +4,45 @@
 
 defmodule OpenXchangeClient.Model.ContactSearchBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"pattern",
-    :"startletter",
-    :"folder",
-    :"exclude_folders",
-    :"last_name",
-    :"first_name",
-    :"display_name",
-    :"email1",
-    :"email2",
-    :"email3",
-    :"company",
-    :"categories",
-    :"orSearch",
-    :"emailAutoComplete",
-    :"exactMatch"
+    :pattern,
+    :startletter,
+    :folder,
+    :exclude_folders,
+    :last_name,
+    :first_name,
+    :display_name,
+    :email1,
+    :email2,
+    :email3,
+    :company,
+    :categories,
+    :orSearch,
+    :emailAutoComplete,
+    :exactMatch
   ]
 
   @type t :: %__MODULE__{
-    :"pattern" => String.t | nil,
-    :"startletter" => boolean() | nil,
-    :"folder" => [integer()] | nil,
-    :"exclude_folders" => [integer()] | nil,
-    :"last_name" => String.t | nil,
-    :"first_name" => String.t | nil,
-    :"display_name" => String.t | nil,
-    :"email1" => String.t | nil,
-    :"email2" => String.t | nil,
-    :"email3" => String.t | nil,
-    :"company" => String.t | nil,
-    :"categories" => String.t | nil,
-    :"orSearch" => boolean() | nil,
-    :"emailAutoComplete" => boolean() | nil,
-    :"exactMatch" => boolean() | nil
-  }
+          :pattern => String.t() | nil,
+          :startletter => boolean() | nil,
+          :folder => [integer()] | nil,
+          :exclude_folders => [integer()] | nil,
+          :last_name => String.t() | nil,
+          :first_name => String.t() | nil,
+          :display_name => String.t() | nil,
+          :email1 => String.t() | nil,
+          :email2 => String.t() | nil,
+          :email3 => String.t() | nil,
+          :company => String.t() | nil,
+          :categories => String.t() | nil,
+          :orSearch => boolean() | nil,
+          :emailAutoComplete => boolean() | nil,
+          :exactMatch => boolean() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ContactSearchBody do
@@ -50,4 +50,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ContactSearchBody do
     value
   end
 end
-

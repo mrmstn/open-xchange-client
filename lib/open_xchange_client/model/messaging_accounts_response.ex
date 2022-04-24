@@ -4,42 +4,42 @@
 
 defmodule OpenXchangeClient.Model.MessagingAccountsResponse do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"data",
-    :"error",
-    :"error_params",
-    :"error_id",
-    :"error_desc",
-    :"error_stack",
-    :"code",
-    :"categories",
-    :"category",
-    :"timestamp"
+    :data,
+    :error,
+    :error_params,
+    :error_id,
+    :error_desc,
+    :error_stack,
+    :code,
+    :categories,
+    :category,
+    :timestamp
   ]
 
   @type t :: %__MODULE__{
-    :"data" => [OpenXchangeClient.Model.MessagingAccountData.t] | nil,
-    :"error" => String.t | nil,
-    :"error_params" => [String.t] | nil,
-    :"error_id" => String.t | nil,
-    :"error_desc" => String.t | nil,
-    :"error_stack" => [String.t] | nil,
-    :"code" => String.t | nil,
-    :"categories" => String.t | nil,
-    :"category" => integer() | nil,
-    :"timestamp" => integer() | nil
-  }
+          :data => [OpenXchangeClient.Model.MessagingAccountData.t()] | nil,
+          :error => String.t() | nil,
+          :error_params => [String.t()] | nil,
+          :error_id => String.t() | nil,
+          :error_desc => String.t() | nil,
+          :error_stack => [String.t()] | nil,
+          :code => String.t() | nil,
+          :categories => String.t() | nil,
+          :category => integer() | nil,
+          :timestamp => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MessagingAccountsResponse do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"data", :list, OpenXchangeClient.Model.MessagingAccountData, options)
+    |> deserialize(:data, :list, OpenXchangeClient.Model.MessagingAccountData, options)
   end
 end
-

@@ -4,45 +4,45 @@
 
 defmodule OpenXchangeClient.Model.MailAccountUpdateResponse do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"data",
-    :"warnings",
-    :"error",
-    :"error_params",
-    :"error_id",
-    :"error_desc",
-    :"error_stack",
-    :"code",
-    :"categories",
-    :"category",
-    :"timestamp"
+    :data,
+    :warnings,
+    :error,
+    :error_params,
+    :error_id,
+    :error_desc,
+    :error_stack,
+    :code,
+    :categories,
+    :category,
+    :timestamp
   ]
 
   @type t :: %__MODULE__{
-    :"data" => OpenXchangeClient.Model.MailAccountData.t | nil,
-    :"warnings" => [OpenXchangeClient.Model.CommonResponse.t] | nil,
-    :"error" => String.t | nil,
-    :"error_params" => [String.t] | nil,
-    :"error_id" => String.t | nil,
-    :"error_desc" => String.t | nil,
-    :"error_stack" => [String.t] | nil,
-    :"code" => String.t | nil,
-    :"categories" => String.t | nil,
-    :"category" => integer() | nil,
-    :"timestamp" => integer() | nil
-  }
+          :data => OpenXchangeClient.Model.MailAccountData.t() | nil,
+          :warnings => [OpenXchangeClient.Model.CommonResponse.t()] | nil,
+          :error => String.t() | nil,
+          :error_params => [String.t()] | nil,
+          :error_id => String.t() | nil,
+          :error_desc => String.t() | nil,
+          :error_stack => [String.t()] | nil,
+          :code => String.t() | nil,
+          :categories => String.t() | nil,
+          :category => integer() | nil,
+          :timestamp => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailAccountUpdateResponse do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"data", :struct, OpenXchangeClient.Model.MailAccountData, options)
-    |> deserialize(:"warnings", :list, OpenXchangeClient.Model.CommonResponse, options)
+    |> deserialize(:data, :struct, OpenXchangeClient.Model.MailAccountData, options)
+    |> deserialize(:warnings, :list, OpenXchangeClient.Model.CommonResponse, options)
   end
 end
-

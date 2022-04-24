@@ -4,27 +4,27 @@
 
 defmodule OpenXchangeClient.Model.MailUpdateBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"folder_id",
-    :"color_label",
-    :"flags",
-    :"value",
-    :"set_flags",
-    :"clear_flags"
+    :folder_id,
+    :color_label,
+    :flags,
+    :value,
+    :set_flags,
+    :clear_flags
   ]
 
   @type t :: %__MODULE__{
-    :"folder_id" => String.t | nil,
-    :"color_label" => integer() | nil,
-    :"flags" => integer() | nil,
-    :"value" => boolean() | nil,
-    :"set_flags" => integer() | nil,
-    :"clear_flags" => integer() | nil
-  }
+          :folder_id => String.t() | nil,
+          :color_label => integer() | nil,
+          :flags => integer() | nil,
+          :value => boolean() | nil,
+          :set_flags => integer() | nil,
+          :clear_flags => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailUpdateBody do
@@ -32,4 +32,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailUpdateBody do
     value
   end
 end
-

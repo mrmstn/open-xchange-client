@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.MailDestinationBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"folder_id"
+    :folder_id
   ]
 
   @type t :: %__MODULE__{
-    :"folder_id" => String.t | nil
-  }
+          :folder_id => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailDestinationBody do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailDestinationBody do
     value
   end
 end
-

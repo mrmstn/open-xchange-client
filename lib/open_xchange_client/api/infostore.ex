@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Infostore do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Checks if a given file name is valid.
 
@@ -25,17 +24,18 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec check_name(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec check_name(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def check_name(connection, session, name, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/infostore?action&#x3D;checkname")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"name", name)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :name, name)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -56,22 +56,29 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec copy_info_item(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.InfoItemData.t, keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec copy_info_item(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.InfoItemData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def copy_info_item(connection, session, id, body, opts \\ []) do
     optional_params = %{
-      :"pushToken" => :query
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;copy")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemUpdateResponse{}}
     ])
   end
 
@@ -93,23 +100,31 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec copy_info_item_advanced(Tesla.Env.client, String.t, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec copy_info_item_advanced(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def copy_info_item_advanced(connection, session, id, json, file, opts \\ []) do
     optional_params = %{
-      :"pushToken" => :query
+      :pushToken => :query
     }
+
     %{}
     |> method(:post)
     |> url("/infostore?action&#x3D;copy")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:form, :"json", json)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:form, :json, json)
+    |> add_param(:file, :file, file)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -131,23 +146,31 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_info_item(Tesla.Env.client, String.t, String.t, integer(), list(OpenXchangeClient.Model.InfoItemBody.t), keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec create_info_item(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          integer(),
+          list(OpenXchangeClient.Model.InfoItemBody.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def create_info_item(connection, session, id, timestamp, body, opts \\ []) do
     optional_params = %{
-      :"pushToken" => :query
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;new")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemUpdateResponse{}}
     ])
   end
 
@@ -169,23 +192,30 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_info_item_advanced(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec create_info_item_advanced(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def create_info_item_advanced(connection, session, json, file, opts \\ []) do
     optional_params = %{
-      :"try_add_version" => :query,
-      :"pushToken" => :query
+      :try_add_version => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:post)
     |> url("/infostore?action&#x3D;new")
-    |> add_param(:query, :"session", session)
-    |> add_param(:form, :"json", json)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:form, :json, json)
+    |> add_param(:file, :file, file)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -206,24 +236,32 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_all_info_item_versions(Tesla.Env.client, String.t, String.t, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_all_info_item_versions(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def delete_all_info_item_versions(connection, session, id, folder, timestamp, opts \\ []) do
     optional_params = %{
-      :"pushToken" => :query
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;revert")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -246,24 +284,33 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemDetachResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_info_item_versions(Tesla.Env.client, String.t, String.t, String.t, integer(), list(Integer.t), keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemDetachResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_info_item_versions(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          list(Integer.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InfoItemDetachResponse.t()} | {:error, Tesla.Env.t()}
   def delete_info_item_versions(connection, session, id, folder, timestamp, body, opts \\ []) do
     optional_params = %{
-      :"pushToken" => :query
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;detach")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemDetachResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemDetachResponse{}}
     ])
   end
 
@@ -284,23 +331,30 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_info_items(Tesla.Env.client, String.t, integer(), list(OpenXchangeClient.Model.InfoItemListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_info_items(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          list(OpenXchangeClient.Model.InfoItemListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InfoItemsResponse.t()} | {:error, Tesla.Env.t()}
   def delete_info_items(connection, session, timestamp, body, opts \\ []) do
     optional_params = %{
-      :"hardDelete" => :query,
-      :"pushToken" => :query
+      :hardDelete => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemsResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemsResponse{}}
     ])
   end
 
@@ -325,27 +379,29 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_info_items(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_info_items(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.InfoItemsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_info_items(connection, session, folder, columns, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query,
-      :"left_hand_limit" => :query,
-      :"right_hand_limit" => :query,
-      :"limit" => :query,
-      :"pregenerate_previews" => :query
+      :sort => :query,
+      :order => :query,
+      :left_hand_limit => :query,
+      :right_hand_limit => :query,
+      :limit => :query,
+      :pregenerate_previews => :query
     }
+
     %{}
     |> method(:get)
     |> url("/infostore?action&#x3D;all")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemsResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemsResponse{}}
     ])
   end
 
@@ -367,24 +423,26 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_versions(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_versions(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.InfoItemsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_versions(connection, session, id, columns, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query,
-      :"pregenerate_previews" => :query
+      :sort => :query,
+      :order => :query,
+      :pregenerate_previews => :query
     }
+
     %{}
     |> method(:get)
     |> url("/infostore?action&#x3D;versions")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemsResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemsResponse{}}
     ])
   end
 
@@ -403,21 +461,27 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_documents_as_zip(Tesla.Env.client, String.t, list(OpenXchangeClient.Model.InfoItemZipElement.t), keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_documents_as_zip(
+          Tesla.Env.client(),
+          String.t(),
+          list(OpenXchangeClient.Model.InfoItemZipElement.t()),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_documents_as_zip(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"scan" => :query
+      :scan => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;zipdocuments")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -438,22 +502,24 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_folder_as_zip(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_folder_as_zip(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_folder_as_zip(connection, session, folder, opts \\ []) do
     optional_params = %{
-      :"recursive" => :query,
-      :"scan" => :query
+      :recursive => :query,
+      :scan => :query
     }
+
     %{}
     |> method(:get)
     |> url("/infostore?action&#x3D;zipfolder")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -472,18 +538,19 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_info_item(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemResponse.t} | {:error, Tesla.Env.t}
+  @spec get_info_item(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.InfoItemResponse.t()} | {:error, Tesla.Env.t()}
   def get_info_item(connection, session, id, folder, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/infostore?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemResponse{}}
     ])
   end
 
@@ -516,34 +583,36 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_info_item_document(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_info_item_document(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_info_item_document(connection, session, folder, id, opts \\ []) do
     optional_params = %{
-      :"version" => :query,
-      :"content_type" => :query,
-      :"scan" => :query,
-      :"format" => :query,
-      :"rotate" => :query,
-      :"width" => :query,
-      :"height" => :query,
-      :"shrinkOnly" => :query,
-      :"scaleType" => :query,
-      :"cropWidth" => :query,
-      :"cropHeight" => :query,
-      :"cropX" => :query,
-      :"cropY" => :query
+      :version => :query,
+      :content_type => :query,
+      :scan => :query,
+      :format => :query,
+      :rotate => :query,
+      :width => :query,
+      :height => :query,
+      :shrinkOnly => :query,
+      :scaleType => :query,
+      :cropWidth => :query,
+      :cropHeight => :query,
+      :cropX => :query,
+      :cropY => :query
     }
+
     %{}
     |> method(:get)
     |> url("/infostore?action&#x3D;document")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -563,22 +632,29 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_info_item_list(Tesla.Env.client, String.t, String.t, list(OpenXchangeClient.Model.InfoItemListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_info_item_list(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          list(OpenXchangeClient.Model.InfoItemListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InfoItemsResponse.t()} | {:error, Tesla.Env.t()}
   def get_info_item_list(connection, session, columns, body, opts \\ []) do
     optional_params = %{
-      :"pregenerate_previews" => :query
+      :pregenerate_previews => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;list")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemsResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemsResponse{}}
     ])
   end
 
@@ -602,26 +678,28 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemUpdatesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_info_item_updates(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemUpdatesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_info_item_updates(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.InfoItemUpdatesResponse.t()} | {:error, Tesla.Env.t()}
   def get_info_item_updates(connection, session, folder, columns, opts \\ []) do
     optional_params = %{
-      :"timestamp" => :query,
-      :"ignore" => :query,
-      :"sort" => :query,
-      :"order" => :query,
-      :"pregenerate_previews" => :query
+      :timestamp => :query,
+      :ignore => :query,
+      :sort => :query,
+      :order => :query,
+      :pregenerate_previews => :query
     }
+
     %{}
     |> method(:get)
     |> url("/infostore?action&#x3D;updates")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemUpdatesResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemUpdatesResponse{}}
     ])
   end
 
@@ -642,23 +720,25 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_shared_info_items(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_shared_info_items(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.InfoItemsResponse.t()} | {:error, Tesla.Env.t()}
   def get_shared_info_items(connection, session, columns, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query,
-      :"pregenerate_previews" => :query
+      :sort => :query,
+      :order => :query,
+      :pregenerate_previews => :query
     }
+
     %{}
     |> method(:get)
     |> url("/infostore?action&#x3D;shares")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemsResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemsResponse{}}
     ])
   end
 
@@ -681,25 +761,44 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec import_attachment(Tesla.Env.client, String.t, integer(), integer(), integer(), String.t, list(OpenXchangeClient.Model.InfoItemBody.t), keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t} | {:error, Tesla.Env.t}
-  def import_attachment(connection, session, attached, folder, module, attachment, body, opts \\ []) do
+  @spec import_attachment(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          integer(),
+          integer(),
+          String.t(),
+          list(OpenXchangeClient.Model.InfoItemBody.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t()} | {:error, Tesla.Env.t()}
+  def import_attachment(
+        connection,
+        session,
+        attached,
+        folder,
+        module,
+        attachment,
+        body,
+        opts \\ []
+      ) do
     optional_params = %{
-      :"pushToken" => :query
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;saveAs")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"attached", attached)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"module", module)
-    |> add_param(:query, :"attachment", attachment)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :attached, attached)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :module, module)
+    |> add_param(:query, :attachment, attachment)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemUpdateResponse{}}
     ])
   end
 
@@ -718,21 +817,23 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec lock_info_item(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec lock_info_item(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def lock_info_item(connection, session, id, opts \\ []) do
     optional_params = %{
-      :"diff" => :query
+      :diff => :query
     }
+
     %{}
     |> method(:get)
     |> url("/infostore?action&#x3D;lock")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -753,23 +854,25 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemsMovedResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec move_file(Tesla.Env.client, String.t, integer(), String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemsMovedResponse.t} | {:error, Tesla.Env.t}
+  @spec move_file(Tesla.Env.client(), String.t(), integer(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.InfoItemsMovedResponse.t()} | {:error, Tesla.Env.t()}
   def move_file(connection, session, timestamp, folder, id, opts \\ []) do
     optional_params = %{
-      :"pushToken" => :query
+      :pushToken => :query
     }
+
     %{}
     |> method(:get)
     |> url("/infostore?action&#x3D;move")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"timestamp", timestamp)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :timestamp, timestamp)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemsMovedResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemsMovedResponse{}}
     ])
   end
 
@@ -789,22 +892,29 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemsMovedResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec move_info_items(Tesla.Env.client, String.t, String.t, list(OpenXchangeClient.Model.InfoItemListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemsMovedResponse.t} | {:error, Tesla.Env.t}
+  @spec move_info_items(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          list(OpenXchangeClient.Model.InfoItemListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InfoItemsMovedResponse.t()} | {:error, Tesla.Env.t()}
   def move_info_items(connection, session, folder, body, opts \\ []) do
     optional_params = %{
-      :"pushToken" => :query
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;move")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemsMovedResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemsMovedResponse{}}
     ])
   end
 
@@ -823,18 +933,26 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemSharingNotificationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec notify_about_shared_info_item(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.InfoItemSharingNotificationBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemSharingNotificationResponse.t} | {:error, Tesla.Env.t}
+  @spec notify_about_shared_info_item(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.InfoItemSharingNotificationBody.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.InfoItemSharingNotificationResponse.t()}
+          | {:error, Tesla.Env.t()}
   def notify_about_shared_info_item(connection, session, id, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;notify")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemSharingNotificationResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemSharingNotificationResponse{}}
     ])
   end
 
@@ -853,21 +971,27 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemsRestoreResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec restore_info_items_from_trash(Tesla.Env.client, String.t, list(OpenXchangeClient.Model.InfoItemListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemsRestoreResponse.t} | {:error, Tesla.Env.t}
+  @spec restore_info_items_from_trash(
+          Tesla.Env.client(),
+          String.t(),
+          list(OpenXchangeClient.Model.InfoItemListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InfoItemsRestoreResponse.t()} | {:error, Tesla.Env.t()}
   def restore_info_items_from_trash(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"pushToken" => :query
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;restore")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemsRestoreResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemsRestoreResponse{}}
     ])
   end
 
@@ -893,28 +1017,35 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec search_info_items(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.InfoItemSearchBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} | {:error, Tesla.Env.t}
+  @spec search_info_items(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.InfoItemSearchBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InfoItemsResponse.t()} | {:error, Tesla.Env.t()}
   def search_info_items(connection, session, columns, body, opts \\ []) do
     optional_params = %{
-      :"folder" => :query,
-      :"sort" => :query,
-      :"order" => :query,
-      :"start" => :query,
-      :"end" => :query,
-      :"includeSubfolders" => :query,
-      :"pregenerate_previews" => :query
+      :folder => :query,
+      :sort => :query,
+      :order => :query,
+      :start => :query,
+      :end => :query,
+      :includeSubfolders => :query,
+      :pregenerate_previews => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;search")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemsResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemsResponse{}}
     ])
   end
 
@@ -932,17 +1063,18 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec unlock_info_item(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec unlock_info_item(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def unlock_info_item(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/infostore?action&#x3D;unlock")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -964,23 +1096,31 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_info_item(Tesla.Env.client, String.t, String.t, integer(), OpenXchangeClient.Model.InfoItemBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec update_info_item(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.InfoItemBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def update_info_item(connection, session, id, timestamp, body, opts \\ []) do
     optional_params = %{
-      :"pushToken" => :query
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemUpdateResponse{}}
     ])
   end
 
@@ -1004,25 +1144,34 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_info_item_advanced(Tesla.Env.client, String.t, String.t, integer(), String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec update_info_item_advanced(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          integer(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def update_info_item_advanced(connection, session, id, timestamp, json, file, opts \\ []) do
     optional_params = %{
-      :"offset" => :query,
-      :"pushToken" => :query
+      :offset => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:post)
     |> url("/infostore?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
-    |> add_param(:form, :"json", json)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
+    |> add_param(:form, :json, json)
+    |> add_param(:file, :file, file)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -1059,38 +1208,46 @@ defmodule OpenXchangeClient.Api.Infostore do
   {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec upload_info_item(Tesla.Env.client, String.t, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec upload_info_item(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InfoItemUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def upload_info_item(connection, session, folder_id, filename, binary, opts \\ []) do
     optional_params = %{
-      :"timestamp" => :query,
-      :"id" => :query,
-      :"title" => :query,
-      :"file_mimetype" => :query,
-      :"file_md5sum" => :query,
-      :"description" => :query,
-      :"url" => :query,
-      :"version" => :query,
-      :"version_comment" => :query,
-      :"categories" => :query,
-      :"color_label" => :query,
-      :"file_size" => :query,
-      :"try_add_version" => :query,
-      :"ignoreWarnings" => :query,
-      :"offset" => :query,
-      :"pushToken" => :query
+      :timestamp => :query,
+      :id => :query,
+      :title => :query,
+      :file_mimetype => :query,
+      :file_md5sum => :query,
+      :description => :query,
+      :url => :query,
+      :version => :query,
+      :version_comment => :query,
+      :categories => :query,
+      :color_label => :query,
+      :file_size => :query,
+      :try_add_version => :query,
+      :ignoreWarnings => :query,
+      :offset => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/infostore?action&#x3D;upload&amp;binary&#x3D;true")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder_id", folder_id)
-    |> add_param(:query, :"filename", filename)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder_id, folder_id)
+    |> add_param(:query, :filename, filename)
     |> add_param(:body, :body, binary)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemUpdateResponse{}}
     ])
   end
 end

@@ -4,23 +4,23 @@
 
 defmodule OpenXchangeClient.Model.ExamineResponseData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"validity",
-    :"total",
-    :"unread",
-    :"next"
+    :validity,
+    :total,
+    :unread,
+    :next
   ]
 
   @type t :: %__MODULE__{
-    :"validity" => String.t | nil,
-    :"total" => integer() | nil,
-    :"unread" => integer() | nil,
-    :"next" => String.t | nil
-  }
+          :validity => String.t() | nil,
+          :total => integer() | nil,
+          :unread => integer() | nil,
+          :next => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ExamineResponseData do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ExamineResponseData do
     value
   end
 end
-

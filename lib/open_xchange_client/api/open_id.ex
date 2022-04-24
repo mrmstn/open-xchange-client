@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.OpenID do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Initiate the communication with the OpenID module
   The init request is used to initiate communication with the OpenID module from a UI client. It may be used to login or logout a user or to initiate the authorization process from  a third party. 
@@ -29,24 +28,26 @@ defmodule OpenXchangeClient.Api.OpenID do
   {:ok, OpenXchangeClient.Model.InitResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec init(Tesla.Env.client, String.t, boolean(), keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.InitResponse.t} | {:error, Tesla.Env.t}
+  @spec init(Tesla.Env.client(), String.t(), boolean(), keyword()) ::
+          {:ok, nil} | {:ok, OpenXchangeClient.Model.InitResponse.t()} | {:error, Tesla.Env.t()}
   def init(connection, flow, redirect, opts \\ []) do
     optional_params = %{
-      :"hash" => :query,
-      :"version" => :query,
-      :"client" => :form
+      :hash => :query,
+      :version => :query,
+      :client => :form
     }
+
     %{}
     |> method(:get)
     |> url("/init")
-    |> add_param(:form, :"flow", flow)
-    |> add_param(:form, :"redirect", redirect)
+    |> add_param(:form, :flow, flow)
+    |> add_param(:form, :redirect, redirect)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InitResponse{}},
-      { 302, false}
+      {200, %OpenXchangeClient.Model.InitResponse{}},
+      {302, false}
     ])
   end
 
@@ -68,24 +69,26 @@ defmodule OpenXchangeClient.Api.OpenID do
   {:ok, OpenXchangeClient.Model.InitResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec init_0(Tesla.Env.client, String.t, boolean(), keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.InitResponse.t} | {:error, Tesla.Env.t}
+  @spec init_0(Tesla.Env.client(), String.t(), boolean(), keyword()) ::
+          {:ok, nil} | {:ok, OpenXchangeClient.Model.InitResponse.t()} | {:error, Tesla.Env.t()}
   def init_0(connection, flow, redirect, opts \\ []) do
     optional_params = %{
-      :"hash" => :query,
-      :"version" => :query,
-      :"client" => :form
+      :hash => :query,
+      :version => :query,
+      :client => :form
     }
+
     %{}
     |> method(:post)
     |> url("/init")
-    |> add_param(:form, :"flow", flow)
-    |> add_param(:form, :"redirect", redirect)
+    |> add_param(:form, :flow, flow)
+    |> add_param(:form, :redirect, redirect)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InitResponse{}},
-      { 302, false}
+      {200, %OpenXchangeClient.Model.InitResponse{}},
+      {302, false}
     ])
   end
 
@@ -103,16 +106,16 @@ defmodule OpenXchangeClient.Api.OpenID do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec logout(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec logout(Tesla.Env.client(), String.t(), keyword()) :: {:ok, nil} | {:error, Tesla.Env.t()}
   def logout(connection, state, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/logout")
-    |> add_param(:query, :"state", state)
+    |> add_param(:query, :state, state)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 302, false}
+      {302, false}
     ])
   end
 end

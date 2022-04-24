@@ -4,23 +4,23 @@
 
 defmodule OpenXchangeClient.Model.AppointmentListElement do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"folder",
-    :"recurrence_position",
-    :"recurrence_date_position"
+    :id,
+    :folder,
+    :recurrence_position,
+    :recurrence_date_position
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t,
-    :"folder" => String.t,
-    :"recurrence_position" => integer() | nil,
-    :"recurrence_date_position" => integer() | nil
-  }
+          :id => String.t(),
+          :folder => String.t(),
+          :recurrence_position => integer() | nil,
+          :recurrence_date_position => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.AppointmentListElement do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.AppointmentListElement do
     value
   end
 end
-

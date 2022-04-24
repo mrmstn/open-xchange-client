@@ -4,24 +4,29 @@
 
 defmodule OpenXchangeClient.Model.FolderCheckLimitsResponseData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"errors"
+    :errors
   ]
 
   @type t :: %__MODULE__{
-    :"errors" => [OpenXchangeClient.Model.FolderCheckLimitsResponseErrorData.t] | nil
-  }
+          :errors => [OpenXchangeClient.Model.FolderCheckLimitsResponseErrorData.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderCheckLimitsResponseData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"errors", :list, OpenXchangeClient.Model.FolderCheckLimitsResponseErrorData, options)
+    |> deserialize(
+      :errors,
+      :list,
+      OpenXchangeClient.Model.FolderCheckLimitsResponseErrorData,
+      options
+    )
   end
 end
-

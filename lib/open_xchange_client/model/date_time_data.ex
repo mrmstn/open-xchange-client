@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.DateTimeData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"value",
-    :"tzid"
+    :value,
+    :tzid
   ]
 
   @type t :: %__MODULE__{
-    :"value" => String.t | nil,
-    :"tzid" => String.t | nil
-  }
+          :value => String.t() | nil,
+          :tzid => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.DateTimeData do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.DateTimeData do
     value
   end
 end
-

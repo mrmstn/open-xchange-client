@@ -4,31 +4,31 @@
 
 defmodule OpenXchangeClient.Model.FileAccountData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"filestorageService",
-    :"qualifiedId",
-    :"displayName",
-    :"rootFolder",
-    :"isDefaultAccount",
-    :"capabilities",
-    :"configuration"
+    :id,
+    :filestorageService,
+    :qualifiedId,
+    :displayName,
+    :rootFolder,
+    :isDefaultAccount,
+    :capabilities,
+    :configuration
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"filestorageService" => String.t | nil,
-    :"qualifiedId" => String.t | nil,
-    :"displayName" => String.t | nil,
-    :"rootFolder" => String.t | nil,
-    :"isDefaultAccount" => boolean() | nil,
-    :"capabilities" => [String.t] | nil,
-    :"configuration" => map() | nil
-  }
+          :id => String.t() | nil,
+          :filestorageService => String.t() | nil,
+          :qualifiedId => String.t() | nil,
+          :displayName => String.t() | nil,
+          :rootFolder => String.t() | nil,
+          :isDefaultAccount => boolean() | nil,
+          :capabilities => [String.t()] | nil,
+          :configuration => map() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FileAccountData do
@@ -36,4 +36,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.FileAccountData do
     value
   end
 end
-

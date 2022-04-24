@@ -4,7 +4,7 @@
 
 defmodule OpenXchangeClient.Model.ConversionDataSource do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
@@ -15,10 +15,10 @@ defmodule OpenXchangeClient.Model.ConversionDataSource do
   ]
 
   @type t :: %__MODULE__{
-    :"com.openexchange.mail.conversion.fullname" => String.t | nil,
-    :"com.openexchange.mail.conversion.mailid" => String.t | nil,
-    :"com.openexchange.mail.conversion.sequenceid" => String.t | nil
-  }
+          :"com.openexchange.mail.conversion.fullname" => String.t() | nil,
+          :"com.openexchange.mail.conversion.mailid" => String.t() | nil,
+          :"com.openexchange.mail.conversion.sequenceid" => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ConversionDataSource do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ConversionDataSource do
     value
   end
 end
-

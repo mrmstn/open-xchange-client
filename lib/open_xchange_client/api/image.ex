@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Image do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Requests a contact's profile image.
   <b>Important:</b> This endpoint is deprecated and will be removed in the future. Use the new /contacts/picture endpoint instead.
@@ -35,30 +34,32 @@ defmodule OpenXchangeClient.Api.Image do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_contact_profile_image(Tesla.Env.client, String.t, integer(), keyword()) :: {:ok, nil} | {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_contact_profile_image(Tesla.Env.client(), String.t(), integer(), keyword()) ::
+          {:ok, nil} | {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_contact_profile_image(connection, folder, id, opts \\ []) do
     optional_params = %{
-      :"transformationNeeded" => :query,
-      :"cropWidth" => :query,
-      :"cropHeight" => :query,
-      :"rotate" => :query,
-      :"compress" => :query,
-      :"width" => :query,
-      :"height" => :query,
-      :"shrinkOnly" => :query,
-      :"scaleType" => :query
+      :transformationNeeded => :query,
+      :cropWidth => :query,
+      :cropHeight => :query,
+      :rotate => :query,
+      :compress => :query,
+      :width => :query,
+      :height => :query,
+      :shrinkOnly => :query,
+      :scaleType => :query
     }
+
     %{}
     |> method(:get)
     |> url("/image/contact/picture")
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 400, false}
+      {200, false},
+      {400, false}
     ])
   end
 
@@ -78,23 +79,25 @@ defmodule OpenXchangeClient.Api.Image do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_inline_mail_image(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, nil} | {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_inline_mail_image(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, nil} | {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_inline_mail_image(connection, folder, id, uid, opts \\ []) do
     optional_params = %{
-      :"accountId" => :query
+      :accountId => :query
     }
+
     %{}
     |> method(:get)
     |> url("/image/mail/picture")
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"uid", uid)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :uid, uid)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 400, false}
+      {200, false},
+      {400, false}
     ])
   end
 
@@ -111,17 +114,18 @@ defmodule OpenXchangeClient.Api.Image do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_managed_image_file(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_managed_image_file(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_managed_image_file(connection, uid, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/image/mfile/picture")
-    |> add_param(:query, :"uid", uid)
+    |> add_param(:query, :uid, uid)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 400, false}
+      {200, false},
+      {400, false}
     ])
   end
 
@@ -138,17 +142,18 @@ defmodule OpenXchangeClient.Api.Image do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mp3_cover_image(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_mp3_cover_image(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_mp3_cover_image(connection, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/image/file/mp3cover")
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 400, false}
+      {200, false},
+      {400, false}
     ])
   end
 
@@ -165,17 +170,18 @@ defmodule OpenXchangeClient.Api.Image do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_trusted_mail_picture(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_trusted_mail_picture(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_trusted_mail_picture(connection, uid, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/image/mail/trustedMail/picture")
-    |> add_param(:query, :"uid", uid)
+    |> add_param(:query, :uid, uid)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 400, false}
+      {200, false},
+      {400, false}
     ])
   end
 
@@ -202,29 +208,31 @@ defmodule OpenXchangeClient.Api.Image do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_user_profile_image(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_user_profile_image(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_user_profile_image(connection, id, opts \\ []) do
     optional_params = %{
-      :"transformationNeeded" => :query,
-      :"cropWidth" => :query,
-      :"cropHeight" => :query,
-      :"rotate" => :query,
-      :"compress" => :query,
-      :"width" => :query,
-      :"height" => :query,
-      :"shrinkOnly" => :query,
-      :"scaleType" => :query
+      :transformationNeeded => :query,
+      :cropWidth => :query,
+      :cropHeight => :query,
+      :rotate => :query,
+      :compress => :query,
+      :width => :query,
+      :height => :query,
+      :shrinkOnly => :query,
+      :scaleType => :query
     }
+
     %{}
     |> method(:get)
     |> url("/image/user/picture")
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 400, false}
+      {200, false},
+      {400, false}
     ])
   end
 end

@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Login do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Accesses a session that was previously created with the token login.
   This request allows clients to access a session created with the `/login?action=tokenLogin` request. When accessing the session its life time is extended equally to every other session. 
@@ -27,18 +26,19 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, OpenXchangeClient.Model.TokensResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec access_session(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.TokensResponse.t} | {:error, Tesla.Env.t}
+  @spec access_session(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.TokensResponse.t()} | {:error, Tesla.Env.t()}
   def access_session(connection, server_token, client_token, client, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/login?action&#x3D;tokens")
-    |> add_param(:form, :"serverToken", server_token)
-    |> add_param(:form, :"clientToken", client_token)
-    |> add_param(:form, :"client", client)
+    |> add_param(:form, :serverToken, server_token)
+    |> add_param(:form, :clientToken, client_token)
+    |> add_param(:form, :client, client)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.TokensResponse{}}
+      {200, %OpenXchangeClient.Model.TokensResponse{}}
     ])
   end
 
@@ -59,14 +59,16 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, OpenXchangeClient.Model.LoginResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec autologin(Tesla.Env.client, keyword()) :: {:ok, OpenXchangeClient.Model.LoginResponse.t} | {:error, Tesla.Env.t}
+  @spec autologin(Tesla.Env.client(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.LoginResponse.t()} | {:error, Tesla.Env.t()}
   def autologin(connection, opts \\ []) do
     optional_params = %{
-      :"authId" => :query,
-      :"client" => :query,
-      :"rampup" => :form,
-      :"rampupFor" => :form
+      :authId => :query,
+      :client => :query,
+      :rampup => :form,
+      :rampupFor => :form
     }
+
     %{}
     |> method(:get)
     |> url("/login?action&#x3D;autologin")
@@ -74,7 +76,7 @@ defmodule OpenXchangeClient.Api.Login do
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.LoginResponse{}}
+      {200, %OpenXchangeClient.Model.LoginResponse{}}
     ])
   end
 
@@ -93,18 +95,19 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, OpenXchangeClient.Model.ChangeIpResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec change_ip(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.ChangeIpResponse.t} | {:error, Tesla.Env.t}
+  @spec change_ip(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.ChangeIpResponse.t()} | {:error, Tesla.Env.t()}
   def change_ip(connection, session, client_ip, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/login?action&#x3D;changeip")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"clientIP", client_ip)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :clientIP, client_ip)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ChangeIpResponse{}}
+      {200, %OpenXchangeClient.Model.ChangeIpResponse{}}
     ])
   end
 
@@ -132,29 +135,39 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec do_form_login(Tesla.Env.client, String.t, String.t, String.t, String.t, String.t, boolean(), keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec do_form_login(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          boolean(),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def do_form_login(connection, auth_id, login, password, client, version, autologin, opts \\ []) do
     optional_params = %{
-      :"rampup" => :form,
-      :"rampupFor" => :form,
-      :"uiWebPath" => :form,
-      :"clientIP" => :form,
-      :"clientUserAgent" => :form
+      :rampup => :form,
+      :rampupFor => :form,
+      :uiWebPath => :form,
+      :clientIP => :form,
+      :clientUserAgent => :form
     }
+
     %{}
     |> method(:post)
     |> url("/login?action&#x3D;formlogin")
-    |> add_param(:query, :"authId", auth_id)
-    |> add_param(:form, :"login", login)
-    |> add_param(:form, :"password", password)
-    |> add_param(:form, :"client", client)
-    |> add_param(:form, :"version", version)
-    |> add_param(:form, :"autologin", autologin)
+    |> add_param(:query, :authId, auth_id)
+    |> add_param(:form, :login, login)
+    |> add_param(:form, :password, password)
+    |> add_param(:form, :client, client)
+    |> add_param(:form, :version, version)
+    |> add_param(:form, :autologin, autologin)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -180,27 +193,29 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, OpenXchangeClient.Model.LoginResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec do_login(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.LoginResponse.t} | {:error, Tesla.Env.t}
+  @spec do_login(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.LoginResponse.t()} | {:error, Tesla.Env.t()}
   def do_login(connection, name, password, opts \\ []) do
     optional_params = %{
-      :"authId" => :query,
-      :"rampup" => :form,
-      :"rampupFor" => :form,
-      :"client" => :form,
-      :"version" => :form,
-      :"clientIP" => :form,
-      :"clientUserAgent" => :form
+      :authId => :query,
+      :rampup => :form,
+      :rampupFor => :form,
+      :client => :form,
+      :version => :form,
+      :clientIP => :form,
+      :clientUserAgent => :form
     }
+
     %{}
     |> method(:post)
     |> url("/login?action&#x3D;login")
-    |> add_param(:form, :"name", name)
-    |> add_param(:form, :"password", password)
+    |> add_param(:form, :name, name)
+    |> add_param(:form, :password, password)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.LoginResponse{}}
+      {200, %OpenXchangeClient.Model.LoginResponse{}}
     ])
   end
 
@@ -218,17 +233,18 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec do_logout(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec do_logout(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:error, Tesla.Env.t()}
   def do_logout(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/login?action&#x3D;logout")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 403, false}
+      {200, false},
+      {403, false}
     ])
   end
 
@@ -256,29 +272,50 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, OpenXchangeClient.Model.TokenLoginResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec do_token_login(Tesla.Env.client, String.t, String.t, String.t, String.t, String.t, String.t, boolean(), keyword()) :: {:ok, OpenXchangeClient.Model.TokenLoginResponse.t} | {:error, Tesla.Env.t}
-  def do_token_login(connection, auth_id, login, password, client_token, client, version, autologin, opts \\ []) do
+  @spec do_token_login(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          boolean(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.TokenLoginResponse.t()} | {:error, Tesla.Env.t()}
+  def do_token_login(
+        connection,
+        auth_id,
+        login,
+        password,
+        client_token,
+        client,
+        version,
+        autologin,
+        opts \\ []
+      ) do
     optional_params = %{
-      :"uiWebPath" => :form,
-      :"clientIP" => :form,
-      :"clientUserAgent" => :form,
-      :"jsonResponse" => :form
+      :uiWebPath => :form,
+      :clientIP => :form,
+      :clientUserAgent => :form,
+      :jsonResponse => :form
     }
+
     %{}
     |> method(:post)
     |> url("/login?action&#x3D;tokenLogin")
-    |> add_param(:query, :"authId", auth_id)
-    |> add_param(:form, :"login", login)
-    |> add_param(:form, :"password", password)
-    |> add_param(:form, :"clientToken", client_token)
-    |> add_param(:form, :"client", client)
-    |> add_param(:form, :"version", version)
-    |> add_param(:form, :"autologin", autologin)
+    |> add_param(:query, :authId, auth_id)
+    |> add_param(:form, :login, login)
+    |> add_param(:form, :password, password)
+    |> add_param(:form, :clientToken, client_token)
+    |> add_param(:form, :client, client)
+    |> add_param(:form, :version, version)
+    |> add_param(:form, :autologin, autologin)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.TokenLoginResponse{}}
+      {200, %OpenXchangeClient.Model.TokenLoginResponse{}}
     ])
   end
 
@@ -299,13 +336,17 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, OpenXchangeClient.Model.InlineResponse2003.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec init(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.InlineResponse2003.t} | {:error, Tesla.Env.t}
+  @spec init(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.InlineResponse2003.t()}
+          | {:error, Tesla.Env.t()}
   def init(connection, tenant, opts \\ []) do
     optional_params = %{
-      :"flow" => :query,
-      :"session" => :query,
-      :"redirect" => :query
+      :flow => :query,
+      :session => :query,
+      :redirect => :query
     }
+
     %{}
     |> method(:get)
     |> url("/saml/#{tenant}/init")
@@ -313,10 +354,10 @@ defmodule OpenXchangeClient.Api.Login do
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InlineResponse2003{}},
-      { 302, false},
-      { 400, false},
-      { 500, false}
+      {200, %OpenXchangeClient.Model.InlineResponse2003{}},
+      {302, false},
+      {400, false},
+      {500, false}
     ])
   end
 
@@ -337,19 +378,26 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, OpenXchangeClient.Model.LoginResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec redeem_token(Tesla.Env.client, String.t, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.LoginResponse.t} | {:error, Tesla.Env.t}
+  @spec redeem_token(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.LoginResponse.t()} | {:error, Tesla.Env.t()}
   def redeem_token(connection, auth_id, token, client, secret, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/login?action&#x3D;redeemToken")
-    |> add_param(:query, :"authId", auth_id)
-    |> add_param(:form, :"token", token)
-    |> add_param(:form, :"client", client)
-    |> add_param(:form, :"secret", secret)
+    |> add_param(:query, :authId, auth_id)
+    |> add_param(:form, :token, token)
+    |> add_param(:form, :client, client)
+    |> add_param(:form, :secret, secret)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.LoginResponse{}}
+      {200, %OpenXchangeClient.Model.LoginResponse{}}
     ])
   end
 
@@ -370,22 +418,24 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec redirect(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec redirect(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def redirect(connection, random, opts \\ []) do
     optional_params = %{
-      :"client" => :query,
-      :"store" => :query,
-      :"uiWebPath" => :query
+      :client => :query,
+      :store => :query,
+      :uiWebPath => :query
     }
+
     %{}
     |> method(:get)
     |> url("/login;jsessionid&#x3D;1157370816112.OX1?action&#x3D;redirect")
-    |> add_param(:query, :"random", random)
+    |> add_param(:query, :random, random)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -402,16 +452,17 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec refresh_auto_login_cookie(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec refresh_auto_login_cookie(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def refresh_auto_login_cookie(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/login?action&#x3D;store")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -428,16 +479,17 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec refresh_secret_cookie(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec refresh_secret_cookie(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def refresh_secret_cookie(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/login?action&#x3D;refreshSecret")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -459,26 +511,28 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec saml_login(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec saml_login(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:error, Tesla.Env.t()}
   def saml_login(connection, token, opts \\ []) do
     optional_params = %{
-      :"client" => :query,
-      :"clientUserAgent" => :query,
-      :"loginPath" => :query,
-      :"shard" => :query
+      :client => :query,
+      :clientUserAgent => :query,
+      :loginPath => :query,
+      :shard => :query
     }
+
     %{}
     |> method(:get)
     |> url("/login?action&#x3D;samlLogin")
-    |> add_param(:query, :"token", token)
+    |> add_param(:query, :token, token)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 302, false},
-      { 400, false},
-      { 403, false}
+      {200, false},
+      {302, false},
+      {400, false},
+      {403, false}
     ])
   end
 
@@ -496,17 +550,18 @@ defmodule OpenXchangeClient.Api.Login do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec saml_logout(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec saml_logout(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:error, Tesla.Env.t()}
   def saml_logout(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/login?action&#x3D;samlLogout")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 302, false}
+      {200, false},
+      {302, false}
     ])
   end
 end

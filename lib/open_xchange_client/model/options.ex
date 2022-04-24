@@ -9,12 +9,12 @@ defmodule OpenXchangeClient.Model.Options do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"allowNestedTests"
+    :allowNestedTests
   ]
 
   @type t :: %__MODULE__{
-    :"allowNestedTests" => boolean() | nil
-  }
+          :allowNestedTests => boolean() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.Options do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.Options do
     value
   end
 end
-

@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Clientonboarding do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Direct-downloads a profile to configure an apple device for CalDAV and/or CardDAV
 
@@ -25,17 +24,18 @@ defmodule OpenXchangeClient.Api.Clientonboarding do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec download_client_onboarding_profile(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec download_client_onboarding_profile(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def download_client_onboarding_profile(connection, session, type, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/onboarding?action&#x3D;download")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"type", type)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :type, type)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -55,23 +55,30 @@ defmodule OpenXchangeClient.Api.Clientonboarding do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec execute_client_onboarding(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec execute_client_onboarding(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def execute_client_onboarding(connection, session, id, action_id, opts \\ []) do
     optional_params = %{
       :body => :body
     }
+
     %{}
     |> method(:put)
     |> url("/onboarding?action&#x3D;execute")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"action_id", action_id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :action_id, action_id)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -89,17 +96,22 @@ defmodule OpenXchangeClient.Api.Clientonboarding do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec generate_download_link_for_client_onboarding_profile(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec generate_download_link_for_client_onboarding_profile(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def generate_download_link_for_client_onboarding_profile(connection, session, type, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/onboarding?action&#x3D;link")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"type", type)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :type, type)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -116,16 +128,17 @@ defmodule OpenXchangeClient.Api.Clientonboarding do
   {:ok, OpenXchangeClient.Model.ClientOnboardingResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_client_onboarding_config(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.ClientOnboardingResponse.t} | {:error, Tesla.Env.t}
+  @spec get_client_onboarding_config(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.ClientOnboardingResponse.t()} | {:error, Tesla.Env.t()}
   def get_client_onboarding_config(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/onboarding?action&#x3D;config")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ClientOnboardingResponse{}}
+      {200, %OpenXchangeClient.Model.ClientOnboardingResponse{}}
     ])
   end
 end

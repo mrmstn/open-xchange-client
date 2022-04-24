@@ -9,16 +9,16 @@ defmodule OpenXchangeClient.Model.MultifactorFinishRegistrationData do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"secret_code",
-    :"clientData",
-    :"registrationData"
+    :secret_code,
+    :clientData,
+    :registrationData
   ]
 
   @type t :: %__MODULE__{
-    :"secret_code" => String.t | nil,
-    :"clientData" => String.t | nil,
-    :"registrationData" => String.t | nil
-  }
+          :secret_code => String.t() | nil,
+          :clientData => String.t() | nil,
+          :registrationData => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorFinishRegistrationData do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorFinishRegistrati
     value
   end
 end
-

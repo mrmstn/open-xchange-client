@@ -9,14 +9,14 @@ defmodule OpenXchangeClient.Model.InfoItemBodyNotification do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"transport",
-    :"message"
+    :transport,
+    :message
   ]
 
   @type t :: %__MODULE__{
-    :"transport" => String.t | nil,
-    :"message" => String.t | nil
-  }
+          :transport => String.t() | nil,
+          :message => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoItemBodyNotification do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoItemBodyNotification do
     value
   end
 end
-

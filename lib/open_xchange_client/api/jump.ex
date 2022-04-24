@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Jump do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Acquires an identity token.
 
@@ -25,20 +24,22 @@ defmodule OpenXchangeClient.Api.Jump do
   {:ok, OpenXchangeClient.Model.JumpResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec acquire_identity_token(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.JumpResponse.t} | {:error, Tesla.Env.t}
+  @spec acquire_identity_token(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.JumpResponse.t()} | {:error, Tesla.Env.t()}
   def acquire_identity_token(connection, session, opts \\ []) do
     optional_params = %{
-      :"system" => :query
+      :system => :query
     }
+
     %{}
     |> method(:get)
     |> url("/jump?action&#x3D;identityToken")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.JumpResponse{}}
+      {200, %OpenXchangeClient.Model.JumpResponse{}}
     ])
   end
 end

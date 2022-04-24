@@ -9,18 +9,18 @@ defmodule OpenXchangeClient.Model.MultifactorFinishAuthenticationData do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"secret_code",
-    :"clientData",
-    :"keyHandle",
-    :"signatureData"
+    :secret_code,
+    :clientData,
+    :keyHandle,
+    :signatureData
   ]
 
   @type t :: %__MODULE__{
-    :"secret_code" => String.t | nil,
-    :"clientData" => String.t | nil,
-    :"keyHandle" => String.t | nil,
-    :"signatureData" => String.t | nil
-  }
+          :secret_code => String.t() | nil,
+          :clientData => String.t() | nil,
+          :keyHandle => String.t() | nil,
+          :signatureData => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorFinishAuthenticationData do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorFinishAuthentica
     value
   end
 end
-

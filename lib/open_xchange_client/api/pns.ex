@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Pns do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Adds a new subscription associated with a token for certain topics
 
@@ -28,23 +27,31 @@ defmodule OpenXchangeClient.Api.Pns do
   {:ok, OpenXchangeClient.Model.PnsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec subscribe(Tesla.Env.client, String.t, String.t, String.t, list(String.t), keyword()) :: {:ok, OpenXchangeClient.Model.PnsResponse.t} | {:error, Tesla.Env.t}
+  @spec subscribe(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          list(String.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.PnsResponse.t()} | {:error, Tesla.Env.t()}
   def subscribe(connection, session, token, transport, topics, opts \\ []) do
     optional_params = %{
-      :"client" => :form
+      :client => :form
     }
+
     %{}
     |> method(:put)
     |> url("/pns?action&#x3D;subscribe")
-    |> add_param(:query, :"session", session)
-    |> add_param(:form, :"token", token)
-    |> add_param(:form, :"transport", transport)
-    |> add_param(:form, :"topics", topics)
+    |> add_param(:query, :session, session)
+    |> add_param(:form, :token, token)
+    |> add_param(:form, :transport, transport)
+    |> add_param(:form, :topics, topics)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.PnsResponse{}}
+      {200, %OpenXchangeClient.Model.PnsResponse{}}
     ])
   end
 
@@ -64,22 +71,24 @@ defmodule OpenXchangeClient.Api.Pns do
   {:ok, OpenXchangeClient.Model.PnsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec unsubscribe(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.PnsResponse.t} | {:error, Tesla.Env.t}
+  @spec unsubscribe(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.PnsResponse.t()} | {:error, Tesla.Env.t()}
   def unsubscribe(connection, session, token, transport, opts \\ []) do
     optional_params = %{
-      :"client" => :form
+      :client => :form
     }
+
     %{}
     |> method(:put)
     |> url("/pns?action&#x3D;unsubscribe")
-    |> add_param(:query, :"session", session)
-    |> add_param(:form, :"token", token)
-    |> add_param(:form, :"transport", transport)
+    |> add_param(:query, :session, session)
+    |> add_param(:form, :token, token)
+    |> add_param(:form, :transport, transport)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.PnsResponse{}}
+      {200, %OpenXchangeClient.Model.PnsResponse{}}
     ])
   end
 end

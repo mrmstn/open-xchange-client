@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Attachments do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Creates an attachment.
   #### Note It is possible to create multiple attachments at once. Therefor add additional form fields and replace \"[index]\" in `json_[index]` and `file_[index]` with the appropriate index, like `json_1`, `file_1`. The index always starts with 0 (mandatory attachment object). 
@@ -27,18 +26,19 @@ defmodule OpenXchangeClient.Api.Attachments do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_attachment(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec create_attachment(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def create_attachment(connection, session, json0, file0, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/attachment?action&#x3D;attach")
-    |> add_param(:query, :"session", session)
-    |> add_param(:form, :"json_0", json0)
-    |> add_param(:file, :"file_0", file0)
+    |> add_param(:query, :session, session)
+    |> add_param(:form, :json_0, json0)
+    |> add_param(:file, :file_0, file0)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -59,20 +59,28 @@ defmodule OpenXchangeClient.Api.Attachments do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_attachments(Tesla.Env.client, String.t, integer(), integer(), integer(), list(String.t), keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_attachments(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          integer(),
+          integer(),
+          list(String.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def delete_attachments(connection, session, attached, folder, module, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/attachment?action&#x3D;detach")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"attached", attached)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"module", module)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :attached, attached)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :module, module)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -95,25 +103,34 @@ defmodule OpenXchangeClient.Api.Attachments do
   {:ok, OpenXchangeClient.Model.AttachmentsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_attachments(Tesla.Env.client, String.t, integer(), integer(), integer(), String.t, keyword()) :: {:ok, OpenXchangeClient.Model.AttachmentsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_attachments(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          integer(),
+          integer(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.AttachmentsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_attachments(connection, session, attached, folder, module, columns, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query
+      :sort => :query,
+      :order => :query
     }
+
     %{}
     |> method(:get)
     |> url("/attachment?action&#x3D;all")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"attached", attached)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"module", module)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :attached, attached)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :module, module)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AttachmentsResponse{}}
+      {200, %OpenXchangeClient.Model.AttachmentsResponse{}}
     ])
   end
 
@@ -134,20 +151,28 @@ defmodule OpenXchangeClient.Api.Attachments do
   {:ok, OpenXchangeClient.Model.AttachmentResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_attachment(Tesla.Env.client, String.t, String.t, integer(), integer(), integer(), keyword()) :: {:ok, OpenXchangeClient.Model.AttachmentResponse.t} | {:error, Tesla.Env.t}
+  @spec get_attachment(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          integer(),
+          integer(),
+          integer(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.AttachmentResponse.t()} | {:error, Tesla.Env.t()}
   def get_attachment(connection, session, id, attached, folder, module, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/attachment?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"attached", attached)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"module", module)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :attached, attached)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :module, module)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AttachmentResponse{}}
+      {200, %OpenXchangeClient.Model.AttachmentResponse{}}
     ])
   end
 
@@ -171,25 +196,34 @@ defmodule OpenXchangeClient.Api.Attachments do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_attachment_document(Tesla.Env.client, String.t, integer(), integer(), integer(), String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_attachment_document(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          integer(),
+          integer(),
+          String.t(),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_attachment_document(connection, session, attached, folder, module, id, opts \\ []) do
     optional_params = %{
-      :"content_type" => :query,
-      :"scan" => :query
+      :content_type => :query,
+      :scan => :query
     }
+
     %{}
     |> method(:get)
     |> url("/attachment?action&#x3D;document")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"attached", attached)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"module", module)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :attached, attached)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :module, module)
+    |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -211,21 +245,39 @@ defmodule OpenXchangeClient.Api.Attachments do
   {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_attachment_list(Tesla.Env.client, String.t, integer(), integer(), integer(), String.t, list(Integer.t), keyword()) :: {:ok, OpenXchangeClient.Model.InfoItemsResponse.t} | {:error, Tesla.Env.t}
-  def get_attachment_list(connection, session, attached, folder, module, columns, body, _opts \\ []) do
+  @spec get_attachment_list(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          integer(),
+          integer(),
+          String.t(),
+          list(Integer.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InfoItemsResponse.t()} | {:error, Tesla.Env.t()}
+  def get_attachment_list(
+        connection,
+        session,
+        attached,
+        folder,
+        module,
+        columns,
+        body,
+        _opts \\ []
+      ) do
     %{}
     |> method(:put)
     |> url("/attachment?action&#x3D;list")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"attached", attached)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"module", module)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :attached, attached)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :module, module)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoItemsResponse{}}
+      {200, %OpenXchangeClient.Model.InfoItemsResponse{}}
     ])
   end
 
@@ -250,27 +302,37 @@ defmodule OpenXchangeClient.Api.Attachments do
   {:ok, OpenXchangeClient.Model.AttachmentUpdatesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_attachment_updates(Tesla.Env.client, String.t, integer(), integer(), String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.AttachmentUpdatesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_attachment_updates(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          integer(),
+          String.t(),
+          integer(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.AttachmentUpdatesResponse.t()} | {:error, Tesla.Env.t()}
   def get_attachment_updates(connection, session, attached, folder, columns, module, opts \\ []) do
     optional_params = %{
-      :"timestamp" => :query,
-      :"ignore" => :query,
-      :"sort" => :query,
-      :"order" => :query
+      :timestamp => :query,
+      :ignore => :query,
+      :sort => :query,
+      :order => :query
     }
+
     %{}
     |> method(:get)
     |> url("/attachment?action&#x3D;updates")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"attached", attached)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"module", module)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :attached, attached)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
+    |> add_param(:query, :module, module)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AttachmentUpdatesResponse{}}
+      {200, %OpenXchangeClient.Model.AttachmentUpdatesResponse{}}
     ])
   end
 
@@ -291,20 +353,36 @@ defmodule OpenXchangeClient.Api.Attachments do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_zipped_attachment_documents(Tesla.Env.client, String.t, integer(), integer(), integer(), list(Integer.t), keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
-  def get_zipped_attachment_documents(connection, session, attached, folder, module, body, _opts \\ []) do
+  @spec get_zipped_attachment_documents(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          integer(),
+          integer(),
+          list(Integer.t()),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
+  def get_zipped_attachment_documents(
+        connection,
+        session,
+        attached,
+        folder,
+        module,
+        body,
+        _opts \\ []
+      ) do
     %{}
     |> method(:put)
     |> url("/attachment?action&#x3D;zipDocuments")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"attached", attached)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"module", module)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :attached, attached)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :module, module)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 end

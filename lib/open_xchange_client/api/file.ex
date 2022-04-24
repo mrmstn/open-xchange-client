@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.File do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Requests a formerly uploaded file.
 
@@ -25,18 +24,19 @@ defmodule OpenXchangeClient.Api.File do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_file(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, nil} | {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_file(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, nil} | {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_file(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/file?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 404, false}
+      {200, false},
+      {404, false}
     ])
   end
 
@@ -55,17 +55,18 @@ defmodule OpenXchangeClient.Api.File do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec keep_alive(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec keep_alive(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def keep_alive(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/file?action&#x3D;keepalive")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -86,19 +87,20 @@ defmodule OpenXchangeClient.Api.File do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec upload_file(Tesla.Env.client, String.t, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec upload_file(Tesla.Env.client(), String.t(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def upload_file(connection, session, module, type, file, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/file?action&#x3D;new")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"module", module)
-    |> add_param(:query, :"type", type)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :module, module)
+    |> add_param(:query, :type, type)
+    |> add_param(:file, :file, file)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 end

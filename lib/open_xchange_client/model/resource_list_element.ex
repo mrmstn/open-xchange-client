@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.ResourceListElement do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id"
+    :id
   ]
 
   @type t :: %__MODULE__{
-    :"id" => integer() | nil
-  }
+          :id => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ResourceListElement do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ResourceListElement do
     value
   end
 end
-

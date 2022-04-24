@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Filestorage do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Creates a file storage account.
   #### Example for creating a new OAuth-based file storage account First, get the description of the file storage service for which a new account is supposed to be created: `GET /ajax/fileservice?action=get&id=boxcom&session=...`  The response might be: ```json {   id: \"boxcom\",   displayName: \"Box File Storage Service\",   configuration: {     widget: \"oauthAccount\",     options: {       type: \"com.openexchange.oauth.boxcom\"     },     name: \"account\",     displayName: \"Select an existing account\",     mandatory: true   } } ``` Next get the associated OAuth account information: `GET /ajax/oauth/accounts?action=all&serviceId=com.openexchange.oauth.boxcom&session=...`  The response might be: ```json {   \"data\":[     {       \"id\":333,       \"displayName\":\"My Box.com account\",       \"serviceId\":\"com.openexchange.oauth.boxcom\"     }   ] } ``` Finally, create the file storage account: ``` PUT /ajax/fileaccount?action=new&session=...  {   \"filestorageService\":\"boxcom\",   \"displayName\":\"My box.com account\",   \"configuration\":{     \"account\":\"333\",     \"type\":\"com.openexchange.oauth.boxcom\"   } } ``` The response provides the relative identifier of the newly created account. 
@@ -26,17 +25,23 @@ defmodule OpenXchangeClient.Api.Filestorage do
   {:ok, OpenXchangeClient.Model.FileAccountCreationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_file_account(Tesla.Env.client, String.t, OpenXchangeClient.Model.FileAccountData.t, keyword()) :: {:ok, OpenXchangeClient.Model.FileAccountCreationResponse.t} | {:error, Tesla.Env.t}
+  @spec create_file_account(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.FileAccountData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.FileAccountCreationResponse.t()} | {:error, Tesla.Env.t()}
   def create_file_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/fileaccount?action&#x3D;new")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FileAccountCreationResponse{}}
+      {200, %OpenXchangeClient.Model.FileAccountCreationResponse{}}
     ])
   end
 
@@ -55,18 +60,19 @@ defmodule OpenXchangeClient.Api.Filestorage do
   {:ok, OpenXchangeClient.Model.FileAccountUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_file_account(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FileAccountUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_file_account(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FileAccountUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def delete_file_account(connection, session, filestorage_service, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/fileaccount?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"filestorageService", filestorage_service)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :filestorageService, filestorage_service)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FileAccountUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.FileAccountUpdateResponse{}}
     ])
   end
 
@@ -84,20 +90,22 @@ defmodule OpenXchangeClient.Api.Filestorage do
   {:ok, OpenXchangeClient.Model.FileAccountsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_file_accounts(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FileAccountsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_file_accounts(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FileAccountsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_file_accounts(connection, session, opts \\ []) do
     optional_params = %{
-      :"filestorageService" => :query
+      :filestorageService => :query
     }
+
     %{}
     |> method(:get)
     |> url("/fileaccount?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FileAccountsResponse{}}
+      {200, %OpenXchangeClient.Model.FileAccountsResponse{}}
     ])
   end
 
@@ -114,16 +122,17 @@ defmodule OpenXchangeClient.Api.Filestorage do
   {:ok, OpenXchangeClient.Model.FileServicesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_file_services(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FileServicesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_file_services(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FileServicesResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_file_services(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/fileservice?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FileServicesResponse{}}
+      {200, %OpenXchangeClient.Model.FileServicesResponse{}}
     ])
   end
 
@@ -142,18 +151,19 @@ defmodule OpenXchangeClient.Api.Filestorage do
   {:ok, OpenXchangeClient.Model.FileAccountResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_file_account(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FileAccountResponse.t} | {:error, Tesla.Env.t}
+  @spec get_file_account(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FileAccountResponse.t()} | {:error, Tesla.Env.t()}
   def get_file_account(connection, session, filestorage_service, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/fileaccount?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"filestorageService", filestorage_service)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :filestorageService, filestorage_service)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FileAccountResponse{}}
+      {200, %OpenXchangeClient.Model.FileAccountResponse{}}
     ])
   end
 
@@ -171,17 +181,18 @@ defmodule OpenXchangeClient.Api.Filestorage do
   {:ok, OpenXchangeClient.Model.FileServiceResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_file_service(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FileServiceResponse.t} | {:error, Tesla.Env.t}
+  @spec get_file_service(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FileServiceResponse.t()} | {:error, Tesla.Env.t()}
   def get_file_service(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/fileservice?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FileServiceResponse{}}
+      {200, %OpenXchangeClient.Model.FileServiceResponse{}}
     ])
   end
 
@@ -199,17 +210,23 @@ defmodule OpenXchangeClient.Api.Filestorage do
   {:ok, OpenXchangeClient.Model.FileAccountCreationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_file_account(Tesla.Env.client, String.t, OpenXchangeClient.Model.FileAccountData.t, keyword()) :: {:ok, OpenXchangeClient.Model.FileAccountCreationResponse.t} | {:error, Tesla.Env.t}
+  @spec update_file_account(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.FileAccountData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.FileAccountCreationResponse.t()} | {:error, Tesla.Env.t()}
   def update_file_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/fileaccount?action&#x3D;update")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FileAccountCreationResponse{}}
+      {200, %OpenXchangeClient.Model.FileAccountCreationResponse{}}
     ])
   end
 end

@@ -4,42 +4,47 @@
 
 defmodule OpenXchangeClient.Model.MultifactorStartAuthenticationResponse do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"data",
-    :"error",
-    :"error_params",
-    :"error_id",
-    :"error_desc",
-    :"error_stack",
-    :"code",
-    :"categories",
-    :"category",
-    :"timestamp"
+    :data,
+    :error,
+    :error_params,
+    :error_id,
+    :error_desc,
+    :error_stack,
+    :code,
+    :categories,
+    :category,
+    :timestamp
   ]
 
   @type t :: %__MODULE__{
-    :"data" => OpenXchangeClient.Model.MultifactorStartAuthenticationResponseData.t | nil,
-    :"error" => String.t | nil,
-    :"error_params" => [String.t] | nil,
-    :"error_id" => String.t | nil,
-    :"error_desc" => String.t | nil,
-    :"error_stack" => [String.t] | nil,
-    :"code" => String.t | nil,
-    :"categories" => String.t | nil,
-    :"category" => integer() | nil,
-    :"timestamp" => integer() | nil
-  }
+          :data => OpenXchangeClient.Model.MultifactorStartAuthenticationResponseData.t() | nil,
+          :error => String.t() | nil,
+          :error_params => [String.t()] | nil,
+          :error_id => String.t() | nil,
+          :error_desc => String.t() | nil,
+          :error_stack => [String.t()] | nil,
+          :code => String.t() | nil,
+          :categories => String.t() | nil,
+          :category => integer() | nil,
+          :timestamp => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorStartAuthenticationResponse do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"data", :struct, OpenXchangeClient.Model.MultifactorStartAuthenticationResponseData, options)
+    |> deserialize(
+      :data,
+      :struct,
+      OpenXchangeClient.Model.MultifactorStartAuthenticationResponseData,
+      options
+    )
   end
 end
-

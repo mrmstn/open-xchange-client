@@ -4,34 +4,39 @@
 
 defmodule OpenXchangeClient.Model.MultifactorDevice do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"name",
-    :"backup",
-    :"enabled",
-    :"providerName",
-    :"parameters"
+    :id,
+    :name,
+    :backup,
+    :enabled,
+    :providerName,
+    :parameters
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"name" => String.t | nil,
-    :"backup" => boolean() | nil,
-    :"enabled" => boolean() | nil,
-    :"providerName" => String.t | nil,
-    :"parameters" => OpenXchangeClient.Model.MultifactorDeviceParameters.t | nil
-  }
+          :id => String.t() | nil,
+          :name => String.t() | nil,
+          :backup => boolean() | nil,
+          :enabled => boolean() | nil,
+          :providerName => String.t() | nil,
+          :parameters => OpenXchangeClient.Model.MultifactorDeviceParameters.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorDevice do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"parameters", :struct, OpenXchangeClient.Model.MultifactorDeviceParameters, options)
+    |> deserialize(
+      :parameters,
+      :struct,
+      OpenXchangeClient.Model.MultifactorDeviceParameters,
+      options
+    )
   end
 end
-

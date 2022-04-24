@@ -4,21 +4,21 @@
 
 defmodule OpenXchangeClient.Model.AppointmentConfirmationBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"confirmation",
-    :"confirmmessage",
-    :"id"
+    :confirmation,
+    :confirmmessage,
+    :id
   ]
 
   @type t :: %__MODULE__{
-    :"confirmation" => integer(),
-    :"confirmmessage" => String.t,
-    :"id" => integer() | nil
-  }
+          :confirmation => integer(),
+          :confirmmessage => String.t(),
+          :id => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.AppointmentConfirmationBody do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.AppointmentConfirmationBody
     value
   end
 end
-

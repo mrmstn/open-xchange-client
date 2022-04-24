@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.GetJobResponseData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"job"
+    :job
   ]
 
   @type t :: %__MODULE__{
-    :"job" => String.t | nil
-  }
+          :job => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.GetJobResponseData do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.GetJobResponseData do
     value
   end
 end
-

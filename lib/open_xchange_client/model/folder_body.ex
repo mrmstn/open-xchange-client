@@ -4,27 +4,32 @@
 
 defmodule OpenXchangeClient.Model.FolderBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"folder",
-    :"notification"
+    :folder,
+    :notification
   ]
 
   @type t :: %__MODULE__{
-    :"folder" => OpenXchangeClient.Model.FolderData.t,
-    :"notification" => OpenXchangeClient.Model.FolderBodyNotification.t | nil
-  }
+          :folder => OpenXchangeClient.Model.FolderData.t(),
+          :notification => OpenXchangeClient.Model.FolderBodyNotification.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderBody do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"folder", :struct, OpenXchangeClient.Model.FolderData, options)
-    |> deserialize(:"notification", :struct, OpenXchangeClient.Model.FolderBodyNotification, options)
+    |> deserialize(:folder, :struct, OpenXchangeClient.Model.FolderData, options)
+    |> deserialize(
+      :notification,
+      :struct,
+      OpenXchangeClient.Model.FolderBodyNotification,
+      options
+    )
   end
 end
-

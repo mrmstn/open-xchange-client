@@ -4,7 +4,7 @@
 
 defmodule OpenXchangeClient.Model.CalendarAccountProbeData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
@@ -12,23 +12,37 @@ defmodule OpenXchangeClient.Model.CalendarAccountProbeData do
     :"com.openexchange.calendar.extendedProperties",
     :"com.openexchange.calendar.config",
     :"com.openexchange.calendar.provider",
-    :"title"
+    :title
   ]
 
   @type t :: %__MODULE__{
-    :"com.openexchange.calendar.extendedProperties" => OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalendarExtendedProperties.t | nil,
-    :"com.openexchange.calendar.config" => OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalendarConfig.t | nil,
-    :"com.openexchange.calendar.provider" => String.t | nil,
-    :"title" => String.t | nil
-  }
+          :"com.openexchange.calendar.extendedProperties" =>
+            OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalendarExtendedProperties.t()
+            | nil,
+          :"com.openexchange.calendar.config" =>
+            OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalendarConfig.t()
+            | nil,
+          :"com.openexchange.calendar.provider" => String.t() | nil,
+          :title => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.CalendarAccountProbeData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"com.openexchange.calendar.extendedProperties", :struct, OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalendarExtendedProperties, options)
-    |> deserialize(:"com.openexchange.calendar.config", :struct, OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalendarConfig, options)
+    |> deserialize(
+      :"com.openexchange.calendar.extendedProperties",
+      :struct,
+      OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalendarExtendedProperties,
+      options
+    )
+    |> deserialize(
+      :"com.openexchange.calendar.config",
+      :struct,
+      OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalendarConfig,
+      options
+    )
   end
 end
-

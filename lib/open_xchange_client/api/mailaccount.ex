@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Creates a new mail account.
 
@@ -25,17 +24,23 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   {:ok, OpenXchangeClient.Model.MailAccountUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_account(Tesla.Env.client, String.t, OpenXchangeClient.Model.MailAccountData.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailAccountUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec create_account(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MailAccountData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MailAccountUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def create_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/account?action&#x3D;new")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailAccountUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.MailAccountUpdateResponse{}}
     ])
   end
 
@@ -53,17 +58,18 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   {:ok, OpenXchangeClient.Model.MailAccountDeletionResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_account(Tesla.Env.client, String.t, list(Integer.t), keyword()) :: {:ok, OpenXchangeClient.Model.MailAccountDeletionResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_account(Tesla.Env.client(), String.t(), list(Integer.t()), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailAccountDeletionResponse.t()} | {:error, Tesla.Env.t()}
   def delete_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/account?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailAccountDeletionResponse{}}
+      {200, %OpenXchangeClient.Model.MailAccountDeletionResponse{}}
     ])
   end
 
@@ -81,17 +87,18 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   {:ok, OpenXchangeClient.Model.MailAccountResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_account(Tesla.Env.client, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.MailAccountResponse.t} | {:error, Tesla.Env.t}
+  @spec get_account(Tesla.Env.client(), String.t(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailAccountResponse.t()} | {:error, Tesla.Env.t()}
   def get_account(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/account?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailAccountResponse{}}
+      {200, %OpenXchangeClient.Model.MailAccountResponse{}}
     ])
   end
 
@@ -109,17 +116,18 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   {:ok, OpenXchangeClient.Model.MailAccountsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_accounts(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailAccountsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_accounts(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailAccountsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_accounts(connection, session, columns, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/account?action&#x3D;all")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailAccountsResponse{}}
+      {200, %OpenXchangeClient.Model.MailAccountsResponse{}}
     ])
   end
 
@@ -137,20 +145,22 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   {:ok, OpenXchangeClient.Model.MailAccountStatusResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec status_account(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailAccountStatusResponse.t} | {:error, Tesla.Env.t}
+  @spec status_account(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailAccountStatusResponse.t()} | {:error, Tesla.Env.t()}
   def status_account(connection, session, opts \\ []) do
     optional_params = %{
-      :"id" => :query
+      :id => :query
     }
+
     %{}
     |> method(:get)
     |> url("/account?action&#x3D;status")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailAccountStatusResponse{}}
+      {200, %OpenXchangeClient.Model.MailAccountStatusResponse{}}
     ])
   end
 
@@ -168,17 +178,23 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   {:ok, OpenXchangeClient.Model.MailAccountUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_account(Tesla.Env.client, String.t, OpenXchangeClient.Model.MailAccountData.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailAccountUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec update_account(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MailAccountData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MailAccountUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def update_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/account?action&#x3D;update")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailAccountUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.MailAccountUpdateResponse{}}
     ])
   end
 
@@ -197,21 +213,29 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   {:ok, OpenXchangeClient.Model.MailAccountValidationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec validate_account(Tesla.Env.client, String.t, OpenXchangeClient.Model.MailAccountData.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailAccountValidationResponse.t} | {:error, Tesla.Env.t}
+  @spec validate_account(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MailAccountData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MailAccountValidationResponse.t()}
+          | {:error, Tesla.Env.t()}
   def validate_account(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"tree" => :query
+      :tree => :query
     }
+
     %{}
     |> method(:put)
     |> url("/account?action&#x3D;validate")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailAccountValidationResponse{}}
+      {200, %OpenXchangeClient.Model.MailAccountValidationResponse{}}
     ])
   end
 end

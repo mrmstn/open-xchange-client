@@ -4,26 +4,26 @@
 
 defmodule OpenXchangeClient.Model.FolderRestoreResponse do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"folder",
-    :"path"
+    :folder,
+    :path
   ]
 
   @type t :: %__MODULE__{
-    :"folder" => String.t | nil,
-    :"path" => [OpenXchangeClient.Model.FolderPathData.t] | nil
-  }
+          :folder => String.t() | nil,
+          :path => [OpenXchangeClient.Model.FolderPathData.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderRestoreResponse do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"path", :list, OpenXchangeClient.Model.FolderPathData, options)
+    |> deserialize(:path, :list, OpenXchangeClient.Model.FolderPathData, options)
   end
 end
-

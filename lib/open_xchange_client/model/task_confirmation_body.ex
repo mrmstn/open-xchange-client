@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.TaskConfirmationBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"confirmation",
-    :"confirmmessage"
+    :confirmation,
+    :confirmmessage
   ]
 
   @type t :: %__MODULE__{
-    :"confirmation" => integer() | nil,
-    :"confirmmessage" => String.t | nil
-  }
+          :confirmation => integer() | nil,
+          :confirmmessage => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.TaskConfirmationBody do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.TaskConfirmationBody do
     value
   end
 end
-

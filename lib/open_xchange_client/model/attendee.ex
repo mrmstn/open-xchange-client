@@ -4,52 +4,52 @@
 
 defmodule OpenXchangeClient.Model.Attendee do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"cuType",
-    :"folder",
-    :"partStat",
-    :"role",
-    :"comment",
-    :"rsvp",
-    :"member",
-    :"contact",
-    :"resource",
-    :"group",
-    :"uri",
-    :"cn",
-    :"email",
-    :"entity"
+    :cuType,
+    :folder,
+    :partStat,
+    :role,
+    :comment,
+    :rsvp,
+    :member,
+    :contact,
+    :resource,
+    :group,
+    :uri,
+    :cn,
+    :email,
+    :entity
   ]
 
   @type t :: %__MODULE__{
-    :"cuType" => String.t | nil,
-    :"folder" => String.t | nil,
-    :"partStat" => String.t | nil,
-    :"role" => String.t | nil,
-    :"comment" => String.t | nil,
-    :"rsvp" => boolean() | nil,
-    :"member" => [String.t] | nil,
-    :"contact" => OpenXchangeClient.Model.Contact.t | nil,
-    :"resource" => OpenXchangeClient.Model.Resource.t | nil,
-    :"group" => OpenXchangeClient.Model.Group.t | nil,
-    :"uri" => String.t | nil,
-    :"cn" => String.t | nil,
-    :"email" => String.t | nil,
-    :"entity" => integer() | nil
-  }
+          :cuType => String.t() | nil,
+          :folder => String.t() | nil,
+          :partStat => String.t() | nil,
+          :role => String.t() | nil,
+          :comment => String.t() | nil,
+          :rsvp => boolean() | nil,
+          :member => [String.t()] | nil,
+          :contact => OpenXchangeClient.Model.Contact.t() | nil,
+          :resource => OpenXchangeClient.Model.Resource.t() | nil,
+          :group => OpenXchangeClient.Model.Group.t() | nil,
+          :uri => String.t() | nil,
+          :cn => String.t() | nil,
+          :email => String.t() | nil,
+          :entity => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.Attendee do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"contact", :struct, OpenXchangeClient.Model.Contact, options)
-    |> deserialize(:"resource", :struct, OpenXchangeClient.Model.Resource, options)
-    |> deserialize(:"group", :struct, OpenXchangeClient.Model.Group, options)
+    |> deserialize(:contact, :struct, OpenXchangeClient.Model.Contact, options)
+    |> deserialize(:resource, :struct, OpenXchangeClient.Model.Resource, options)
+    |> deserialize(:group, :struct, OpenXchangeClient.Model.Group, options)
   end
 end
-

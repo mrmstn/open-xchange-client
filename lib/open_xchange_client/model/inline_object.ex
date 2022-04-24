@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.InlineObject do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"folderId"
+    :id,
+    :folderId
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"folderId" => String.t | nil
-  }
+          :id => String.t() | nil,
+          :folderId => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InlineObject do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.InlineObject do
     value
   end
 end
-

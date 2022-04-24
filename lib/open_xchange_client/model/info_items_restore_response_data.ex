@@ -9,21 +9,21 @@ defmodule OpenXchangeClient.Model.InfoItemsRestoreResponseData do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"path"
+    :id,
+    :path
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"path" => [OpenXchangeClient.Model.InfoFolderPathData.t] | nil
-  }
+          :id => String.t() | nil,
+          :path => [OpenXchangeClient.Model.InfoFolderPathData.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoItemsRestoreResponseData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"path", :list, OpenXchangeClient.Model.InfoFolderPathData, options)
+    |> deserialize(:path, :list, OpenXchangeClient.Model.InfoFolderPathData, options)
   end
 end
-

@@ -9,23 +9,23 @@ defmodule OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalenda
 
   @derive [Poison.Encoder]
   defstruct [
-    :"uri",
-    :"refreshInterval",
-    :"login",
-    :"password"
+    :uri,
+    :refreshInterval,
+    :login,
+    :password
   ]
 
   @type t :: %__MODULE__{
-    :"uri" => String.t | nil,
-    :"refreshInterval" => integer() | nil,
-    :"login" => String.t | nil,
-    :"password" => String.t | nil
-  }
+          :uri => String.t() | nil,
+          :refreshInterval => integer() | nil,
+          :login => String.t() | nil,
+          :password => String.t() | nil
+        }
 end
 
-defimpl Poison.Decoder, for: OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalendarConfig do
+defimpl Poison.Decoder,
+  for: OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalendarConfig do
   def decode(value, _options) do
     value
   end
 end
-

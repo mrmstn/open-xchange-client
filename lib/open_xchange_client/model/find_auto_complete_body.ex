@@ -4,29 +4,29 @@
 
 defmodule OpenXchangeClient.Model.FindAutoCompleteBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"prefix",
-    :"facets",
-    :"options"
+    :prefix,
+    :facets,
+    :options
   ]
 
   @type t :: %__MODULE__{
-    :"prefix" => String.t | nil,
-    :"facets" => [OpenXchangeClient.Model.FindFacetData.t] | nil,
-    :"options" => OpenXchangeClient.Model.FindOptionsData.t | nil
-  }
+          :prefix => String.t() | nil,
+          :facets => [OpenXchangeClient.Model.FindFacetData.t()] | nil,
+          :options => OpenXchangeClient.Model.FindOptionsData.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FindAutoCompleteBody do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"facets", :list, OpenXchangeClient.Model.FindFacetData, options)
-    |> deserialize(:"options", :struct, OpenXchangeClient.Model.FindOptionsData, options)
+    |> deserialize(:facets, :list, OpenXchangeClient.Model.FindFacetData, options)
+    |> deserialize(:options, :struct, OpenXchangeClient.Model.FindOptionsData, options)
   end
 end
-

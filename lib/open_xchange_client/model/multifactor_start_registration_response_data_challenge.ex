@@ -9,27 +9,37 @@ defmodule OpenXchangeClient.Model.MultifactorStartRegistrationResponseDataChalle
 
   @derive [Poison.Encoder]
   defstruct [
-    :"sharedSecret",
-    :"base64Image",
-    :"url",
-    :"requestId",
-    :"registerRequests"
+    :sharedSecret,
+    :base64Image,
+    :url,
+    :requestId,
+    :registerRequests
   ]
 
   @type t :: %__MODULE__{
-    :"sharedSecret" => String.t | nil,
-    :"base64Image" => String.t | nil,
-    :"url" => String.t | nil,
-    :"requestId" => String.t | nil,
-    :"registerRequests" => [OpenXchangeClient.Model.MultifactorStartRegistrationResponseDataChallengeRegisterRequests.t] | nil
-  }
+          :sharedSecret => String.t() | nil,
+          :base64Image => String.t() | nil,
+          :url => String.t() | nil,
+          :requestId => String.t() | nil,
+          :registerRequests =>
+            [
+              OpenXchangeClient.Model.MultifactorStartRegistrationResponseDataChallengeRegisterRequests.t()
+            ]
+            | nil
+        }
 end
 
-defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorStartRegistrationResponseDataChallenge do
+defimpl Poison.Decoder,
+  for: OpenXchangeClient.Model.MultifactorStartRegistrationResponseDataChallenge do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"registerRequests", :list, OpenXchangeClient.Model.MultifactorStartRegistrationResponseDataChallengeRegisterRequests, options)
+    |> deserialize(
+      :registerRequests,
+      :list,
+      OpenXchangeClient.Model.MultifactorStartRegistrationResponseDataChallengeRegisterRequests,
+      options
+    )
   end
 end
-

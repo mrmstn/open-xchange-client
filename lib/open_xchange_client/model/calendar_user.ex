@@ -4,23 +4,23 @@
 
 defmodule OpenXchangeClient.Model.CalendarUser do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"uri",
-    :"cn",
-    :"email",
-    :"entity"
+    :uri,
+    :cn,
+    :email,
+    :entity
   ]
 
   @type t :: %__MODULE__{
-    :"uri" => String.t | nil,
-    :"cn" => String.t | nil,
-    :"email" => String.t | nil,
-    :"entity" => integer() | nil
-  }
+          :uri => String.t() | nil,
+          :cn => String.t() | nil,
+          :email => String.t() | nil,
+          :entity => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.CalendarUser do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.CalendarUser do
     value
   end
 end
-

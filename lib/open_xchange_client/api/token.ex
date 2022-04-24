@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Token do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Gets a login token.
   With a valid session it is possible to acquire a secret. Using this secret another system is able to generate a valid session (see [login?action=redeemToken](#operation--login-action-redeemToken-post)). 
@@ -25,16 +24,17 @@ defmodule OpenXchangeClient.Api.Token do
   {:ok, OpenXchangeClient.Model.AcquireTokenResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec acquire_token(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.AcquireTokenResponse.t} | {:error, Tesla.Env.t}
+  @spec acquire_token(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.AcquireTokenResponse.t()} | {:error, Tesla.Env.t()}
   def acquire_token(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/token?action&#x3D;acquireToken")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AcquireTokenResponse{}}
+      {200, %OpenXchangeClient.Model.AcquireTokenResponse{}}
     ])
   end
 end

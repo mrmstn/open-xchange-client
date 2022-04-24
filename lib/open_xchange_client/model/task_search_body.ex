@@ -4,23 +4,23 @@
 
 defmodule OpenXchangeClient.Model.TaskSearchBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"pattern",
-    :"folder",
-    :"start",
-    :"end"
+    :pattern,
+    :folder,
+    :start,
+    :end
   ]
 
   @type t :: %__MODULE__{
-    :"pattern" => String.t,
-    :"folder" => String.t | nil,
-    :"start" => integer() | nil,
-    :"end" => integer() | nil
-  }
+          :pattern => String.t(),
+          :folder => String.t() | nil,
+          :start => integer() | nil,
+          :end => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.TaskSearchBody do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.TaskSearchBody do
     value
   end
 end
-

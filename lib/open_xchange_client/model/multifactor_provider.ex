@@ -4,21 +4,21 @@
 
 defmodule OpenXchangeClient.Model.MultifactorProvider do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"name",
-    :"backupProvider",
-    :"backupOnlyProvider"
+    :name,
+    :backupProvider,
+    :backupOnlyProvider
   ]
 
   @type t :: %__MODULE__{
-    :"name" => String.t | nil,
-    :"backupProvider" => boolean() | nil,
-    :"backupOnlyProvider" => boolean() | nil
-  }
+          :name => String.t() | nil,
+          :backupProvider => boolean() | nil,
+          :backupOnlyProvider => boolean() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorProvider do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorProvider do
     value
   end
 end
-

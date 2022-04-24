@@ -9,25 +9,25 @@ defmodule OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChal
 
   @derive [Poison.Encoder]
   defstruct [
-    :"version",
-    :"challenge",
-    :"appId",
-    :"keyHandle",
-    :"requestId"
+    :version,
+    :challenge,
+    :appId,
+    :keyHandle,
+    :requestId
   ]
 
   @type t :: %__MODULE__{
-    :"version" => String.t | nil,
-    :"challenge" => String.t | nil,
-    :"appId" => String.t | nil,
-    :"keyHandle" => String.t | nil,
-    :"requestId" => String.t | nil
-  }
+          :version => String.t() | nil,
+          :challenge => String.t() | nil,
+          :appId => String.t() | nil,
+          :keyHandle => String.t() | nil,
+          :requestId => String.t() | nil
+        }
 end
 
-defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChallengeSignRequests do
+defimpl Poison.Decoder,
+  for: OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChallengeSignRequests do
   def decode(value, _options) do
     value
   end
 end
-

@@ -4,21 +4,21 @@
 
 defmodule OpenXchangeClient.Model.InfoItemZipElement do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"folder",
-    :"version"
+    :id,
+    :folder,
+    :version
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t,
-    :"folder" => String.t,
-    :"version" => String.t | nil
-  }
+          :id => String.t(),
+          :folder => String.t(),
+          :version => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoItemZipElement do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoItemZipElement do
     value
   end
 end
-

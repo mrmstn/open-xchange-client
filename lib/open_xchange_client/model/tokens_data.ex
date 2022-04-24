@@ -4,25 +4,25 @@
 
 defmodule OpenXchangeClient.Model.TokensData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"session",
-    :"user",
-    :"user_id",
-    :"context_id",
-    :"locale"
+    :session,
+    :user,
+    :user_id,
+    :context_id,
+    :locale
   ]
 
   @type t :: %__MODULE__{
-    :"session" => String.t | nil,
-    :"user" => String.t | nil,
-    :"user_id" => integer() | nil,
-    :"context_id" => integer() | nil,
-    :"locale" => String.t | nil
-  }
+          :session => String.t() | nil,
+          :user => String.t() | nil,
+          :user_id => integer() | nil,
+          :context_id => integer() | nil,
+          :locale => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.TokensData do
@@ -30,4 +30,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.TokensData do
     value
   end
 end
-

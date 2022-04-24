@@ -4,24 +4,24 @@
 
 defmodule OpenXchangeClient.Model.InlineResponse200 do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"data"
+    :data
   ]
 
   @type t :: %__MODULE__{
-    :"data" => OpenXchangeClient.Model.InlineResponse200Data.t | nil
-  }
+          :data => OpenXchangeClient.Model.InlineResponse200Data.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InlineResponse200 do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"data", :struct, OpenXchangeClient.Model.InlineResponse200Data, options)
+    |> deserialize(:data, :struct, OpenXchangeClient.Model.InlineResponse200Data, options)
   end
 end
-

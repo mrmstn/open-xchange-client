@@ -4,27 +4,27 @@
 
 defmodule OpenXchangeClient.Model.ConversionBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"datasource",
-    :"datahandler"
+    :datasource,
+    :datahandler
   ]
 
   @type t :: %__MODULE__{
-    :"datasource" => OpenXchangeClient.Model.ConversionDataSource.t | nil,
-    :"datahandler" => OpenXchangeClient.Model.ConversionDataHandler.t | nil
-  }
+          :datasource => OpenXchangeClient.Model.ConversionDataSource.t() | nil,
+          :datahandler => OpenXchangeClient.Model.ConversionDataHandler.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ConversionBody do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"datasource", :struct, OpenXchangeClient.Model.ConversionDataSource, options)
-    |> deserialize(:"datahandler", :struct, OpenXchangeClient.Model.ConversionDataHandler, options)
+    |> deserialize(:datasource, :struct, OpenXchangeClient.Model.ConversionDataSource, options)
+    |> deserialize(:datahandler, :struct, OpenXchangeClient.Model.ConversionDataHandler, options)
   end
 end
-

@@ -4,26 +4,26 @@
 
 defmodule OpenXchangeClient.Model.InlineObject3 do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"organizer",
-    :"comment"
+    :organizer,
+    :comment
   ]
 
   @type t :: %__MODULE__{
-    :"organizer" => OpenXchangeClient.Model.CalendarUser.t | nil,
-    :"comment" => String.t | nil
-  }
+          :organizer => OpenXchangeClient.Model.CalendarUser.t() | nil,
+          :comment => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InlineObject3 do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"organizer", :struct, OpenXchangeClient.Model.CalendarUser, options)
+    |> deserialize(:organizer, :struct, OpenXchangeClient.Model.CalendarUser, options)
   end
 end
-

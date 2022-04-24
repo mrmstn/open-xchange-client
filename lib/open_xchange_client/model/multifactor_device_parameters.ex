@@ -9,12 +9,12 @@ defmodule OpenXchangeClient.Model.MultifactorDeviceParameters do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"phoneNumber"
+    :phoneNumber
   ]
 
   @type t :: %__MODULE__{
-    :"phoneNumber" => String.t | nil
-  }
+          :phoneNumber => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorDeviceParameters do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorDeviceParameters
     value
   end
 end
-

@@ -9,14 +9,14 @@ defmodule OpenXchangeClient.Model.Geo do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"lat",
-    :"long"
+    :lat,
+    :long
   ]
 
   @type t :: %__MODULE__{
-    :"lat" => float() | nil,
-    :"long" => float() | nil
-  }
+          :lat => float() | nil,
+          :long => float() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.Geo do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.Geo do
     value
   end
 end
-

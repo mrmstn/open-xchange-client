@@ -4,31 +4,31 @@
 
 defmodule OpenXchangeClient.Model.MultipleEventData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"error",
-    :"folder",
-    :"events",
-    :"timestamp"
+    :error,
+    :folder,
+    :events,
+    :timestamp
   ]
 
   @type t :: %__MODULE__{
-    :"error" => OpenXchangeClient.Model.MultipleEventDataError.t | nil,
-    :"folder" => String.t | nil,
-    :"events" => [OpenXchangeClient.Model.EventData.t] | nil,
-    :"timestamp" => integer() | nil
-  }
+          :error => OpenXchangeClient.Model.MultipleEventDataError.t() | nil,
+          :folder => String.t() | nil,
+          :events => [OpenXchangeClient.Model.EventData.t()] | nil,
+          :timestamp => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultipleEventData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"error", :struct, OpenXchangeClient.Model.MultipleEventDataError, options)
-    |> deserialize(:"events", :list, OpenXchangeClient.Model.EventData, options)
+    |> deserialize(:error, :struct, OpenXchangeClient.Model.MultipleEventDataError, options)
+    |> deserialize(:events, :list, OpenXchangeClient.Model.EventData, options)
   end
 end
-

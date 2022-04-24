@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Import do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Imports contact data from CSV file.
   #### Example CSV ``` \"Given name\",\"Sur name\" \"Günther\",\"Mustermann\" \"Hildegard\",\"Musterfrau\" ``` The delimiter may be any CSV-valid character (e.g. \",\" or \";\"). The first line must contain the column titles that are related to the corresponding fields of the ContactData model (see [getContact](#contacts/getContact) request). See [Detailed contact data](#detailed-contact-data) for a mapping of fields to CSV column titles. 
@@ -28,22 +27,24 @@ defmodule OpenXchangeClient.Api.Import do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec import_csv(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec import_csv(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def import_csv(connection, session, folder, file, opts \\ []) do
     optional_params = %{
-      :"charset" => :query
+      :charset => :query
     }
+
     %{}
     |> method(:post)
     |> url("/import?action&#x3D;CSV")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:file, :file, file)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -65,24 +66,26 @@ defmodule OpenXchangeClient.Api.Import do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec import_i_cal(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec import_i_cal(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def import_i_cal(connection, session, folder, file, opts \\ []) do
     optional_params = %{
-      :"suppressNotification" => :query,
-      :"ignoreUIDs" => :query,
-      :"plainJson" => :query
+      :suppressNotification => :query,
+      :ignoreUIDs => :query,
+      :plainJson => :query
     }
+
     %{}
     |> method(:post)
     |> url("/import?action&#x3D;ICAL")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:file, :file, file)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -103,22 +106,24 @@ defmodule OpenXchangeClient.Api.Import do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec import_outlook_csv(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec import_outlook_csv(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def import_outlook_csv(connection, session, folder, file, opts \\ []) do
     optional_params = %{
-      :"charset" => :query
+      :charset => :query
     }
+
     %{}
     |> method(:post)
     |> url("/import?action&#x3D;OUTLOOK_CSV")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:file, :file, file)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -138,18 +143,19 @@ defmodule OpenXchangeClient.Api.Import do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec import_v_card(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec import_v_card(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def import_v_card(connection, session, folder, file, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/import?action&#x3D;VCARD")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:file, :file, file)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 end

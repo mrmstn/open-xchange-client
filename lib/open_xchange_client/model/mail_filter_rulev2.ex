@@ -4,41 +4,41 @@
 
 defmodule OpenXchangeClient.Model.MailFilterRulev2 do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"position",
-    :"rulename",
-    :"active",
-    :"flags",
-    :"test",
-    :"actioncmds",
-    :"text",
-    :"errormsg"
+    :id,
+    :position,
+    :rulename,
+    :active,
+    :flags,
+    :test,
+    :actioncmds,
+    :text,
+    :errormsg
   ]
 
   @type t :: %__MODULE__{
-    :"id" => integer() | nil,
-    :"position" => integer() | nil,
-    :"rulename" => String.t | nil,
-    :"active" => boolean() | nil,
-    :"flags" => [String.t] | nil,
-    :"test" => OpenXchangeClient.Model.MailFilterTestv2.t | nil,
-    :"actioncmds" => [OpenXchangeClient.Model.MailFilterAction.t] | nil,
-    :"text" => String.t | nil,
-    :"errormsg" => String.t | nil
-  }
+          :id => integer() | nil,
+          :position => integer() | nil,
+          :rulename => String.t() | nil,
+          :active => boolean() | nil,
+          :flags => [String.t()] | nil,
+          :test => OpenXchangeClient.Model.MailFilterTestv2.t() | nil,
+          :actioncmds => [OpenXchangeClient.Model.MailFilterAction.t()] | nil,
+          :text => String.t() | nil,
+          :errormsg => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailFilterRulev2 do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"test", :struct, OpenXchangeClient.Model.MailFilterTestv2, options)
-    |> deserialize(:"actioncmds", :list, OpenXchangeClient.Model.MailFilterAction, options)
+    |> deserialize(:test, :struct, OpenXchangeClient.Model.MailFilterTestv2, options)
+    |> deserialize(:actioncmds, :list, OpenXchangeClient.Model.MailFilterAction, options)
   end
 end
-

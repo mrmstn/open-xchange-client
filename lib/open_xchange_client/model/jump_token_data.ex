@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.JumpTokenData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"token"
+    :token
   ]
 
   @type t :: %__MODULE__{
-    :"token" => String.t | nil
-  }
+          :token => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.JumpTokenData do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.JumpTokenData do
     value
   end
 end
-

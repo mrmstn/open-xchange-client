@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.User do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Gets all users.
 
@@ -27,22 +26,24 @@ defmodule OpenXchangeClient.Api.User do
   {:ok, OpenXchangeClient.Model.UsersResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_users(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.UsersResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_users(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.UsersResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_users(connection, session, columns, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query
+      :sort => :query,
+      :order => :query
     }
+
     %{}
     |> method(:get)
     |> url("/user?action&#x3D;all")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.UsersResponse{}}
+      {200, %OpenXchangeClient.Model.UsersResponse{}}
     ])
   end
 
@@ -60,20 +61,22 @@ defmodule OpenXchangeClient.Api.User do
   {:ok, OpenXchangeClient.Model.UserResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_user(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.UserResponse.t} | {:error, Tesla.Env.t}
+  @spec get_user(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.UserResponse.t()} | {:error, Tesla.Env.t()}
   def get_user(connection, session, opts \\ []) do
     optional_params = %{
-      :"id" => :query
+      :id => :query
     }
+
     %{}
     |> method(:get)
     |> url("/user?action&#x3D;get")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.UserResponse{}}
+      {200, %OpenXchangeClient.Model.UserResponse{}}
     ])
   end
 
@@ -93,18 +96,19 @@ defmodule OpenXchangeClient.Api.User do
   {:ok, OpenXchangeClient.Model.UserAttributeResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_user_attribute(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.UserAttributeResponse.t} | {:error, Tesla.Env.t}
+  @spec get_user_attribute(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.UserAttributeResponse.t()} | {:error, Tesla.Env.t()}
   def get_user_attribute(connection, session, id, name, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/user?action&#x3D;getAttribute")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"name", name)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :name, name)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.UserAttributeResponse{}}
+      {200, %OpenXchangeClient.Model.UserAttributeResponse{}}
     ])
   end
 
@@ -123,18 +127,19 @@ defmodule OpenXchangeClient.Api.User do
   {:ok, OpenXchangeClient.Model.UsersResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_user_list(Tesla.Env.client, String.t, String.t, list(String.t), keyword()) :: {:ok, OpenXchangeClient.Model.UsersResponse.t} | {:error, Tesla.Env.t}
+  @spec get_user_list(Tesla.Env.client(), String.t(), String.t(), list(String.t()), keyword()) ::
+          {:ok, OpenXchangeClient.Model.UsersResponse.t()} | {:error, Tesla.Env.t()}
   def get_user_list(connection, session, columns, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/user?action&#x3D;list")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.UsersResponse{}}
+      {200, %OpenXchangeClient.Model.UsersResponse{}}
     ])
   end
 
@@ -155,23 +160,30 @@ defmodule OpenXchangeClient.Api.User do
   {:ok, OpenXchangeClient.Model.UsersResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec search_users(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.UserSearchBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.UsersResponse.t} | {:error, Tesla.Env.t}
+  @spec search_users(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.UserSearchBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.UsersResponse.t()} | {:error, Tesla.Env.t()}
   def search_users(connection, session, columns, body, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query
+      :sort => :query,
+      :order => :query
     }
+
     %{}
     |> method(:put)
     |> url("/user?action&#x3D;search")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.UsersResponse{}}
+      {200, %OpenXchangeClient.Model.UsersResponse{}}
     ])
   end
 
@@ -192,22 +204,29 @@ defmodule OpenXchangeClient.Api.User do
   {:ok, OpenXchangeClient.Model.UserAttributionResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec set_user_attribute(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.UserAttribute.t, keyword()) :: {:ok, OpenXchangeClient.Model.UserAttributionResponse.t} | {:error, Tesla.Env.t}
+  @spec set_user_attribute(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.UserAttribute.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.UserAttributionResponse.t()} | {:error, Tesla.Env.t()}
   def set_user_attribute(connection, session, id, body, opts \\ []) do
     optional_params = %{
-      :"setIfAbsent" => :query
+      :setIfAbsent => :query
     }
+
     %{}
     |> method(:put)
     |> url("/user?action&#x3D;setAttribute")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.UserAttributionResponse{}}
+      {200, %OpenXchangeClient.Model.UserAttributionResponse{}}
     ])
   end
 
@@ -227,19 +246,26 @@ defmodule OpenXchangeClient.Api.User do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_user(Tesla.Env.client, String.t, String.t, integer(), OpenXchangeClient.Model.UserData.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec update_user(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.UserData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def update_user(connection, session, id, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/user?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 end

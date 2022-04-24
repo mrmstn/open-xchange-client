@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.CapabilityData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"attributes"
+    :id,
+    :attributes
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"attributes" => map() | nil
-  }
+          :id => String.t() | nil,
+          :attributes => map() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.CapabilityData do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.CapabilityData do
     value
   end
 end
-

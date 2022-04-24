@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.ICal do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Probe to check given ICal calendar properties before creating a new account.
 
@@ -25,17 +24,24 @@ defmodule OpenXchangeClient.Api.ICal do
   {:ok, OpenXchangeClient.Model.CalendarAccountProbeResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec probe(Tesla.Env.client, String.t, OpenXchangeClient.Model.CalendarAccountProbeData.t, keyword()) :: {:ok, OpenXchangeClient.Model.CalendarAccountProbeResponse.t} | {:error, Tesla.Env.t}
+  @spec probe(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.CalendarAccountProbeData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.CalendarAccountProbeResponse.t()}
+          | {:error, Tesla.Env.t()}
   def probe(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/chronos/account?action&#x3D;probe")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CalendarAccountProbeResponse{}}
+      {200, %OpenXchangeClient.Model.CalendarAccountProbeResponse{}}
     ])
   end
 end

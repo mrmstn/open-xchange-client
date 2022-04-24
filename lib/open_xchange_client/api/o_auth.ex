@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.OAuth do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Creates an OAuth account.
   This action is typically called by provided call-back URL and is only intended for manual invocation if \"outOfBand\" interaction is returned by preceeding [/oauth/account?action=init](#operation--oauth-accounts-action-init-get) step. 
@@ -30,25 +29,42 @@ defmodule OpenXchangeClient.Api.OAuth do
   {:ok, OpenXchangeClient.Model.OAuthAccountResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_o_auth_account(Tesla.Env.client, String.t, String.t, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.OAuthAccountResponse.t} | {:error, Tesla.Env.t}
-  def create_o_auth_account(connection, session, oauth_token, uuid, display_name, scopes, opts \\ []) do
+  @spec create_o_auth_account(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.OAuthAccountResponse.t()} | {:error, Tesla.Env.t()}
+  def create_o_auth_account(
+        connection,
+        session,
+        oauth_token,
+        uuid,
+        display_name,
+        scopes,
+        opts \\ []
+      ) do
     optional_params = %{
-      :"oauth_verifier" => :query
+      :oauth_verifier => :query
     }
+
     %{}
     |> method(:put)
     |> url("/oauth/accounts?action&#x3D;create")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"oauth_token", oauth_token)
-    |> add_param(:query, :"uuid", uuid)
-    |> add_param(:query, :"displayName", display_name)
-    |> add_param(:query, :"scopes", scopes)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :oauth_token, oauth_token)
+    |> add_param(:query, :uuid, uuid)
+    |> add_param(:query, :displayName, display_name)
+    |> add_param(:query, :scopes, scopes)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.OAuthAccountResponse{}}
+      {200, %OpenXchangeClient.Model.OAuthAccountResponse{}}
     ])
   end
 
@@ -66,18 +82,20 @@ defmodule OpenXchangeClient.Api.OAuth do
   {:ok, OpenXchangeClient.Model.OAuthAccountDeletionResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_o_auth_account(Tesla.Env.client, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.OAuthAccountDeletionResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_o_auth_account(Tesla.Env.client(), String.t(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.OAuthAccountDeletionResponse.t()}
+          | {:error, Tesla.Env.t()}
   def delete_o_auth_account(connection, session, id, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/oauth/accounts?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.OAuthAccountDeletionResponse{}}
+      {200, %OpenXchangeClient.Model.OAuthAccountDeletionResponse{}}
     ])
   end
 
@@ -95,20 +113,22 @@ defmodule OpenXchangeClient.Api.OAuth do
   {:ok, OpenXchangeClient.Model.OAuthAccountsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_o_auth_accounts(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.OAuthAccountsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_o_auth_accounts(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.OAuthAccountsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_o_auth_accounts(connection, session, opts \\ []) do
     optional_params = %{
-      :"serviceId" => :query
+      :serviceId => :query
     }
+
     %{}
     |> method(:get)
     |> url("/oauth/accounts?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.OAuthAccountsResponse{}}
+      {200, %OpenXchangeClient.Model.OAuthAccountsResponse{}}
     ])
   end
 
@@ -125,16 +145,17 @@ defmodule OpenXchangeClient.Api.OAuth do
   {:ok, OpenXchangeClient.Model.OAuthGrantsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_o_auth_grants(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.OAuthGrantsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_o_auth_grants(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.OAuthGrantsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_o_auth_grants(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/oauth/grants?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.OAuthGrantsResponse{}}
+      {200, %OpenXchangeClient.Model.OAuthGrantsResponse{}}
     ])
   end
 
@@ -151,16 +172,17 @@ defmodule OpenXchangeClient.Api.OAuth do
   {:ok, OpenXchangeClient.Model.OAuthServicesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_o_auth_services(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.OAuthServicesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_o_auth_services(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.OAuthServicesResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_o_auth_services(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/oauth/services?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.OAuthServicesResponse{}}
+      {200, %OpenXchangeClient.Model.OAuthServicesResponse{}}
     ])
   end
 
@@ -178,17 +200,18 @@ defmodule OpenXchangeClient.Api.OAuth do
   {:ok, OpenXchangeClient.Model.OAuthAccountResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_o_auth_account(Tesla.Env.client, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.OAuthAccountResponse.t} | {:error, Tesla.Env.t}
+  @spec get_o_auth_account(Tesla.Env.client(), String.t(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.OAuthAccountResponse.t()} | {:error, Tesla.Env.t()}
   def get_o_auth_account(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/oauth/accounts?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.OAuthAccountResponse{}}
+      {200, %OpenXchangeClient.Model.OAuthAccountResponse{}}
     ])
   end
 
@@ -206,17 +229,18 @@ defmodule OpenXchangeClient.Api.OAuth do
   {:ok, OpenXchangeClient.Model.OAuthServiceResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_o_auth_service(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.OAuthServiceResponse.t} | {:error, Tesla.Env.t}
+  @spec get_o_auth_service(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.OAuthServiceResponse.t()} | {:error, Tesla.Env.t()}
   def get_o_auth_service(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/oauth/services?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.OAuthServiceResponse{}}
+      {200, %OpenXchangeClient.Model.OAuthServiceResponse{}}
     ])
   end
 
@@ -236,19 +260,28 @@ defmodule OpenXchangeClient.Api.OAuth do
   {:ok, OpenXchangeClient.Model.OAuthAccountInteractionResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec init_o_auth_account(Tesla.Env.client, String.t, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.OAuthAccountInteractionResponse.t} | {:error, Tesla.Env.t}
+  @spec init_o_auth_account(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.OAuthAccountInteractionResponse.t()}
+          | {:error, Tesla.Env.t()}
   def init_o_auth_account(connection, session, service_id, display_name, scopes, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/oauth/accounts?action&#x3D;init")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"serviceId", service_id)
-    |> add_param(:query, :"displayName", display_name)
-    |> add_param(:query, :"scopes", scopes)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :serviceId, service_id)
+    |> add_param(:query, :displayName, display_name)
+    |> add_param(:query, :scopes, scopes)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.OAuthAccountInteractionResponse{}}
+      {200, %OpenXchangeClient.Model.OAuthAccountInteractionResponse{}}
     ])
   end
 
@@ -268,20 +301,27 @@ defmodule OpenXchangeClient.Api.OAuth do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec reauthorize_o_auth_account(Tesla.Env.client, String.t, integer(), String.t, String.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec reauthorize_o_auth_account(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, nil} | {:error, Tesla.Env.t()}
   def reauthorize_o_auth_account(connection, session, id, service_id, scopes, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/oauth/accounts?action&#x3D;reauthorize")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"serviceId", service_id)
-    |> add_param(:query, :"scopes", scopes)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :serviceId, service_id)
+    |> add_param(:query, :scopes, scopes)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -299,17 +339,18 @@ defmodule OpenXchangeClient.Api.OAuth do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec revoke_o_auth_grant(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec revoke_o_auth_grant(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def revoke_o_auth_grant(connection, session, client, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/oauth/grants?action&#x3D;revoke")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"client", client)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :client, client)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -328,18 +369,25 @@ defmodule OpenXchangeClient.Api.OAuth do
   {:ok, OpenXchangeClient.Model.OAuthAccountUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_o_auth_account(Tesla.Env.client, String.t, integer(), OpenXchangeClient.Model.OAuthAccountData.t, keyword()) :: {:ok, OpenXchangeClient.Model.OAuthAccountUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec update_o_auth_account(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.OAuthAccountData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.OAuthAccountUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def update_o_auth_account(connection, session, id, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/oauth/accounts?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.OAuthAccountUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.OAuthAccountUpdateResponse{}}
     ])
   end
 end

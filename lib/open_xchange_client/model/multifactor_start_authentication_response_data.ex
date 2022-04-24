@@ -9,19 +9,25 @@ defmodule OpenXchangeClient.Model.MultifactorStartAuthenticationResponseData do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"challenge"
+    :challenge
   ]
 
   @type t :: %__MODULE__{
-    :"challenge" => OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChallenge.t | nil
-  }
+          :challenge =>
+            OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChallenge.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorStartAuthenticationResponseData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"challenge", :struct, OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChallenge, options)
+    |> deserialize(
+      :challenge,
+      :struct,
+      OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChallenge,
+      options
+    )
   end
 end
-

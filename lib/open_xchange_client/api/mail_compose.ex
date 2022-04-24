@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.MailCompose do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Delete an existing attachment.
 
@@ -26,18 +25,27 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, OpenXchangeClient.Model.InlineResponse2002.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_attachments_by_id(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.InlineResponse2002.t} | {:error, Tesla.Env.t}
+  @spec delete_attachments_by_id(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.InlineResponse2002.t()}
+          | {:error, Tesla.Env.t()}
   def delete_attachments_by_id(connection, session, id, attachment_id, _opts \\ []) do
     %{}
     |> method(:delete)
     |> url("/mail/compose/#{id}/attachments/#{attachment_id}")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InlineResponse2002{}},
-      { 400, false},
-      { 401, false}
+      {200, %OpenXchangeClient.Model.InlineResponse2002{}},
+      {400, false},
+      {401, false}
     ])
   end
 
@@ -55,18 +63,21 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, OpenXchangeClient.Model.InlineResponse2001.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_mail_compose_by_id(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.InlineResponse2001.t} | {:error, Tesla.Env.t}
+  @spec delete_mail_compose_by_id(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.InlineResponse2001.t()}
+          | {:error, Tesla.Env.t()}
   def delete_mail_compose_by_id(connection, session, id, _opts \\ []) do
     %{}
     |> method(:delete)
     |> url("/mail/compose/#{id}")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InlineResponse2001{}},
-      { 400, false},
-      { 401, false}
+      {200, %OpenXchangeClient.Model.InlineResponse2001{}},
+      {400, false},
+      {401, false}
     ])
   end
 
@@ -85,18 +96,19 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_attachments_by_id(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, nil} | {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_attachments_by_id(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, nil} | {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_attachments_by_id(connection, session, id, attachment_id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/mail/compose/#{id}/attachments/#{attachment_id}")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 400, false},
-      { 401, false}
+      {200, false},
+      {400, false},
+      {401, false}
     ])
   end
 
@@ -115,22 +127,26 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, OpenXchangeClient.Model.MailComposeGetResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mail_compose(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.MailComposeGetResponse.t} | {:error, Tesla.Env.t}
+  @spec get_mail_compose(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.MailComposeGetResponse.t()}
+          | {:error, Tesla.Env.t()}
   def get_mail_compose(connection, session, opts \\ []) do
     optional_params = %{
-      :"columns" => :query
+      :columns => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail/compose")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailComposeGetResponse{}},
-      { 400, false},
-      { 401, false}
+      {200, %OpenXchangeClient.Model.MailComposeGetResponse{}},
+      {400, false},
+      {401, false}
     ])
   end
 
@@ -148,18 +164,21 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, OpenXchangeClient.Model.MailComposeResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mail_compose_by_id(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.MailComposeResponse.t} | {:error, Tesla.Env.t}
+  @spec get_mail_compose_by_id(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.MailComposeResponse.t()}
+          | {:error, Tesla.Env.t()}
   def get_mail_compose_by_id(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/mail/compose/#{id}")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailComposeResponse{}},
-      { 400, false},
-      { 401, false}
+      {200, %OpenXchangeClient.Model.MailComposeResponse{}},
+      {400, false},
+      {401, false}
     ])
   end
 
@@ -177,19 +196,22 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, OpenXchangeClient.Model.MailComposeSendResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_save(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.MailComposeSendResponse.t} | {:error, Tesla.Env.t}
+  @spec get_save(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.MailComposeSendResponse.t()}
+          | {:error, Tesla.Env.t()}
   def get_save(connection, session, id, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/mail/compose/#{id}/save")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailComposeSendResponse{}},
-      { 400, false},
-      { 401, false}
+      {200, %OpenXchangeClient.Model.MailComposeSendResponse{}},
+      {400, false},
+      {401, false}
     ])
   end
 
@@ -209,19 +231,28 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, OpenXchangeClient.Model.MailComposeResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec patch_mail_compose_by_id(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.MailComposeMessageModel.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.MailComposeResponse.t} | {:error, Tesla.Env.t}
+  @spec patch_mail_compose_by_id(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.MailComposeMessageModel.t(),
+          keyword()
+        ) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.MailComposeResponse.t()}
+          | {:error, Tesla.Env.t()}
   def patch_mail_compose_by_id(connection, session, id, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/mail/compose/#{id}")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailComposeResponse{}},
-      { 400, false},
-      { 401, false}
+      {200, %OpenXchangeClient.Model.MailComposeResponse{}},
+      {400, false},
+      {401, false}
     ])
   end
 
@@ -240,19 +271,22 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, OpenXchangeClient.Model.MailComposeAttachmentResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec post_attachments(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.MailComposeAttachmentResponse.t} | {:error, Tesla.Env.t}
+  @spec post_attachments(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.MailComposeAttachmentResponse.t()}
+          | {:error, Tesla.Env.t()}
   def post_attachments(connection, session, id, file, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/mail/compose/#{id}/attachments")
-    |> add_param(:query, :"session", session)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:file, :file, file)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailComposeAttachmentResponse{}},
-      { 400, false},
-      { 401, false}
+      {200, %OpenXchangeClient.Model.MailComposeAttachmentResponse{}},
+      {400, false},
+      {401, false}
     ])
   end
 
@@ -272,19 +306,29 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, OpenXchangeClient.Model.MailComposeAttachmentResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec post_attachments_by_id(Tesla.Env.client, String.t, String.t, String.t, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.MailComposeAttachmentResponse.t} | {:error, Tesla.Env.t}
+  @spec post_attachments_by_id(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.MailComposeAttachmentResponse.t()}
+          | {:error, Tesla.Env.t()}
   def post_attachments_by_id(connection, session, id, attachment_id, file, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/mail/compose/#{id}/attachments/#{attachment_id}")
-    |> add_param(:query, :"session", session)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:file, :file, file)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailComposeAttachmentResponse{}},
-      { 400, false},
-      { 401, false}
+      {200, %OpenXchangeClient.Model.MailComposeAttachmentResponse{}},
+      {400, false},
+      {401, false}
     ])
   end
 
@@ -302,19 +346,22 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, OpenXchangeClient.Model.MailComposeAttachmentPostResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec post_attachments_original(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailComposeAttachmentPostResponse.t} | {:ok, nil} | {:error, Tesla.Env.t}
+  @spec post_attachments_original(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailComposeAttachmentPostResponse.t()}
+          | {:ok, nil}
+          | {:error, Tesla.Env.t()}
   def post_attachments_original(connection, session, id, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/mail/compose/#{id}/attachments/original")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailComposeAttachmentPostResponse{}},
-      { 400, false},
-      { 401, false}
+      {200, %OpenXchangeClient.Model.MailComposeAttachmentPostResponse{}},
+      {400, false},
+      {401, false}
     ])
   end
 
@@ -332,19 +379,22 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, OpenXchangeClient.Model.MailComposeAttachmentResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec post_attachments_vcard(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.MailComposeAttachmentResponse.t} | {:error, Tesla.Env.t}
+  @spec post_attachments_vcard(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.MailComposeAttachmentResponse.t()}
+          | {:error, Tesla.Env.t()}
   def post_attachments_vcard(connection, session, id, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/mail/compose/#{id}/attachments/vcard")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailComposeAttachmentResponse{}},
-      { 400, false},
-      { 401, false}
+      {200, %OpenXchangeClient.Model.MailComposeAttachmentResponse{}},
+      {400, false},
+      {401, false}
     ])
   end
 
@@ -365,25 +415,29 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, OpenXchangeClient.Model.MailComposeResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec post_mail_compose(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.MailComposeResponse.t} | {:error, Tesla.Env.t}
+  @spec post_mail_compose(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.MailComposeResponse.t()}
+          | {:error, Tesla.Env.t()}
   def post_mail_compose(connection, session, opts \\ []) do
     optional_params = %{
-      :"type" => :query,
-      :"vcard" => :query,
+      :type => :query,
+      :vcard => :query,
       :body => :body
     }
+
     %{}
     |> method(:post)
     |> url("/mail/compose")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailComposeResponse{}},
-      { 400, false},
-      { 401, false}
+      {200, %OpenXchangeClient.Model.MailComposeResponse{}},
+      {400, false},
+      {401, false}
     ])
   end
 
@@ -402,19 +456,22 @@ defmodule OpenXchangeClient.Api.MailCompose do
   {:ok, OpenXchangeClient.Model.MailComposeSendResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec post_mail_compose_send(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.MailComposeSendResponse.t} | {:error, Tesla.Env.t}
+  @spec post_mail_compose_send(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.MailComposeSendResponse.t()}
+          | {:error, Tesla.Env.t()}
   def post_mail_compose_send(connection, session, id, j_son, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/mail/compose/#{id}/send")
-    |> add_param(:query, :"session", session)
-    |> add_param(:form, :"JSON", j_son)
+    |> add_param(:query, :session, session)
+    |> add_param(:form, :JSON, j_son)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailComposeSendResponse{}},
-      { 400, false},
-      { 401, false}
+      {200, %OpenXchangeClient.Model.MailComposeSendResponse{}},
+      {400, false},
+      {401, false}
     ])
   end
 end

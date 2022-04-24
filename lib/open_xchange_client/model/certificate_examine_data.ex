@@ -4,37 +4,37 @@
 
 defmodule OpenXchangeClient.Model.CertificateExamineData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"fingerprint",
-    :"issuedOn",
-    :"expiresOn",
-    :"hostname",
-    :"commonName",
-    :"issuedBy",
-    :"signature",
-    :"serialNumber",
-    :"failureReason",
-    :"expired",
-    :"trusted"
+    :fingerprint,
+    :issuedOn,
+    :expiresOn,
+    :hostname,
+    :commonName,
+    :issuedBy,
+    :signature,
+    :serialNumber,
+    :failureReason,
+    :expired,
+    :trusted
   ]
 
   @type t :: %__MODULE__{
-    :"fingerprint" => String.t | nil,
-    :"issuedOn" => integer() | nil,
-    :"expiresOn" => integer() | nil,
-    :"hostname" => String.t | nil,
-    :"commonName" => String.t | nil,
-    :"issuedBy" => String.t | nil,
-    :"signature" => String.t | nil,
-    :"serialNumber" => String.t | nil,
-    :"failureReason" => String.t | nil,
-    :"expired" => boolean() | nil,
-    :"trusted" => boolean() | nil
-  }
+          :fingerprint => String.t() | nil,
+          :issuedOn => integer() | nil,
+          :expiresOn => integer() | nil,
+          :hostname => String.t() | nil,
+          :commonName => String.t() | nil,
+          :issuedBy => String.t() | nil,
+          :signature => String.t() | nil,
+          :serialNumber => String.t() | nil,
+          :failureReason => String.t() | nil,
+          :expired => boolean() | nil,
+          :trusted => boolean() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.CertificateExamineData do
@@ -42,4 +42,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.CertificateExamineData do
     value
   end
 end
-

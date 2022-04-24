@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Multifactor do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Gets all multifactor devices
 
@@ -24,16 +23,17 @@ defmodule OpenXchangeClient.Api.Multifactor do
   {:ok, OpenXchangeClient.Model.MultifactorDevicesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec multifactor_device_action_all(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MultifactorDevicesResponse.t} | {:error, Tesla.Env.t}
+  @spec multifactor_device_action_all(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MultifactorDevicesResponse.t()} | {:error, Tesla.Env.t()}
   def multifactor_device_action_all(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/multifactor/device?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MultifactorDevicesResponse{}}
+      {200, %OpenXchangeClient.Model.MultifactorDevicesResponse{}}
     ])
   end
 
@@ -52,18 +52,25 @@ defmodule OpenXchangeClient.Api.Multifactor do
   {:ok, OpenXchangeClient.Model.MultifactorDeleteResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec multifactor_device_action_delete(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MultifactorDeleteResponse.t} | {:error, Tesla.Env.t}
+  @spec multifactor_device_action_delete(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MultifactorDeleteResponse.t()} | {:error, Tesla.Env.t()}
   def multifactor_device_action_delete(connection, session, provider_name, device_id, _opts \\ []) do
     %{}
     |> method(:delete)
     |> url("/multifactor/device?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"providerName", provider_name)
-    |> add_param(:query, :"deviceId", device_id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :providerName, provider_name)
+    |> add_param(:query, :deviceId, device_id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MultifactorDeleteResponse{}}
+      {200, %OpenXchangeClient.Model.MultifactorDeleteResponse{}}
     ])
   end
 
@@ -82,18 +89,25 @@ defmodule OpenXchangeClient.Api.Multifactor do
   {:ok, OpenXchangeClient.Model.MultifactorDeviceResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec multifactor_device_action_rename(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.MultifactorDevice.t, keyword()) :: {:ok, OpenXchangeClient.Model.MultifactorDeviceResponse.t} | {:error, Tesla.Env.t}
+  @spec multifactor_device_action_rename(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.MultifactorDevice.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MultifactorDeviceResponse.t()} | {:error, Tesla.Env.t()}
   def multifactor_device_action_rename(connection, session, provider_name, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/multifactor/device?action&#x3D;rename")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"providerName", provider_name)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :providerName, provider_name)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MultifactorDeviceResponse{}}
+      {200, %OpenXchangeClient.Model.MultifactorDeviceResponse{}}
     ])
   end
 
@@ -112,18 +126,32 @@ defmodule OpenXchangeClient.Api.Multifactor do
   {:ok, OpenXchangeClient.Model.MultifactorStartAuthenticationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec multifactor_device_action_start_authentication(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MultifactorStartAuthenticationResponse.t} | {:error, Tesla.Env.t}
-  def multifactor_device_action_start_authentication(connection, session, provider_name, device_id, _opts \\ []) do
+  @spec multifactor_device_action_start_authentication(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MultifactorStartAuthenticationResponse.t()}
+          | {:error, Tesla.Env.t()}
+  def multifactor_device_action_start_authentication(
+        connection,
+        session,
+        provider_name,
+        device_id,
+        _opts \\ []
+      ) do
     %{}
     |> method(:get)
     |> url("/multifactor/device?action&#x3D;startAuthentication")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"providerName", provider_name)
-    |> add_param(:query, :"deviceId", device_id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :providerName, provider_name)
+    |> add_param(:query, :deviceId, device_id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MultifactorStartAuthenticationResponse{}}
+      {200, %OpenXchangeClient.Model.MultifactorStartAuthenticationResponse{}}
     ])
   end
 
@@ -141,21 +169,24 @@ defmodule OpenXchangeClient.Api.Multifactor do
   {:ok, OpenXchangeClient.Model.MultifactorStartRegistrationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec multifactor_device_action_start_registration(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MultifactorStartRegistrationResponse.t} | {:error, Tesla.Env.t}
+  @spec multifactor_device_action_start_registration(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MultifactorStartRegistrationResponse.t()}
+          | {:error, Tesla.Env.t()}
   def multifactor_device_action_start_registration(connection, session, opts \\ []) do
     optional_params = %{
       :body => :body
     }
+
     %{}
     |> method(:put)
     |> url("/multifactor/device?action&#x3D;startRegistration")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MultifactorStartRegistrationResponse{}}
+      {200, %OpenXchangeClient.Model.MultifactorStartRegistrationResponse{}}
     ])
   end
 
@@ -175,19 +206,33 @@ defmodule OpenXchangeClient.Api.Multifactor do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec multifactor_device_actionfinish_authentication(Tesla.Env.client, String.t, String.t, String.t, OpenXchangeClient.Model.MultifactorFinishAuthenticationData.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
-  def multifactor_device_actionfinish_authentication(connection, session, provider_name, device_id, body, _opts \\ []) do
+  @spec multifactor_device_actionfinish_authentication(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.MultifactorFinishAuthenticationData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
+  def multifactor_device_actionfinish_authentication(
+        connection,
+        session,
+        provider_name,
+        device_id,
+        body,
+        _opts \\ []
+      ) do
     %{}
     |> method(:put)
     |> url("/multifactor/device?action&#x3D;finishAuthentication")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"providerName", provider_name)
-    |> add_param(:query, :"deviceId", device_id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :providerName, provider_name)
+    |> add_param(:query, :deviceId, device_id)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -207,19 +252,35 @@ defmodule OpenXchangeClient.Api.Multifactor do
   {:ok, OpenXchangeClient.Model.MultifactorFinishRegistrationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec multifactor_device_actionfinish_registration(Tesla.Env.client, String.t, String.t, String.t, OpenXchangeClient.Model.MultifactorFinishRegistrationData.t, keyword()) :: {:ok, OpenXchangeClient.Model.MultifactorFinishRegistrationResponse.t} | {:error, Tesla.Env.t}
-  def multifactor_device_actionfinish_registration(connection, session, provider_name, device_id, body, _opts \\ []) do
+  @spec multifactor_device_actionfinish_registration(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.MultifactorFinishRegistrationData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MultifactorFinishRegistrationResponse.t()}
+          | {:error, Tesla.Env.t()}
+  def multifactor_device_actionfinish_registration(
+        connection,
+        session,
+        provider_name,
+        device_id,
+        body,
+        _opts \\ []
+      ) do
     %{}
     |> method(:put)
     |> url("/multifactor/device?action&#x3D;finishRegistration")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"providerName", provider_name)
-    |> add_param(:query, :"deviceId", device_id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :providerName, provider_name)
+    |> add_param(:query, :deviceId, device_id)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MultifactorFinishRegistrationResponse{}}
+      {200, %OpenXchangeClient.Model.MultifactorFinishRegistrationResponse{}}
     ])
   end
 
@@ -237,20 +298,23 @@ defmodule OpenXchangeClient.Api.Multifactor do
   {:ok, OpenXchangeClient.Model.MultifactorProvidersResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec multifactor_provider_action_all(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MultifactorProvidersResponse.t} | {:error, Tesla.Env.t}
+  @spec multifactor_provider_action_all(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MultifactorProvidersResponse.t()}
+          | {:error, Tesla.Env.t()}
   def multifactor_provider_action_all(connection, session, opts \\ []) do
     optional_params = %{
-      :"providers" => :query
+      :providers => :query
     }
+
     %{}
     |> method(:get)
     |> url("/multifactor/provider?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MultifactorProvidersResponse{}}
+      {200, %OpenXchangeClient.Model.MultifactorProvidersResponse{}}
     ])
   end
 end

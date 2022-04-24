@@ -9,16 +9,16 @@ defmodule OpenXchangeClient.Model.FindFacetValueItem do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"name",
-    :"detail",
-    :"image_url"
+    :name,
+    :detail,
+    :image_url
   ]
 
   @type t :: %__MODULE__{
-    :"name" => String.t | nil,
-    :"detail" => String.t | nil,
-    :"image_url" => String.t | nil
-  }
+          :name => String.t() | nil,
+          :detail => String.t() | nil,
+          :image_url => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FindFacetValueItem do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.FindFacetValueItem do
     value
   end
 end
-

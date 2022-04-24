@@ -9,26 +9,26 @@ defmodule OpenXchangeClient.Model.Security do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"encrypt",
-    :"pgpInline",
-    :"sign",
-    :"language",
-    :"message",
-    :"pin",
-    :"msgRef",
-    :"authentication"
+    :encrypt,
+    :pgpInline,
+    :sign,
+    :language,
+    :message,
+    :pin,
+    :msgRef,
+    :authentication
   ]
 
   @type t :: %__MODULE__{
-    :"encrypt" => boolean() | nil,
-    :"pgpInline" => boolean() | nil,
-    :"sign" => boolean() | nil,
-    :"language" => String.t | nil,
-    :"message" => String.t | nil,
-    :"pin" => String.t | nil,
-    :"msgRef" => String.t | nil,
-    :"authentication" => String.t | nil
-  }
+          :encrypt => boolean() | nil,
+          :pgpInline => boolean() | nil,
+          :sign => boolean() | nil,
+          :language => String.t() | nil,
+          :message => String.t() | nil,
+          :pin => String.t() | nil,
+          :msgRef => String.t() | nil,
+          :authentication => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.Security do
@@ -36,4 +36,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.Security do
     value
   end
 end
-

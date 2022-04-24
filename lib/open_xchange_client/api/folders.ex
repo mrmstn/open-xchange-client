@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Folders do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Checks the existing upload for given type.
 
@@ -27,19 +26,27 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FolderCheckLimitsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec check_limits(Tesla.Env.client, String.t, String.t, String.t, OpenXchangeClient.Model.FolderCheckLimitsData.t, keyword()) :: {:ok, OpenXchangeClient.Model.FolderCheckLimitsResponse.t} | {:error, Tesla.Env.t}
+  @spec check_limits(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.FolderCheckLimitsData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.FolderCheckLimitsResponse.t()} | {:error, Tesla.Env.t()}
   def check_limits(connection, session, id, type, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/folders?action&#x3D;checklimits")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"type", type)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :type, type)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FolderCheckLimitsResponse{}}
+      {200, %OpenXchangeClient.Model.FolderCheckLimitsResponse{}}
     ])
   end
 
@@ -60,23 +67,25 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FoldersCleanUpResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec clear_folders(Tesla.Env.client, String.t, list(String.t), keyword()) :: {:ok, OpenXchangeClient.Model.FoldersCleanUpResponse.t} | {:error, Tesla.Env.t}
+  @spec clear_folders(Tesla.Env.client(), String.t(), list(String.t()), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FoldersCleanUpResponse.t()} | {:error, Tesla.Env.t()}
   def clear_folders(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"tree" => :query,
-      :"allowed_modules" => :query,
-      :"pushToken" => :query
+      :tree => :query,
+      :allowed_modules => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/folders?action&#x3D;clear")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FoldersCleanUpResponse{}}
+      {200, %OpenXchangeClient.Model.FoldersCleanUpResponse{}}
     ])
   end
 
@@ -98,24 +107,31 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FolderUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_folder(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.NewFolderBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.FolderUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec create_folder(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.NewFolderBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.FolderUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def create_folder(connection, folder_id, session, body, opts \\ []) do
     optional_params = %{
-      :"tree" => :query,
-      :"allowed_modules" => :query,
-      :"pushToken" => :query
+      :tree => :query,
+      :allowed_modules => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/folders?action&#x3D;new")
-    |> add_param(:query, :"folder_id", folder_id)
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :folder_id, folder_id)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FolderUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.FolderUpdateResponse{}}
     ])
   end
 
@@ -140,27 +156,29 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FoldersCleanUpResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_folders(Tesla.Env.client, String.t, list(String.t), keyword()) :: {:ok, OpenXchangeClient.Model.FoldersCleanUpResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_folders(Tesla.Env.client(), String.t(), list(String.t()), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FoldersCleanUpResponse.t()} | {:error, Tesla.Env.t()}
   def delete_folders(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"tree" => :query,
-      :"timestamp" => :query,
-      :"allowed_modules" => :query,
-      :"hardDelete" => :query,
-      :"failOnError" => :query,
-      :"extendedResponse" => :query,
-      :"pushToken" => :query
+      :tree => :query,
+      :timestamp => :query,
+      :allowed_modules => :query,
+      :hardDelete => :query,
+      :failOnError => :query,
+      :extendedResponse => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/folders?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FoldersCleanUpResponse{}}
+      {200, %OpenXchangeClient.Model.FoldersCleanUpResponse{}}
     ])
   end
 
@@ -181,23 +199,25 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FolderResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_folder(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FolderResponse.t} | {:error, Tesla.Env.t}
+  @spec get_folder(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FolderResponse.t()} | {:error, Tesla.Env.t()}
   def get_folder(connection, session, id, opts \\ []) do
     optional_params = %{
-      :"tree" => :query,
-      :"allowed_modules" => :query,
-      :"language" => :query
+      :tree => :query,
+      :allowed_modules => :query,
+      :language => :query
     }
+
     %{}
     |> method(:get)
     |> url("/folders?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FolderResponse{}}
+      {200, %OpenXchangeClient.Model.FolderResponse{}}
     ])
   end
 
@@ -221,26 +241,34 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FolderUpdatesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_folder_updates(Tesla.Env.client, String.t, String.t, integer(), String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FolderUpdatesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_folder_updates(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          integer(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.FolderUpdatesResponse.t()} | {:error, Tesla.Env.t()}
   def get_folder_updates(connection, session, parent, timestamp, columns, opts \\ []) do
     optional_params = %{
-      :"tree" => :query,
-      :"language" => :query,
-      :"ignore" => :query,
-      :"allowed_modules" => :query
+      :tree => :query,
+      :language => :query,
+      :ignore => :query,
+      :allowed_modules => :query
     }
+
     %{}
     |> method(:get)
     |> url("/folders?action&#x3D;updates")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"parent", parent)
-    |> add_param(:query, :"timestamp", timestamp)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :parent, parent)
+    |> add_param(:query, :timestamp, timestamp)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FolderUpdatesResponse{}}
+      {200, %OpenXchangeClient.Model.FolderUpdatesResponse{}}
     ])
   end
 
@@ -262,24 +290,26 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FoldersResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_path(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FoldersResponse.t} | {:error, Tesla.Env.t}
+  @spec get_path(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FoldersResponse.t()} | {:error, Tesla.Env.t()}
   def get_path(connection, session, id, columns, opts \\ []) do
     optional_params = %{
-      :"tree" => :query,
-      :"allowed_modules" => :query,
-      :"language" => :query
+      :tree => :query,
+      :allowed_modules => :query,
+      :language => :query
     }
+
     %{}
     |> method(:get)
     |> url("/folders?action&#x3D;path")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FoldersResponse{}}
+      {200, %OpenXchangeClient.Model.FoldersResponse{}}
     ])
   end
 
@@ -299,22 +329,24 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FoldersResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_root_folders(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FoldersResponse.t} | {:error, Tesla.Env.t}
+  @spec get_root_folders(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FoldersResponse.t()} | {:error, Tesla.Env.t()}
   def get_root_folders(connection, session, columns, opts \\ []) do
     optional_params = %{
-      :"tree" => :query,
-      :"allowed_modules" => :query
+      :tree => :query,
+      :allowed_modules => :query
     }
+
     %{}
     |> method(:get)
     |> url("/folders?action&#x3D;root")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FoldersResponse{}}
+      {200, %OpenXchangeClient.Model.FoldersResponse{}}
     ])
   end
 
@@ -336,24 +368,26 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FoldersResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_shared_folders(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FoldersResponse.t} | {:error, Tesla.Env.t}
+  @spec get_shared_folders(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FoldersResponse.t()} | {:error, Tesla.Env.t()}
   def get_shared_folders(connection, session, columns, content_type, opts \\ []) do
     optional_params = %{
-      :"tree" => :query,
-      :"language" => :query,
-      :"all" => :query
+      :tree => :query,
+      :language => :query,
+      :all => :query
     }
+
     %{}
     |> method(:get)
     |> url("/folders?action&#x3D;shares")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"content_type", content_type)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
+    |> add_param(:query, :content_type, content_type)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FoldersResponse{}}
+      {200, %OpenXchangeClient.Model.FoldersResponse{}}
     ])
   end
 
@@ -377,26 +411,28 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FoldersResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_sub_folders(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FoldersResponse.t} | {:error, Tesla.Env.t}
+  @spec get_sub_folders(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FoldersResponse.t()} | {:error, Tesla.Env.t()}
   def get_sub_folders(connection, session, parent, columns, opts \\ []) do
     optional_params = %{
-      :"all" => :query,
-      :"tree" => :query,
-      :"allowed_modules" => :query,
-      :"language" => :query,
-      :"errorOnDuplicateName" => :query
+      :all => :query,
+      :tree => :query,
+      :allowed_modules => :query,
+      :language => :query,
+      :errorOnDuplicateName => :query
     }
+
     %{}
     |> method(:get)
     |> url("/folders?action&#x3D;list")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"parent", parent)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :parent, parent)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FoldersResponse{}}
+      {200, %OpenXchangeClient.Model.FoldersResponse{}}
     ])
   end
 
@@ -417,23 +453,25 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FoldersVisibilityResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_visible_folders(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FoldersVisibilityResponse.t} | {:error, Tesla.Env.t}
+  @spec get_visible_folders(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FoldersVisibilityResponse.t()} | {:error, Tesla.Env.t()}
   def get_visible_folders(connection, session, content_type, columns, opts \\ []) do
     optional_params = %{
-      :"tree" => :query,
-      :"language" => :query
+      :tree => :query,
+      :language => :query
     }
+
     %{}
     |> method(:get)
     |> url("/folders?action&#x3D;allVisible")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"content_type", content_type)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :content_type, content_type)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FoldersVisibilityResponse{}}
+      {200, %OpenXchangeClient.Model.FoldersVisibilityResponse{}}
     ])
   end
 
@@ -453,22 +491,31 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FolderSharingNotificationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec notify_about_shared_folder(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.FolderSharingNotificationBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.FolderSharingNotificationResponse.t} | {:error, Tesla.Env.t}
+  @spec notify_about_shared_folder(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.FolderSharingNotificationBody.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.FolderSharingNotificationResponse.t()}
+          | {:error, Tesla.Env.t()}
   def notify_about_shared_folder(connection, session, id, body, opts \\ []) do
     optional_params = %{
-      :"tree" => :query
+      :tree => :query
     }
+
     %{}
     |> method(:put)
     |> url("/folders?action&#x3D;notify")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FolderSharingNotificationResponse{}}
+      {200, %OpenXchangeClient.Model.FolderSharingNotificationResponse{}}
     ])
   end
 
@@ -487,22 +534,24 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FolderRestoreResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec restore_folders(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.FolderRestoreResponse.t} | {:error, Tesla.Env.t}
+  @spec restore_folders(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.FolderRestoreResponse.t()} | {:error, Tesla.Env.t()}
   def restore_folders(connection, session, opts \\ []) do
     optional_params = %{
-      :"tree" => :query,
-      :"pushToken" => :query
+      :tree => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/folders?action&#x3D;restore")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FolderRestoreResponse{}}
+      {200, %OpenXchangeClient.Model.FolderRestoreResponse{}}
     ])
   end
 
@@ -527,28 +576,38 @@ defmodule OpenXchangeClient.Api.Folders do
   {:ok, OpenXchangeClient.Model.FolderUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_folder(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.FolderBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.FolderUpdateResponse.t} | {:ok, OpenXchangeClient.Model.GetJobResponse.t} | {:error, Tesla.Env.t}
+  @spec update_folder(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.FolderBody.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.FolderUpdateResponse.t()}
+          | {:ok, OpenXchangeClient.Model.GetJobResponse.t()}
+          | {:error, Tesla.Env.t()}
   def update_folder(connection, session, id, body, opts \\ []) do
     optional_params = %{
-      :"allow_enqueue" => :query,
-      :"timestamp" => :query,
-      :"tree" => :query,
-      :"allowed_modules" => :query,
-      :"cascadePermissions" => :query,
-      :"pushToken" => :query
+      :allow_enqueue => :query,
+      :timestamp => :query,
+      :tree => :query,
+      :allowed_modules => :query,
+      :cascadePermissions => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/folders?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FolderUpdateResponse{}},
-      { 202, %OpenXchangeClient.Model.GetJobResponse{}}
+      {200, %OpenXchangeClient.Model.FolderUpdateResponse{}},
+      {202, %OpenXchangeClient.Model.GetJobResponse{}}
     ])
   end
 end

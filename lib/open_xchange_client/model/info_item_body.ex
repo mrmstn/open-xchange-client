@@ -4,27 +4,32 @@
 
 defmodule OpenXchangeClient.Model.InfoItemBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"file",
-    :"notification"
+    :file,
+    :notification
   ]
 
   @type t :: %__MODULE__{
-    :"file" => OpenXchangeClient.Model.InfoItemData.t,
-    :"notification" => OpenXchangeClient.Model.InfoItemBodyNotification.t | nil
-  }
+          :file => OpenXchangeClient.Model.InfoItemData.t(),
+          :notification => OpenXchangeClient.Model.InfoItemBodyNotification.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoItemBody do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"file", :struct, OpenXchangeClient.Model.InfoItemData, options)
-    |> deserialize(:"notification", :struct, OpenXchangeClient.Model.InfoItemBodyNotification, options)
+    |> deserialize(:file, :struct, OpenXchangeClient.Model.InfoItemData, options)
+    |> deserialize(
+      :notification,
+      :struct,
+      OpenXchangeClient.Model.InfoItemBodyNotification,
+      options
+    )
   end
 end
-

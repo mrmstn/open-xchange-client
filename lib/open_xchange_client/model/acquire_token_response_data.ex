@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.AcquireTokenResponseData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"token"
+    :token
   ]
 
   @type t :: %__MODULE__{
-    :"token" => String.t | nil
-  }
+          :token => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.AcquireTokenResponseData do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.AcquireTokenResponseData do
     value
   end
 end
-

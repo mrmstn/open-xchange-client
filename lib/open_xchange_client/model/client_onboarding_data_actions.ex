@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.ClientOnboardingDataActions do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"default"
+    :id,
+    :default
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"default" => String.t | nil
-  }
+          :id => String.t() | nil,
+          :default => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ClientOnboardingDataActions do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ClientOnboardingDataActions
     value
   end
 end
-

@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Capabilities do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Gets all capabilities.
 
@@ -24,16 +23,17 @@ defmodule OpenXchangeClient.Api.Capabilities do
   {:ok, OpenXchangeClient.Model.CapabilitiesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_capabilities(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CapabilitiesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_capabilities(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CapabilitiesResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_capabilities(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/capabilities?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CapabilitiesResponse{}}
+      {200, %OpenXchangeClient.Model.CapabilitiesResponse{}}
     ])
   end
 
@@ -51,17 +51,18 @@ defmodule OpenXchangeClient.Api.Capabilities do
   {:ok, OpenXchangeClient.Model.CapabilityResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_capability(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CapabilityResponse.t} | {:error, Tesla.Env.t}
+  @spec get_capability(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CapabilityResponse.t()} | {:error, Tesla.Env.t()}
   def get_capability(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/capabilities?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CapabilityResponse{}}
+      {200, %OpenXchangeClient.Model.CapabilityResponse{}}
     ])
   end
 end

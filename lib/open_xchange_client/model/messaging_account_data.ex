@@ -4,23 +4,23 @@
 
 defmodule OpenXchangeClient.Model.MessagingAccountData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"messagingService",
-    :"displayName",
-    :"configuration"
+    :id,
+    :messagingService,
+    :displayName,
+    :configuration
   ]
 
   @type t :: %__MODULE__{
-    :"id" => integer() | nil,
-    :"messagingService" => String.t | nil,
-    :"displayName" => String.t | nil,
-    :"configuration" => map() | nil
-  }
+          :id => integer() | nil,
+          :messagingService => String.t() | nil,
+          :displayName => String.t() | nil,
+          :configuration => map() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MessagingAccountData do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MessagingAccountData do
     value
   end
 end
-

@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.MailCategories do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Moves mails to the given category
 
@@ -26,18 +25,24 @@ defmodule OpenXchangeClient.Api.MailCategories do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec move_mails(Tesla.Env.client, String.t, String.t, list(OpenXchangeClient.Model.MailCategoriesMoveBody.t), keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec move_mails(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          list(OpenXchangeClient.Model.MailCategoriesMoveBody.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def move_mails(connection, session, category_id, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/mail/categories?action&#x3D;move")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"category_id", category_id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :category_id, category_id)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -59,23 +64,30 @@ defmodule OpenXchangeClient.Api.MailCategories do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec train(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.MailCategoriesTrainBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec train(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.MailCategoriesTrainBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def train(connection, session, category_id, body, opts \\ []) do
     optional_params = %{
       :"apply-for-existing" => :query,
       :"apply-for-future-ones" => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mail/categories?action&#x3D;train")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"category_id", category_id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :category_id, category_id)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -93,20 +105,23 @@ defmodule OpenXchangeClient.Api.MailCategories do
   {:ok, OpenXchangeClient.Model.MailCategoriesUnreadResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec unread(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailCategoriesUnreadResponse.t} | {:error, Tesla.Env.t}
+  @spec unread(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailCategoriesUnreadResponse.t()}
+          | {:error, Tesla.Env.t()}
   def unread(connection, session, opts \\ []) do
     optional_params = %{
-      :"category_ids" => :query
+      :category_ids => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail/categories?action&#x3D;unread")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailCategoriesUnreadResponse{}}
+      {200, %OpenXchangeClient.Model.MailCategoriesUnreadResponse{}}
     ])
   end
 end

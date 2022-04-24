@@ -4,31 +4,31 @@
 
 defmodule OpenXchangeClient.Model.ResourceData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"display_name",
-    :"name",
-    :"mailaddress",
-    :"availability",
-    :"description",
-    :"last_modified",
-    :"last_modified_utc"
+    :id,
+    :display_name,
+    :name,
+    :mailaddress,
+    :availability,
+    :description,
+    :last_modified,
+    :last_modified_utc
   ]
 
   @type t :: %__MODULE__{
-    :"id" => integer() | nil,
-    :"display_name" => String.t | nil,
-    :"name" => String.t | nil,
-    :"mailaddress" => String.t | nil,
-    :"availability" => boolean() | nil,
-    :"description" => String.t | nil,
-    :"last_modified" => String.t | nil,
-    :"last_modified_utc" => String.t | nil
-  }
+          :id => integer() | nil,
+          :display_name => String.t() | nil,
+          :name => String.t() | nil,
+          :mailaddress => String.t() | nil,
+          :availability => boolean() | nil,
+          :description => String.t() | nil,
+          :last_modified => String.t() | nil,
+          :last_modified_utc => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ResourceData do
@@ -36,4 +36,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ResourceData do
     value
   end
 end
-

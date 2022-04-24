@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Creates a mail filter rule.
 
@@ -26,21 +25,28 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.MailFilterCreationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_rule(Tesla.Env.client, String.t, OpenXchangeClient.Model.MailFilterRule.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailFilterCreationResponse.t} | {:error, Tesla.Env.t}
+  @spec create_rule(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MailFilterRule.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MailFilterCreationResponse.t()} | {:error, Tesla.Env.t()}
   def create_rule(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mailfilter?action&#x3D;new")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailFilterCreationResponse{}}
+      {200, %OpenXchangeClient.Model.MailFilterCreationResponse{}}
     ])
   end
 
@@ -59,21 +65,28 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.MailFilterCreationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_rule_0(Tesla.Env.client, String.t, OpenXchangeClient.Model.MailFilterRulev2.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailFilterCreationResponse.t} | {:error, Tesla.Env.t}
+  @spec create_rule_0(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MailFilterRulev2.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MailFilterCreationResponse.t()} | {:error, Tesla.Env.t()}
   def create_rule_0(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mailfilter/v2?action&#x3D;new")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailFilterCreationResponse{}}
+      {200, %OpenXchangeClient.Model.MailFilterCreationResponse{}}
     ])
   end
 
@@ -92,21 +105,27 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_rule(Tesla.Env.client, String.t, OpenXchangeClient.Model.MailFilterDeletionBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_rule(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MailFilterDeletionBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def delete_rule(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mailfilter?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -125,21 +144,27 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_rule_0(Tesla.Env.client, String.t, OpenXchangeClient.Model.MailFilterDeletionBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_rule_0(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MailFilterDeletionBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def delete_rule_0(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mailfilter/v2?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -158,21 +183,23 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_script(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_script(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def delete_script(connection, session, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mailfilter?action&#x3D;deletescript")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -191,21 +218,23 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_script_0(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_script_0(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def delete_script_0(connection, session, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mailfilter/v2?action&#x3D;deletescript")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -224,20 +253,22 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.MailFilterConfigResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_config(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailFilterConfigResponse.t} | {:error, Tesla.Env.t}
+  @spec get_config(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailFilterConfigResponse.t()} | {:error, Tesla.Env.t()}
   def get_config(connection, session, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mailfilter?action&#x3D;config")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailFilterConfigResponse{}}
+      {200, %OpenXchangeClient.Model.MailFilterConfigResponse{}}
     ])
   end
 
@@ -256,20 +287,22 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.MailFilterConfigResponsev2.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_config_0(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailFilterConfigResponsev2.t} | {:error, Tesla.Env.t}
+  @spec get_config_0(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailFilterConfigResponsev2.t()} | {:error, Tesla.Env.t()}
   def get_config_0(connection, session, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mailfilter/v2?action&#x3D;config")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailFilterConfigResponsev2{}}
+      {200, %OpenXchangeClient.Model.MailFilterConfigResponsev2{}}
     ])
   end
 
@@ -288,21 +321,23 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.MailFilterRulesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_rules(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailFilterRulesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_rules(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailFilterRulesResponse.t()} | {:error, Tesla.Env.t()}
   def get_rules(connection, session, opts \\ []) do
     optional_params = %{
-      :"flag" => :query,
-      :"username" => :query
+      :flag => :query,
+      :username => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mailfilter?action&#x3D;list")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailFilterRulesResponse{}}
+      {200, %OpenXchangeClient.Model.MailFilterRulesResponse{}}
     ])
   end
 
@@ -321,21 +356,23 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.MailFilterRulesResponsev2.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_rules_0(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailFilterRulesResponsev2.t} | {:error, Tesla.Env.t}
+  @spec get_rules_0(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailFilterRulesResponsev2.t()} | {:error, Tesla.Env.t()}
   def get_rules_0(connection, session, opts \\ []) do
     optional_params = %{
-      :"flag" => :query,
-      :"username" => :query
+      :flag => :query,
+      :username => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mailfilter/v2?action&#x3D;list")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailFilterRulesResponsev2{}}
+      {200, %OpenXchangeClient.Model.MailFilterRulesResponsev2{}}
     ])
   end
 
@@ -354,21 +391,23 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.MailFilterScriptResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_script(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailFilterScriptResponse.t} | {:error, Tesla.Env.t}
+  @spec get_script(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailFilterScriptResponse.t()} | {:error, Tesla.Env.t()}
   def get_script(connection, session, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mailfilter?action&#x3D;getscript")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailFilterScriptResponse{}}
+      {200, %OpenXchangeClient.Model.MailFilterScriptResponse{}}
     ])
   end
 
@@ -387,21 +426,23 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.MailFilterScriptResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_script_0(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailFilterScriptResponse.t} | {:error, Tesla.Env.t}
+  @spec get_script_0(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailFilterScriptResponse.t()} | {:error, Tesla.Env.t()}
   def get_script_0(connection, session, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mailfilter/v2?action&#x3D;getscript")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailFilterScriptResponse{}}
+      {200, %OpenXchangeClient.Model.MailFilterScriptResponse{}}
     ])
   end
 
@@ -420,21 +461,23 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec reorder_rules(Tesla.Env.client, String.t, list(Integer.t), keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec reorder_rules(Tesla.Env.client(), String.t(), list(Integer.t()), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def reorder_rules(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mailfilter?action&#x3D;reorder")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -453,21 +496,23 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec reorder_rules_0(Tesla.Env.client, String.t, list(Integer.t), keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec reorder_rules_0(Tesla.Env.client(), String.t(), list(Integer.t()), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def reorder_rules_0(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mailfilter/v2?action&#x3D;reorder")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -486,21 +531,27 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_rule(Tesla.Env.client, String.t, OpenXchangeClient.Model.MailFilterRule.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec update_rule(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MailFilterRule.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def update_rule(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mailfilter?action&#x3D;update")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -519,21 +570,27 @@ defmodule OpenXchangeClient.Api.Mailfilter do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_rule_0(Tesla.Env.client, String.t, OpenXchangeClient.Model.MailFilterRulev2.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec update_rule_0(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MailFilterRulev2.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def update_rule_0(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"username" => :query
+      :username => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mailfilter/v2?action&#x3D;update")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 end

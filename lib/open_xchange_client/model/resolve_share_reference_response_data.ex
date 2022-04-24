@@ -4,34 +4,39 @@
 
 defmodule OpenXchangeClient.Model.ResolveShareReferenceResponseData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"shareToken",
-    :"contextId",
-    :"userId",
-    :"files",
-    :"password",
-    :"expiration"
+    :shareToken,
+    :contextId,
+    :userId,
+    :files,
+    :password,
+    :expiration
   ]
 
   @type t :: %__MODULE__{
-    :"shareToken" => String.t | nil,
-    :"contextId" => integer() | nil,
-    :"userId" => integer() | nil,
-    :"files" => [OpenXchangeClient.Model.ResolveShareReferenceResponseDataFiles.t] | nil,
-    :"password" => String.t | nil,
-    :"expiration" => integer() | nil
-  }
+          :shareToken => String.t() | nil,
+          :contextId => integer() | nil,
+          :userId => integer() | nil,
+          :files => [OpenXchangeClient.Model.ResolveShareReferenceResponseDataFiles.t()] | nil,
+          :password => String.t() | nil,
+          :expiration => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ResolveShareReferenceResponseData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"files", :list, OpenXchangeClient.Model.ResolveShareReferenceResponseDataFiles, options)
+    |> deserialize(
+      :files,
+      :list,
+      OpenXchangeClient.Model.ResolveShareReferenceResponseDataFiles,
+      options
+    )
   end
 end
-

@@ -9,18 +9,18 @@ defmodule OpenXchangeClient.Model.Meta do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"type",
-    :"date",
-    :"originalFolderId",
-    :"originalId"
+    :type,
+    :date,
+    :originalFolderId,
+    :originalId
   ]
 
   @type t :: %__MODULE__{
-    :"type" => String.t | nil,
-    :"date" => integer() | nil,
-    :"originalFolderId" => String.t | nil,
-    :"originalId" => String.t | nil
-  }
+          :type => String.t() | nil,
+          :date => integer() | nil,
+          :originalFolderId => String.t() | nil,
+          :originalId => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.Meta do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.Meta do
     value
   end
 end
-

@@ -9,25 +9,35 @@ defmodule OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChal
 
   @derive [Poison.Encoder]
   defstruct [
-    :"phoneNumberTail",
-    :"backupStringLength",
-    :"requestId",
-    :"signRequests"
+    :phoneNumberTail,
+    :backupStringLength,
+    :requestId,
+    :signRequests
   ]
 
   @type t :: %__MODULE__{
-    :"phoneNumberTail" => String.t | nil,
-    :"backupStringLength" => integer() | nil,
-    :"requestId" => String.t | nil,
-    :"signRequests" => [OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChallengeSignRequests.t] | nil
-  }
+          :phoneNumberTail => String.t() | nil,
+          :backupStringLength => integer() | nil,
+          :requestId => String.t() | nil,
+          :signRequests =>
+            [
+              OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChallengeSignRequests.t()
+            ]
+            | nil
+        }
 end
 
-defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChallenge do
+defimpl Poison.Decoder,
+  for: OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChallenge do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"signRequests", :list, OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChallengeSignRequests, options)
+    |> deserialize(
+      :signRequests,
+      :list,
+      OpenXchangeClient.Model.MultifactorStartAuthenticationResponseDataChallengeSignRequests,
+      options
+    )
   end
 end
-

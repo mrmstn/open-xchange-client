@@ -4,26 +4,26 @@
 
 defmodule OpenXchangeClient.Model.ActionResponse do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"data",
-    :"timestamp"
+    :data,
+    :timestamp
   ]
 
   @type t :: %__MODULE__{
-    :"data" => [OpenXchangeClient.Model.EventData.t] | nil,
-    :"timestamp" => integer() | nil
-  }
+          :data => [OpenXchangeClient.Model.EventData.t()] | nil,
+          :timestamp => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ActionResponse do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"data", :list, OpenXchangeClient.Model.EventData, options)
+    |> deserialize(:data, :list, OpenXchangeClient.Model.EventData, options)
   end
 end
-

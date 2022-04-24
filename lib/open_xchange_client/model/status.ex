@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.Status do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"status",
-    :"message"
+    :status,
+    :message
   ]
 
   @type t :: %__MODULE__{
-    :"status" => String.t | nil,
-    :"message" => String.t | nil
-  }
+          :status => String.t() | nil,
+          :message => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.Status do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.Status do
     value
   end
 end
-

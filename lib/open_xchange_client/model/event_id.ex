@@ -4,23 +4,23 @@
 
 defmodule OpenXchangeClient.Model.EventId do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"folder",
-    :"id",
-    :"recurrenceId",
-    :"recurrenceRange"
+    :folder,
+    :id,
+    :recurrenceId,
+    :recurrenceRange
   ]
 
   @type t :: %__MODULE__{
-    :"folder" => String.t,
-    :"id" => String.t,
-    :"recurrenceId" => String.t | nil,
-    :"recurrenceRange" => String.t | nil
-  }
+          :folder => String.t(),
+          :id => String.t(),
+          :recurrenceId => String.t() | nil,
+          :recurrenceRange => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.EventId do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.EventId do
     value
   end
 end
-

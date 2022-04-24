@@ -4,21 +4,21 @@
 
 defmodule OpenXchangeClient.Model.MailAckBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"from",
-    :"folder",
-    :"id"
+    :from,
+    :folder,
+    :id
   ]
 
   @type t :: %__MODULE__{
-    :"from" => String.t | nil,
-    :"folder" => String.t | nil,
-    :"id" => String.t | nil
-  }
+          :from => String.t() | nil,
+          :folder => String.t() | nil,
+          :id => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailAckBody do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailAckBody do
     value
   end
 end
-

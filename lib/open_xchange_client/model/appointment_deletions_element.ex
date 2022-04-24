@@ -4,21 +4,21 @@
 
 defmodule OpenXchangeClient.Model.AppointmentDeletionsElement do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"folder",
-    :"pos"
+    :id,
+    :folder,
+    :pos
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t,
-    :"folder" => String.t,
-    :"pos" => integer() | nil
-  }
+          :id => String.t(),
+          :folder => String.t(),
+          :pos => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.AppointmentDeletionsElement do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.AppointmentDeletionsElement
     value
   end
 end
-

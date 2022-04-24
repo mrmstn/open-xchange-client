@@ -9,28 +9,28 @@ defmodule OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarConfig do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"enabled",
-    :"color",
-    :"usedForSync",
-    :"uri",
-    :"refreshInterval",
-    :"login",
-    :"password",
-    :"itemId",
-    :"locale"
+    :enabled,
+    :color,
+    :usedForSync,
+    :uri,
+    :refreshInterval,
+    :login,
+    :password,
+    :itemId,
+    :locale
   ]
 
   @type t :: %__MODULE__{
-    :"enabled" => boolean() | nil,
-    :"color" => String.t | nil,
-    :"usedForSync" => boolean() | nil,
-    :"uri" => String.t | nil,
-    :"refreshInterval" => integer() | nil,
-    :"login" => String.t | nil,
-    :"password" => String.t | nil,
-    :"itemId" => String.t | nil,
-    :"locale" => String.t | nil
-  }
+          :enabled => boolean() | nil,
+          :color => String.t() | nil,
+          :usedForSync => boolean() | nil,
+          :uri => String.t() | nil,
+          :refreshInterval => integer() | nil,
+          :login => String.t() | nil,
+          :password => String.t() | nil,
+          :itemId => String.t() | nil,
+          :locale => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarConfig do
@@ -38,4 +38,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderDataComOpenexchangeCa
     value
   end
 end
-

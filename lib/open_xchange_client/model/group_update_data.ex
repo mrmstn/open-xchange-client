@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.GroupUpdateData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id"
+    :id
   ]
 
   @type t :: %__MODULE__{
-    :"id" => integer() | nil
-  }
+          :id => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.GroupUpdateData do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.GroupUpdateData do
     value
   end
 end
-

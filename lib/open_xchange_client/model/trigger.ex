@@ -9,16 +9,16 @@ defmodule OpenXchangeClient.Model.Trigger do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"duration",
-    :"related",
-    :"dateTime"
+    :duration,
+    :related,
+    :dateTime
   ]
 
   @type t :: %__MODULE__{
-    :"duration" => String.t | nil,
-    :"related" => String.t | nil,
-    :"dateTime" => String.t | nil
-  }
+          :duration => String.t() | nil,
+          :related => String.t() | nil,
+          :dateTime => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.Trigger do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.Trigger do
     value
   end
 end
-

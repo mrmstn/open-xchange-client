@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.GroupSearchBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"pattern"
+    :pattern
   ]
 
   @type t :: %__MODULE__{
-    :"pattern" => String.t | nil
-  }
+          :pattern => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.GroupSearchBody do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.GroupSearchBody do
     value
   end
 end
-

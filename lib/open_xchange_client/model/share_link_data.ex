@@ -4,29 +4,29 @@
 
 defmodule OpenXchangeClient.Model.ShareLinkData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"url",
-    :"entity",
-    :"is_new",
-    :"expiry_date",
-    :"password",
-    :"includeSubfolders",
-    :"meta"
+    :url,
+    :entity,
+    :is_new,
+    :expiry_date,
+    :password,
+    :includeSubfolders,
+    :meta
   ]
 
   @type t :: %__MODULE__{
-    :"url" => String.t | nil,
-    :"entity" => integer() | nil,
-    :"is_new" => boolean() | nil,
-    :"expiry_date" => integer() | nil,
-    :"password" => String.t | nil,
-    :"includeSubfolders" => boolean() | nil,
-    :"meta" => map() | nil
-  }
+          :url => String.t() | nil,
+          :entity => integer() | nil,
+          :is_new => boolean() | nil,
+          :expiry_date => integer() | nil,
+          :password => String.t() | nil,
+          :includeSubfolders => boolean() | nil,
+          :meta => map() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ShareLinkData do
@@ -34,4 +34,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ShareLinkData do
     value
   end
 end
-

@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.FolderPathData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"title"
+    :id,
+    :title
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"title" => String.t | nil
-  }
+          :id => String.t() | nil,
+          :title => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderPathData do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderPathData do
     value
   end
 end
-

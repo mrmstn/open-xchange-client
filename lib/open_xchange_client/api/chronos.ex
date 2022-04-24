@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Chronos do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Accepts an itip invitation.
 
@@ -27,19 +26,26 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ActionResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec accept(Tesla.Env.client, String.t, String.t, String.t, OpenXchangeClient.Model.ConversionDataSource.t, keyword()) :: {:ok, OpenXchangeClient.Model.ActionResponse.t} | {:error, Tesla.Env.t}
+  @spec accept(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.ConversionDataSource.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ActionResponse.t()} | {:error, Tesla.Env.t()}
   def accept(connection, session, data_source, description_format, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/chronos/itip?action&#x3D;accept")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"dataSource", data_source)
-    |> add_param(:query, :"descriptionFormat", description_format)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :dataSource, data_source)
+    |> add_param(:query, :descriptionFormat, description_format)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ActionResponse{}}
+      {200, %OpenXchangeClient.Model.ActionResponse{}}
     ])
   end
 
@@ -59,19 +65,33 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ActionResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec accept_and_ignore_conflicts(Tesla.Env.client, String.t, String.t, String.t, OpenXchangeClient.Model.ConversionDataSource.t, keyword()) :: {:ok, OpenXchangeClient.Model.ActionResponse.t} | {:error, Tesla.Env.t}
-  def accept_and_ignore_conflicts(connection, session, data_source, description_format, body, _opts \\ []) do
+  @spec accept_and_ignore_conflicts(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.ConversionDataSource.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ActionResponse.t()} | {:error, Tesla.Env.t()}
+  def accept_and_ignore_conflicts(
+        connection,
+        session,
+        data_source,
+        description_format,
+        body,
+        _opts \\ []
+      ) do
     %{}
     |> method(:put)
     |> url("/chronos/itip?action&#x3D;accept_and_ignore_conflicts")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"dataSource", data_source)
-    |> add_param(:query, :"descriptionFormat", description_format)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :dataSource, data_source)
+    |> add_param(:query, :descriptionFormat, description_format)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ActionResponse{}}
+      {200, %OpenXchangeClient.Model.ActionResponse{}}
     ])
   end
 
@@ -93,24 +113,34 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec acknowledge_alarm(Tesla.Env.client, String.t, String.t, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} | {:error, Tesla.Env.t}
+  @spec acknowledge_alarm(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t()}
+          | {:error, Tesla.Env.t()}
   def acknowledge_alarm(connection, session, id, folder, alarm_id, opts \\ []) do
     optional_params = %{
-      :"extendedEntities" => :query,
-      :"pushToken" => :query
+      :extendedEntities => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:get)
     |> url("/chronos/alarm?action&#x3D;ack")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"alarmId", alarm_id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :alarmId, alarm_id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
+      {200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
     ])
   end
 
@@ -131,23 +161,31 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.AnalyzeResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec analyze(Tesla.Env.client, String.t, String.t, String.t, OpenXchangeClient.Model.ConversionDataSource.t, keyword()) :: {:ok, OpenXchangeClient.Model.AnalyzeResponse.t} | {:error, Tesla.Env.t}
+  @spec analyze(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.ConversionDataSource.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.AnalyzeResponse.t()} | {:error, Tesla.Env.t()}
   def analyze(connection, session, data_source, description_format, body, opts \\ []) do
     optional_params = %{
-      :"timezone" => :query
+      :timezone => :query
     }
+
     %{}
     |> method(:put)
     |> url("/chronos/itip?action&#x3D;analyze")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"dataSource", data_source)
-    |> add_param(:query, :"descriptionFormat", description_format)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :dataSource, data_source)
+    |> add_param(:query, :descriptionFormat, description_format)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AnalyzeResponse{}}
+      {200, %OpenXchangeClient.Model.AnalyzeResponse{}}
     ])
   end
 
@@ -167,22 +205,24 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.BrowseResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec browse(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.BrowseResponse.t} | {:error, Tesla.Env.t}
+  @spec browse(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.BrowseResponse.t()} | {:error, Tesla.Env.t()}
   def browse(connection, session, opts \\ []) do
     optional_params = %{
-      :"id" => :query,
-      :"language" => :query,
-      :"country" => :query
+      :id => :query,
+      :language => :query,
+      :country => :query
     }
+
     %{}
     |> method(:get)
     |> url("/chronos/schedjoules?action&#x3D;browse")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.BrowseResponse{}}
+      {200, %OpenXchangeClient.Model.BrowseResponse{}}
     ])
   end
 
@@ -210,30 +250,49 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec change_organizer(Tesla.Env.client, String.t, String.t, String.t, integer(), OpenXchangeClient.Model.InlineObject3.t, keyword()) :: {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} | {:error, Tesla.Env.t}
-  def change_organizer(connection, session, folder, id, timestamp, change_organizer_body, opts \\ []) do
+  @spec change_organizer(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.InlineObject3.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t()}
+          | {:error, Tesla.Env.t()}
+  def change_organizer(
+        connection,
+        session,
+        folder,
+        id,
+        timestamp,
+        change_organizer_body,
+        opts \\ []
+      ) do
     optional_params = %{
-      :"recurrenceId" => :query,
-      :"recurrenceRange" => :query,
-      :"expand" => :query,
-      :"fields" => :query,
-      :"pushToken" => :query,
-      :"rangeStart" => :query,
-      :"rangeEnd" => :query
+      :recurrenceId => :query,
+      :recurrenceRange => :query,
+      :expand => :query,
+      :fields => :query,
+      :pushToken => :query,
+      :rangeStart => :query,
+      :rangeEnd => :query
     }
+
     %{}
     |> method(:put)
     |> url("/chronos?action&#x3D;changeOrganizer")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, change_organizer_body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
+      {200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
     ])
   end
 
@@ -251,20 +310,22 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.CountriesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec countries(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CountriesResponse.t} | {:error, Tesla.Env.t}
+  @spec countries(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CountriesResponse.t()} | {:error, Tesla.Env.t()}
   def countries(connection, session, opts \\ []) do
     optional_params = %{
-      :"language" => :query
+      :language => :query
     }
+
     %{}
     |> method(:get)
     |> url("/chronos/schedjoules?action&#x3D;countries")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CountriesResponse{}}
+      {200, %OpenXchangeClient.Model.CountriesResponse{}}
     ])
   end
 
@@ -291,29 +352,38 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_event(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.EventData.t, keyword()) :: {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} | {:error, Tesla.Env.t}
+  @spec create_event(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.EventData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t()}
+          | {:error, Tesla.Env.t()}
   def create_event(connection, session, folder, body, opts \\ []) do
     optional_params = %{
-      :"checkConflicts" => :query,
-      :"sendInternalNotifications" => :query,
-      :"extendedEntities" => :query,
-      :"pushToken" => :query,
-      :"rangeStart" => :query,
-      :"rangeEnd" => :query,
-      :"expand" => :query,
-      :"usedGroups" => :query
+      :checkConflicts => :query,
+      :sendInternalNotifications => :query,
+      :extendedEntities => :query,
+      :pushToken => :query,
+      :rangeStart => :query,
+      :rangeEnd => :query,
+      :expand => :query,
+      :usedGroups => :query
     }
+
     %{}
     |> method(:put)
     |> url("/chronos?action&#x3D;new")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
+      {200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
     ])
   end
 
@@ -338,26 +408,34 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_event_with_attachments(Tesla.Env.client, String.t, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec create_event_with_attachments(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def create_event_with_attachments(connection, session, folder, json0, file0, opts \\ []) do
     optional_params = %{
-      :"checkConflicts" => :query,
-      :"sendInternalNotifications" => :query,
-      :"extendedEntities" => :query,
-      :"usedGroups" => :query
+      :checkConflicts => :query,
+      :sendInternalNotifications => :query,
+      :extendedEntities => :query,
+      :usedGroups => :query
     }
+
     %{}
     |> method(:post)
     |> url("/chronos?action&#x3D;new")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:form, :"json_0", json0)
-    |> add_param(:file, :"file_0", file0)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:form, :json_0, json0)
+    |> add_param(:file, :file_0, file0)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -377,19 +455,26 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ActionResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec decline(Tesla.Env.client, String.t, String.t, String.t, OpenXchangeClient.Model.ConversionDataSource.t, keyword()) :: {:ok, OpenXchangeClient.Model.ActionResponse.t} | {:error, Tesla.Env.t}
+  @spec decline(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.ConversionDataSource.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ActionResponse.t()} | {:error, Tesla.Env.t()}
   def decline(connection, session, data_source, description_format, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/chronos/itip?action&#x3D;decline")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"dataSource", data_source)
-    |> add_param(:query, :"descriptionFormat", description_format)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :dataSource, data_source)
+    |> add_param(:query, :descriptionFormat, description_format)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ActionResponse{}}
+      {200, %OpenXchangeClient.Model.ActionResponse{}}
     ])
   end
 
@@ -414,27 +499,36 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ChronosMultipleCalendarResultResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_event(Tesla.Env.client, String.t, integer(), OpenXchangeClient.Model.InlineObject2.t, keyword()) :: {:ok, OpenXchangeClient.Model.ChronosMultipleCalendarResultResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_event(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.InlineObject2.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.ChronosMultipleCalendarResultResponse.t()}
+          | {:error, Tesla.Env.t()}
   def delete_event(connection, session, timestamp, delete_body, opts \\ []) do
     optional_params = %{
-      :"rangeStart" => :query,
-      :"rangeEnd" => :query,
-      :"expand" => :query,
-      :"extendedEntities" => :query,
-      :"fields" => :query,
-      :"pushToken" => :query
+      :rangeStart => :query,
+      :rangeEnd => :query,
+      :expand => :query,
+      :extendedEntities => :query,
+      :fields => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/chronos?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, delete_body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ChronosMultipleCalendarResultResponse{}}
+      {200, %OpenXchangeClient.Model.ChronosMultipleCalendarResultResponse{}}
     ])
   end
 
@@ -456,24 +550,32 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ChronosFreeBusyResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec freebusy(Tesla.Env.client, String.t, String.t, String.t, OpenXchangeClient.Model.FreeBusyBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.ChronosFreeBusyResponse.t} | {:error, Tesla.Env.t}
+  @spec freebusy(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.FreeBusyBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ChronosFreeBusyResponse.t()} | {:error, Tesla.Env.t()}
   def freebusy(connection, session, from, until, body, opts \\ []) do
     optional_params = %{
-      :"maskId" => :query,
-      :"merge" => :query
+      :maskId => :query,
+      :merge => :query
     }
+
     %{}
     |> method(:put)
     |> url("/chronos?action&#x3D;freeBusy")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"from", from)
-    |> add_param(:query, :"until", until)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :from, from)
+    |> add_param(:query, :until, until)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ChronosFreeBusyResponse{}}
+      {200, %OpenXchangeClient.Model.ChronosFreeBusyResponse{}}
     ])
   end
 
@@ -492,21 +594,23 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.AlarmTriggerResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_alarm_trigger(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.AlarmTriggerResponse.t} | {:error, Tesla.Env.t}
+  @spec get_alarm_trigger(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.AlarmTriggerResponse.t()} | {:error, Tesla.Env.t()}
   def get_alarm_trigger(connection, session, range_end, opts \\ []) do
     optional_params = %{
-      :"actions" => :query
+      :actions => :query
     }
+
     %{}
     |> method(:get)
     |> url("/chronos/alarm?action&#x3D;pending")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"rangeEnd", range_end)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :rangeEnd, range_end)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AlarmTriggerResponse{}}
+      {200, %OpenXchangeClient.Model.AlarmTriggerResponse{}}
     ])
   end
 
@@ -532,28 +636,30 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.EventsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_events(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.EventsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_events(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.EventsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_events(connection, session, range_start, range_end, opts \\ []) do
     optional_params = %{
-      :"folder" => :query,
-      :"fields" => :query,
-      :"order" => :query,
-      :"sort" => :query,
-      :"expand" => :query,
-      :"extendedEntities" => :query,
-      :"updateCache" => :query
+      :folder => :query,
+      :fields => :query,
+      :order => :query,
+      :sort => :query,
+      :expand => :query,
+      :extendedEntities => :query,
+      :updateCache => :query
     }
+
     %{}
     |> method(:get)
     |> url("/chronos?action&#x3D;all")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"rangeStart", range_start)
-    |> add_param(:query, :"rangeEnd", range_end)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :rangeStart, range_start)
+    |> add_param(:query, :rangeEnd, range_end)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.EventsResponse{}}
+      {200, %OpenXchangeClient.Model.EventsResponse{}}
     ])
   end
 
@@ -578,27 +684,44 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.MultipleFolderEventsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_events_for_multiple_folders(Tesla.Env.client, String.t, String.t, String.t, OpenXchangeClient.Model.ChronosFolderBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.MultipleFolderEventsResponse.t} | {:error, Tesla.Env.t}
-  def get_all_events_for_multiple_folders(connection, session, range_start, range_end, body, opts \\ []) do
+  @spec get_all_events_for_multiple_folders(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.ChronosFolderBody.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MultipleFolderEventsResponse.t()}
+          | {:error, Tesla.Env.t()}
+  def get_all_events_for_multiple_folders(
+        connection,
+        session,
+        range_start,
+        range_end,
+        body,
+        opts \\ []
+      ) do
     optional_params = %{
-      :"fields" => :query,
-      :"order" => :query,
-      :"sort" => :query,
-      :"expand" => :query,
-      :"updateCache" => :query
+      :fields => :query,
+      :order => :query,
+      :sort => :query,
+      :expand => :query,
+      :updateCache => :query
     }
+
     %{}
     |> method(:put)
     |> url("/chronos?action&#x3D;all")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"rangeStart", range_start)
-    |> add_param(:query, :"rangeEnd", range_end)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :rangeStart, range_start)
+    |> add_param(:query, :rangeEnd, range_end)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MultipleFolderEventsResponse{}}
+      {200, %OpenXchangeClient.Model.MultipleFolderEventsResponse{}}
     ])
   end
 
@@ -615,16 +738,17 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.GetAvailabilityResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_availability(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.GetAvailabilityResponse.t} | {:error, Tesla.Env.t}
+  @spec get_availability(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.GetAvailabilityResponse.t()} | {:error, Tesla.Env.t()}
   def get_availability(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/chronos/availability?action&#x3D;get")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.GetAvailabilityResponse{}}
+      {200, %OpenXchangeClient.Model.GetAvailabilityResponse{}}
     ])
   end
 
@@ -646,24 +770,26 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.EventResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_event(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.EventResponse.t} | {:error, Tesla.Env.t}
+  @spec get_event(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.EventResponse.t()} | {:error, Tesla.Env.t()}
   def get_event(connection, session, id, folder, opts \\ []) do
     optional_params = %{
-      :"recurrenceId" => :query,
-      :"fields" => :query,
-      :"extendedEntities" => :query
+      :recurrenceId => :query,
+      :fields => :query,
+      :extendedEntities => :query
     }
+
     %{}
     |> method(:get)
     |> url("/chronos?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.EventResponse{}}
+      {200, %OpenXchangeClient.Model.EventResponse{}}
     ])
   end
 
@@ -683,19 +809,26 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_event_attachment(Tesla.Env.client, String.t, String.t, String.t, integer(), keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_event_attachment(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_event_attachment(connection, session, id, folder, managed_id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/chronos?action&#x3D;getAttachment")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"managedId", managed_id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :managedId, managed_id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -715,22 +848,28 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.EventsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_event_list(Tesla.Env.client, String.t, list(OpenXchangeClient.Model.EventId.t), keyword()) :: {:ok, OpenXchangeClient.Model.EventsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_event_list(
+          Tesla.Env.client(),
+          String.t(),
+          list(OpenXchangeClient.Model.EventId.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.EventsResponse.t()} | {:error, Tesla.Env.t()}
   def get_event_list(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"fields" => :query,
-      :"extendedEntities" => :query
+      :fields => :query,
+      :extendedEntities => :query
     }
+
     %{}
     |> method(:put)
     |> url("/chronos?action&#x3D;list")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.EventsResponse{}}
+      {200, %OpenXchangeClient.Model.EventsResponse{}}
     ])
   end
 
@@ -753,25 +892,32 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.EventsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_events_needing_action(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.EventsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_events_needing_action(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.EventsResponse.t()} | {:error, Tesla.Env.t()}
   def get_events_needing_action(connection, session, range_start, range_end, opts \\ []) do
     optional_params = %{
-      :"fields" => :query,
-      :"order" => :query,
-      :"sort" => :query,
-      :"extendedEntities" => :query
+      :fields => :query,
+      :order => :query,
+      :sort => :query,
+      :extendedEntities => :query
     }
+
     %{}
     |> method(:get)
     |> url("/chronos?action&#x3D;needsAction")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"rangeStart", range_start)
-    |> add_param(:query, :"rangeEnd", range_end)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :rangeStart, range_start)
+    |> add_param(:query, :rangeEnd, range_end)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.EventsResponse{}}
+      {200, %OpenXchangeClient.Model.EventsResponse{}}
     ])
   end
 
@@ -797,28 +943,30 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ChronosUpdatesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_updates(Tesla.Env.client, String.t, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.ChronosUpdatesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_updates(Tesla.Env.client(), String.t(), String.t(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.ChronosUpdatesResponse.t()} | {:error, Tesla.Env.t()}
   def get_updates(connection, session, folder, timestamp, opts \\ []) do
     optional_params = %{
-      :"rangeStart" => :query,
-      :"rangeEnd" => :query,
-      :"fields" => :query,
-      :"order" => :query,
-      :"sort" => :query,
-      :"expand" => :query,
-      :"extendedEntities" => :query
+      :rangeStart => :query,
+      :rangeEnd => :query,
+      :fields => :query,
+      :order => :query,
+      :sort => :query,
+      :expand => :query,
+      :extendedEntities => :query
     }
+
     %{}
     |> method(:get)
     |> url("/chronos?action&#x3D;updates")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ChronosUpdatesResponse{}}
+      {200, %OpenXchangeClient.Model.ChronosUpdatesResponse{}}
     ])
   end
 
@@ -838,19 +986,26 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_zipped_event_attachments(Tesla.Env.client, String.t, String.t, String.t, list(String.t), keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_zipped_event_attachments(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          list(String.t()),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_zipped_event_attachments(connection, session, id, folder, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/chronos?action&#x3D;zipAttachments")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -867,16 +1022,17 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.LanguagesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec languages(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.LanguagesResponse.t} | {:error, Tesla.Env.t}
+  @spec languages(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.LanguagesResponse.t()} | {:error, Tesla.Env.t()}
   def languages(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/chronos/schedjoules?action&#x3D;languages")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.LanguagesResponse{}}
+      {200, %OpenXchangeClient.Model.LanguagesResponse{}}
     ])
   end
 
@@ -905,32 +1061,43 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec move_event(Tesla.Env.client, String.t, String.t, String.t, integer(), String.t, keyword()) :: {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} | {:error, Tesla.Env.t}
+  @spec move_event(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          String.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t()}
+          | {:error, Tesla.Env.t()}
   def move_event(connection, session, folder, id, timestamp, target_folder, opts \\ []) do
     optional_params = %{
-      :"checkConflicts" => :query,
-      :"recurrenceId" => :query,
-      :"sendInternalNotifications" => :query,
-      :"extendedEntities" => :query,
-      :"pushToken" => :query,
-      :"rangeStart" => :query,
-      :"rangeEnd" => :query,
-      :"expand" => :query
+      :checkConflicts => :query,
+      :recurrenceId => :query,
+      :sendInternalNotifications => :query,
+      :extendedEntities => :query,
+      :pushToken => :query,
+      :rangeStart => :query,
+      :rangeEnd => :query,
+      :expand => :query
     }
+
     %{}
     |> method(:put)
     |> url("/chronos?action&#x3D;move")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
-    |> add_param(:query, :"targetFolder", target_folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
+    |> add_param(:query, :targetFolder, target_folder)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
+      {200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
     ])
   end
 
@@ -948,17 +1115,24 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.CalendarAccountProbeResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec probe(Tesla.Env.client, String.t, OpenXchangeClient.Model.CalendarAccountProbeData.t, keyword()) :: {:ok, OpenXchangeClient.Model.CalendarAccountProbeResponse.t} | {:error, Tesla.Env.t}
+  @spec probe(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.CalendarAccountProbeData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.CalendarAccountProbeResponse.t()}
+          | {:error, Tesla.Env.t()}
   def probe(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/chronos/account?action&#x3D;probe")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CalendarAccountProbeResponse{}}
+      {200, %OpenXchangeClient.Model.CalendarAccountProbeResponse{}}
     ])
   end
 
@@ -978,22 +1152,24 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.EventResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec resolve_event(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.EventResponse.t} | {:error, Tesla.Env.t}
+  @spec resolve_event(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.EventResponse.t()} | {:error, Tesla.Env.t()}
   def resolve_event(connection, session, id, opts \\ []) do
     optional_params = %{
-      :"fields" => :query,
-      :"extendedEntities" => :query
+      :fields => :query,
+      :extendedEntities => :query
     }
+
     %{}
     |> method(:get)
     |> url("/chronos?action&#x3D;resolve")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.EventResponse{}}
+      {200, %OpenXchangeClient.Model.EventResponse{}}
     ])
   end
 
@@ -1013,22 +1189,24 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.SearchResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec search(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.SearchResponse.t} | {:error, Tesla.Env.t}
+  @spec search(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.SearchResponse.t()} | {:error, Tesla.Env.t()}
   def search(connection, session, query, opts \\ []) do
     optional_params = %{
-      :"language" => :query,
-      :"maxRows" => :query
+      :language => :query,
+      :maxRows => :query
     }
+
     %{}
     |> method(:get)
     |> url("/chronos/schedjoules?action&#x3D;search")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"query", query)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :query, query)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.SearchResponse{}}
+      {200, %OpenXchangeClient.Model.SearchResponse{}}
     ])
   end
 
@@ -1046,17 +1224,22 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec set_availability(Tesla.Env.client, String.t, OpenXchangeClient.Model.AvailabilityData.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec set_availability(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.AvailabilityData.t(),
+          keyword()
+        ) :: {:ok, nil} | {:error, Tesla.Env.t()}
   def set_availability(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/chronos/availability?action&#x3D;set")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -1079,25 +1262,36 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec snooze_alarm(Tesla.Env.client, String.t, String.t, String.t, integer(), integer(), keyword()) :: {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} | {:error, Tesla.Env.t}
+  @spec snooze_alarm(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          integer(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t()}
+          | {:error, Tesla.Env.t()}
   def snooze_alarm(connection, session, id, folder, alarm_id, snooze_time, opts \\ []) do
     optional_params = %{
-      :"extendedEntities" => :query,
-      :"pushToken" => :query
+      :extendedEntities => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:get)
     |> url("/chronos/alarm?action&#x3D;snooze")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"alarmId", alarm_id)
-    |> add_param(:query, :"snoozeTime", snooze_time)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :alarmId, alarm_id)
+    |> add_param(:query, :snoozeTime, snooze_time)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
+      {200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
     ])
   end
 
@@ -1117,19 +1311,26 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ActionResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec tentative(Tesla.Env.client, String.t, String.t, String.t, OpenXchangeClient.Model.ConversionDataSource.t, keyword()) :: {:ok, OpenXchangeClient.Model.ActionResponse.t} | {:error, Tesla.Env.t}
+  @spec tentative(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.ConversionDataSource.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ActionResponse.t()} | {:error, Tesla.Env.t()}
   def tentative(connection, session, data_source, description_format, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/chronos/itip?action&#x3D;tentative")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"dataSource", data_source)
-    |> add_param(:query, :"descriptionFormat", description_format)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :dataSource, data_source)
+    |> add_param(:query, :descriptionFormat, description_format)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ActionResponse{}}
+      {200, %OpenXchangeClient.Model.ActionResponse{}}
     ])
   end
 
@@ -1149,19 +1350,26 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ActionResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update(Tesla.Env.client, String.t, String.t, String.t, OpenXchangeClient.Model.ConversionDataSource.t, keyword()) :: {:ok, OpenXchangeClient.Model.ActionResponse.t} | {:error, Tesla.Env.t}
+  @spec update(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.ConversionDataSource.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ActionResponse.t()} | {:error, Tesla.Env.t()}
   def update(connection, session, data_source, description_format, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/chronos/itip?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"dataSource", data_source)
-    |> add_param(:query, :"descriptionFormat", description_format)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :dataSource, data_source)
+    |> add_param(:query, :descriptionFormat, description_format)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ActionResponse{}}
+      {200, %OpenXchangeClient.Model.ActionResponse{}}
     ])
   end
 
@@ -1185,26 +1393,37 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_alarms(Tesla.Env.client, String.t, String.t, String.t, integer(), list(OpenXchangeClient.Model.Alarm.t), keyword()) :: {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} | {:error, Tesla.Env.t}
+  @spec update_alarms(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          list(OpenXchangeClient.Model.Alarm.t()),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t()}
+          | {:error, Tesla.Env.t()}
   def update_alarms(connection, session, folder, id, timestamp, body, opts \\ []) do
     optional_params = %{
-      :"recurrenceId" => :query,
-      :"extendedEntities" => :query,
-      :"pushToken" => :query
+      :recurrenceId => :query,
+      :extendedEntities => :query,
+      :pushToken => :query
     }
+
     %{}
     |> method(:put)
     |> url("/chronos/alarm?action&#x3D;updateAlarms")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
+      {200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
     ])
   end
 
@@ -1233,31 +1452,42 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_attendee(Tesla.Env.client, String.t, String.t, String.t, integer(), OpenXchangeClient.Model.AttendeeAndAlarm.t, keyword()) :: {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} | {:error, Tesla.Env.t}
+  @spec update_attendee(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.AttendeeAndAlarm.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t()}
+          | {:error, Tesla.Env.t()}
   def update_attendee(connection, session, folder, id, timestamp, body, opts \\ []) do
     optional_params = %{
-      :"recurrenceId" => :query,
-      :"sendInternalNotifications" => :query,
-      :"extendedEntities" => :query,
-      :"pushToken" => :query,
-      :"checkConflicts" => :query,
-      :"rangeStart" => :query,
-      :"rangeEnd" => :query,
-      :"expand" => :query
+      :recurrenceId => :query,
+      :sendInternalNotifications => :query,
+      :extendedEntities => :query,
+      :pushToken => :query,
+      :checkConflicts => :query,
+      :rangeStart => :query,
+      :rangeEnd => :query,
+      :expand => :query
     }
+
     %{}
     |> method(:put)
     |> url("/chronos?action&#x3D;updateAttendee")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
+      {200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
     ])
   end
 
@@ -1288,33 +1518,44 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_event(Tesla.Env.client, String.t, String.t, String.t, integer(), OpenXchangeClient.Model.InlineObject1.t, keyword()) :: {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} | {:error, Tesla.Env.t}
+  @spec update_event(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.InlineObject1.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t()}
+          | {:error, Tesla.Env.t()}
   def update_event(connection, session, folder, id, timestamp, update_body, opts \\ []) do
     optional_params = %{
-      :"recurrenceId" => :query,
-      :"recurrenceRange" => :query,
-      :"checkConflicts" => :query,
-      :"sendInternalNotifications" => :query,
-      :"extendedEntities" => :query,
-      :"pushToken" => :query,
-      :"rangeStart" => :query,
-      :"rangeEnd" => :query,
-      :"expand" => :query,
-      :"usedGroups" => :query
+      :recurrenceId => :query,
+      :recurrenceRange => :query,
+      :checkConflicts => :query,
+      :sendInternalNotifications => :query,
+      :extendedEntities => :query,
+      :pushToken => :query,
+      :rangeStart => :query,
+      :rangeEnd => :query,
+      :expand => :query,
+      :usedGroups => :query
     }
+
     %{}
     |> method(:put)
     |> url("/chronos?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, update_body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
+      {200, %OpenXchangeClient.Model.ChronosCalendarResultResponse{}}
     ])
   end
 
@@ -1342,29 +1583,48 @@ defmodule OpenXchangeClient.Api.Chronos do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_event_with_attachments(Tesla.Env.client, String.t, String.t, String.t, integer(), String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
-  def update_event_with_attachments(connection, session, folder, id, timestamp, json0, file0, opts \\ []) do
+  @spec update_event_with_attachments(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
+  def update_event_with_attachments(
+        connection,
+        session,
+        folder,
+        id,
+        timestamp,
+        json0,
+        file0,
+        opts \\ []
+      ) do
     optional_params = %{
-      :"recurrenceId" => :query,
-      :"checkConflicts" => :query,
-      :"sendInternalNotifications" => :query,
-      :"extendedEntities" => :query,
-      :"usedGroups" => :query
+      :recurrenceId => :query,
+      :checkConflicts => :query,
+      :sendInternalNotifications => :query,
+      :extendedEntities => :query,
+      :usedGroups => :query
     }
+
     %{}
     |> method(:post)
     |> url("/chronos?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
-    |> add_param(:form, :"json_0", json0)
-    |> add_param(:file, :"file_0", file0)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
+    |> add_param(:form, :json_0, json0)
+    |> add_param(:file, :file_0, file0)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 end

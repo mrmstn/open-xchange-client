@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Groups do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Creates a group.
 
@@ -25,17 +24,22 @@ defmodule OpenXchangeClient.Api.Groups do
   {:ok, OpenXchangeClient.Model.GroupUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_group(Tesla.Env.client, String.t, OpenXchangeClient.Model.GroupData.t, keyword()) :: {:ok, OpenXchangeClient.Model.GroupUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec create_group(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.GroupData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.GroupUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def create_group(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/group?action&#x3D;new")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.GroupUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.GroupUpdateResponse{}}
     ])
   end
 
@@ -54,18 +58,24 @@ defmodule OpenXchangeClient.Api.Groups do
   {:ok, OpenXchangeClient.Model.GroupsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_group(Tesla.Env.client, String.t, integer(), OpenXchangeClient.Model.GroupListElement.t, keyword()) :: {:ok, OpenXchangeClient.Model.GroupsResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_group(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.GroupListElement.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.GroupsResponse.t()} | {:error, Tesla.Env.t()}
   def delete_group(connection, session, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/group?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.GroupsResponse{}}
+      {200, %OpenXchangeClient.Model.GroupsResponse{}}
     ])
   end
 
@@ -83,18 +93,19 @@ defmodule OpenXchangeClient.Api.Groups do
   {:ok, OpenXchangeClient.Model.GroupsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_groups(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.GroupsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_groups(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.GroupsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_groups(connection, session, columns, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/group?action&#x3D;all")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.GroupsResponse{}}
+      {200, %OpenXchangeClient.Model.GroupsResponse{}}
     ])
   end
 
@@ -112,17 +123,18 @@ defmodule OpenXchangeClient.Api.Groups do
   {:ok, OpenXchangeClient.Model.GroupResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_group(Tesla.Env.client, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.GroupResponse.t} | {:error, Tesla.Env.t}
+  @spec get_group(Tesla.Env.client(), String.t(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.GroupResponse.t()} | {:error, Tesla.Env.t()}
   def get_group(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/group?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.GroupResponse{}}
+      {200, %OpenXchangeClient.Model.GroupResponse{}}
     ])
   end
 
@@ -140,17 +152,22 @@ defmodule OpenXchangeClient.Api.Groups do
   {:ok, OpenXchangeClient.Model.GroupsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_group_list(Tesla.Env.client, String.t, list(OpenXchangeClient.Model.GroupListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.GroupsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_group_list(
+          Tesla.Env.client(),
+          String.t(),
+          list(OpenXchangeClient.Model.GroupListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.GroupsResponse.t()} | {:error, Tesla.Env.t()}
   def get_group_list(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/group?action&#x3D;list")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.GroupsResponse{}}
+      {200, %OpenXchangeClient.Model.GroupsResponse{}}
     ])
   end
 
@@ -168,17 +185,18 @@ defmodule OpenXchangeClient.Api.Groups do
   {:ok, OpenXchangeClient.Model.GroupUpdatesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_group_updates(Tesla.Env.client, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.GroupUpdatesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_group_updates(Tesla.Env.client(), String.t(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.GroupUpdatesResponse.t()} | {:error, Tesla.Env.t()}
   def get_group_updates(connection, session, timestamp, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/group?action&#x3D;updates")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :timestamp, timestamp)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.GroupUpdatesResponse{}}
+      {200, %OpenXchangeClient.Model.GroupUpdatesResponse{}}
     ])
   end
 
@@ -196,17 +214,22 @@ defmodule OpenXchangeClient.Api.Groups do
   {:ok, OpenXchangeClient.Model.GroupsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec search_groups(Tesla.Env.client, String.t, OpenXchangeClient.Model.GroupSearchBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.GroupsResponse.t} | {:error, Tesla.Env.t}
+  @spec search_groups(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.GroupSearchBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.GroupsResponse.t()} | {:error, Tesla.Env.t()}
   def search_groups(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/group?action&#x3D;search")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.GroupsResponse{}}
+      {200, %OpenXchangeClient.Model.GroupsResponse{}}
     ])
   end
 
@@ -226,19 +249,26 @@ defmodule OpenXchangeClient.Api.Groups do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_group(Tesla.Env.client, String.t, integer(), integer(), OpenXchangeClient.Model.GroupData.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec update_group(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          integer(),
+          OpenXchangeClient.Model.GroupData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def update_group(connection, session, id, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/group?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 end

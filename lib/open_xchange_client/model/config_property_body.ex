@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.ConfigPropertyBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"value"
+    :value
   ]
 
   @type t :: %__MODULE__{
-    :"value" => String.t | nil
-  }
+          :value => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ConfigPropertyBody do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ConfigPropertyBody do
     value
   end
 end
-

@@ -4,41 +4,41 @@
 
 defmodule OpenXchangeClient.Model.MessagingMessageData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"folder",
-    :"threadLevel",
-    :"flags",
-    :"receivedDate",
-    :"colorLabel",
-    :"user",
-    :"size",
-    :"picture",
-    :"url",
-    :"sectionId",
-    :"headers",
-    :"body"
+    :id,
+    :folder,
+    :threadLevel,
+    :flags,
+    :receivedDate,
+    :colorLabel,
+    :user,
+    :size,
+    :picture,
+    :url,
+    :sectionId,
+    :headers,
+    :body
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"folder" => String.t | nil,
-    :"threadLevel" => integer() | nil,
-    :"flags" => integer() | nil,
-    :"receivedDate" => integer() | nil,
-    :"colorLabel" => integer() | nil,
-    :"user" => [String.t] | nil,
-    :"size" => integer() | nil,
-    :"picture" => String.t | nil,
-    :"url" => String.t | nil,
-    :"sectionId" => String.t | nil,
-    :"headers" => map() | nil,
-    :"body" => map() | nil
-  }
+          :id => String.t() | nil,
+          :folder => String.t() | nil,
+          :threadLevel => integer() | nil,
+          :flags => integer() | nil,
+          :receivedDate => integer() | nil,
+          :colorLabel => integer() | nil,
+          :user => [String.t()] | nil,
+          :size => integer() | nil,
+          :picture => String.t() | nil,
+          :url => String.t() | nil,
+          :sectionId => String.t() | nil,
+          :headers => map() | nil,
+          :body => map() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MessagingMessageData do
@@ -46,4 +46,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MessagingMessageData do
     value
   end
 end
-

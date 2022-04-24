@@ -4,28 +4,28 @@
 
 defmodule OpenXchangeClient.Model.FindActiveFacet do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"facet",
-    :"value",
-    :"filter"
+    :facet,
+    :value,
+    :filter
   ]
 
   @type t :: %__MODULE__{
-    :"facet" => String.t | nil,
-    :"value" => String.t | nil,
-    :"filter" => OpenXchangeClient.Model.FindActiveFacetFilter.t | nil
-  }
+          :facet => String.t() | nil,
+          :value => String.t() | nil,
+          :filter => OpenXchangeClient.Model.FindActiveFacetFilter.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FindActiveFacet do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"filter", :struct, OpenXchangeClient.Model.FindActiveFacetFilter, options)
+    |> deserialize(:filter, :struct, OpenXchangeClient.Model.FindActiveFacetFilter, options)
   end
 end
-

@@ -4,42 +4,42 @@
 
 defmodule OpenXchangeClient.Model.ChronosErrorAwareCalendarResult do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"folderId",
-    :"id",
-    :"recurrenceId",
-    :"error",
-    :"created",
-    :"updated",
-    :"deleted",
-    :"conflicts"
+    :folderId,
+    :id,
+    :recurrenceId,
+    :error,
+    :created,
+    :updated,
+    :deleted,
+    :conflicts
   ]
 
   @type t :: %__MODULE__{
-    :"folderId" => String.t | nil,
-    :"id" => String.t | nil,
-    :"recurrenceId" => String.t | nil,
-    :"error" => OpenXchangeClient.Model.Error.t | nil,
-    :"created" => [OpenXchangeClient.Model.EventData.t] | nil,
-    :"updated" => [OpenXchangeClient.Model.EventData.t] | nil,
-    :"deleted" => [OpenXchangeClient.Model.EventData.t] | nil,
-    :"conflicts" => [OpenXchangeClient.Model.ChronosConflictDataRaw.t] | nil
-  }
+          :folderId => String.t() | nil,
+          :id => String.t() | nil,
+          :recurrenceId => String.t() | nil,
+          :error => OpenXchangeClient.Model.Error.t() | nil,
+          :created => [OpenXchangeClient.Model.EventData.t()] | nil,
+          :updated => [OpenXchangeClient.Model.EventData.t()] | nil,
+          :deleted => [OpenXchangeClient.Model.EventData.t()] | nil,
+          :conflicts => [OpenXchangeClient.Model.ChronosConflictDataRaw.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ChronosErrorAwareCalendarResult do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"error", :struct, OpenXchangeClient.Model.Error, options)
-    |> deserialize(:"created", :list, OpenXchangeClient.Model.EventData, options)
-    |> deserialize(:"updated", :list, OpenXchangeClient.Model.EventData, options)
-    |> deserialize(:"deleted", :list, OpenXchangeClient.Model.EventData, options)
-    |> deserialize(:"conflicts", :list, OpenXchangeClient.Model.ChronosConflictDataRaw, options)
+    |> deserialize(:error, :struct, OpenXchangeClient.Model.Error, options)
+    |> deserialize(:created, :list, OpenXchangeClient.Model.EventData, options)
+    |> deserialize(:updated, :list, OpenXchangeClient.Model.EventData, options)
+    |> deserialize(:deleted, :list, OpenXchangeClient.Model.EventData, options)
+    |> deserialize(:conflicts, :list, OpenXchangeClient.Model.ChronosConflictDataRaw, options)
   end
 end
-

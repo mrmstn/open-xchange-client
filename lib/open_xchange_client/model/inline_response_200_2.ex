@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.InlineResponse2002 do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"success"
+    :success
   ]
 
   @type t :: %__MODULE__{
-    :"success" => boolean() | nil
-  }
+          :success => boolean() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InlineResponse2002 do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.InlineResponse2002 do
     value
   end
 end
-

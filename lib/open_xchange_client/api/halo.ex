@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Halo do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Gets a contact picture.
   <b>Important:</b> This endpoint is deprecated and will be removed in the future. Use the new /contacts/picture endpoint instead.  At least one of the optional search parameters should be set. All parameters are connected by OR during the search. More specific parameters like `user_id` or `id` are prioritized in case of multiple matches. 
@@ -42,28 +41,30 @@ defmodule OpenXchangeClient.Api.Halo do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_halo_contact_picture(Tesla.Env.client, keyword()) :: {:ok, nil} | {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_halo_contact_picture(Tesla.Env.client(), keyword()) ::
+          {:ok, nil} | {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_halo_contact_picture(connection, opts \\ []) do
     optional_params = %{
-      :"session" => :query,
-      :"internal_userid" => :query,
-      :"userid" => :query,
-      :"user_id" => :query,
-      :"id" => :query,
-      :"email" => :query,
-      :"email1" => :query,
-      :"email2" => :query,
-      :"email3" => :query,
-      :"transformationNeeded" => :query,
-      :"cropWidth" => :query,
-      :"cropHeight" => :query,
-      :"rotate" => :query,
-      :"compress" => :query,
-      :"width" => :query,
-      :"height" => :query,
-      :"shrinkOnly" => :query,
-      :"scaleType" => :query
+      :session => :query,
+      :internal_userid => :query,
+      :userid => :query,
+      :user_id => :query,
+      :id => :query,
+      :email => :query,
+      :email1 => :query,
+      :email2 => :query,
+      :email3 => :query,
+      :transformationNeeded => :query,
+      :cropWidth => :query,
+      :cropHeight => :query,
+      :rotate => :query,
+      :compress => :query,
+      :width => :query,
+      :height => :query,
+      :shrinkOnly => :query,
+      :scaleType => :query
     }
+
     %{}
     |> method(:get)
     |> url("/halo/contact/picture")
@@ -71,8 +72,8 @@ defmodule OpenXchangeClient.Api.Halo do
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 404, false}
+      {200, false},
+      {404, false}
     ])
   end
 
@@ -89,16 +90,17 @@ defmodule OpenXchangeClient.Api.Halo do
   {:ok, OpenXchangeClient.Model.HaloServicesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_halo_services(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.HaloServicesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_halo_services(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.HaloServicesResponse.t()} | {:error, Tesla.Env.t()}
   def get_halo_services(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/halo/contact?action&#x3D;services")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.HaloServicesResponse{}}
+      {200, %OpenXchangeClient.Model.HaloServicesResponse{}}
     ])
   end
 
@@ -127,31 +129,39 @@ defmodule OpenXchangeClient.Api.Halo do
   {:ok, OpenXchangeClient.Model.HaloInvestigationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec investigate_contact_halo(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.HaloInvestigationResponse.t} | {:error, Tesla.Env.t}
+  @spec investigate_contact_halo(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.HaloInvestigationResponse.t()} | {:error, Tesla.Env.t()}
   def investigate_contact_halo(connection, session, provider, columns, opts \\ []) do
     optional_params = %{
-      :"email1" => :query,
-      :"email2" => :query,
-      :"email3" => :query,
-      :"internal_userid" => :query,
-      :"timezone" => :query,
-      :"start" => :query,
-      :"end" => :query,
-      :"sort" => :query,
-      :"order" => :query,
-      :"limit" => :query
+      :email1 => :query,
+      :email2 => :query,
+      :email3 => :query,
+      :internal_userid => :query,
+      :timezone => :query,
+      :start => :query,
+      :end => :query,
+      :sort => :query,
+      :order => :query,
+      :limit => :query
     }
+
     %{}
     |> method(:get)
     |> url("/halo/contact?action&#x3D;investigate")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"provider", provider)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :provider, provider)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.HaloInvestigationResponse{}}
+      {200, %OpenXchangeClient.Model.HaloInvestigationResponse{}}
     ])
   end
 
@@ -298,150 +308,158 @@ defmodule OpenXchangeClient.Api.Halo do
   {:ok, OpenXchangeClient.Model.HaloInvestigationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec investigate_contact_halo_with_body(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.HaloInvestigationResponse.t} | {:error, Tesla.Env.t}
+  @spec investigate_contact_halo_with_body(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.HaloInvestigationResponse.t()} | {:error, Tesla.Env.t()}
   def investigate_contact_halo_with_body(connection, session, provider, columns, opts \\ []) do
     optional_params = %{
-      :"timezone" => :query,
-      :"start" => :query,
-      :"end" => :query,
-      :"sort" => :query,
-      :"order" => :query,
-      :"limit" => :query,
-      :"contact_id" => :form,
-      :"internal_userid" => :form,
-      :"uid" => :form,
-      :"display_name" => :form,
-      :"first_name" => :form,
-      :"last_name" => :form,
-      :"second_name" => :form,
-      :"suffix" => :form,
-      :"title" => :form,
-      :"street_home" => :form,
-      :"postal_code_home" => :form,
-      :"city_home" => :form,
-      :"state_home" => :form,
-      :"country_home" => :form,
-      :"birthday" => :form,
-      :"marital_status" => :form,
-      :"number_of_children" => :form,
-      :"profession" => :form,
-      :"nickname" => :form,
-      :"spouse_name" => :form,
-      :"anniversary" => :form,
-      :"note" => :form,
-      :"department" => :form,
-      :"position" => :form,
-      :"employee_type" => :form,
-      :"room_number" => :form,
-      :"street_business" => :form,
-      :"postal_code_business" => :form,
-      :"city_business" => :form,
-      :"state_business" => :form,
-      :"country_business" => :form,
-      :"user_id" => :form,
-      :"number_of_employees" => :form,
-      :"sales_volume" => :form,
-      :"tax_id" => :form,
-      :"commercial_register" => :form,
-      :"branches" => :form,
-      :"business_category" => :form,
-      :"info" => :form,
-      :"manager_name" => :form,
-      :"assistant_name" => :form,
-      :"street_other" => :form,
-      :"postal_code_other" => :form,
-      :"city_other" => :form,
-      :"state_other" => :form,
-      :"country_other" => :form,
-      :"telephone_business1" => :form,
-      :"telephone_business2" => :form,
-      :"fax_business" => :form,
-      :"telephone_callback" => :form,
-      :"telephone_car" => :form,
-      :"telephone_company" => :form,
-      :"telephone_home1" => :form,
-      :"telephone_home2" => :form,
-      :"fax_home" => :form,
-      :"cellular_telephone1" => :form,
-      :"cellular_telephone2" => :form,
-      :"telephone_other" => :form,
-      :"fax_other" => :form,
-      :"email1" => :form,
-      :"email2" => :form,
-      :"email3" => :form,
-      :"url" => :form,
-      :"telephone_isdn" => :form,
-      :"telephone_pager" => :form,
-      :"telephone_primary" => :form,
-      :"telephone_radio" => :form,
-      :"telephone_telex" => :form,
-      :"telephone_ttytdd" => :form,
-      :"instant_messenger1" => :form,
-      :"instant_messenger2" => :form,
-      :"telephone_ip" => :form,
-      :"telephone_assistant" => :form,
-      :"company" => :form,
-      :"image1" => :form,
-      :"image1_content_type" => :form,
-      :"image1_url" => :form,
-      :"number_of_images" => :form,
-      :"image_last_modified" => :form,
-      :"distribution_list" => :form,
-      :"number_of_distribution_list" => :form,
-      :"mark_as_distributionlist" => :form,
-      :"file_as" => :form,
-      :"default_address" => :form,
-      :"useCount" => :form,
-      :"yomiFirstName" => :form,
-      :"yomiLastName" => :form,
-      :"yomiCompany" => :form,
-      :"addressHome" => :form,
-      :"addressBusiness" => :form,
-      :"addressOther" => :form,
-      :"userfield01" => :form,
-      :"userfield02" => :form,
-      :"userfield03" => :form,
-      :"userfield04" => :form,
-      :"userfield05" => :form,
-      :"userfield06" => :form,
-      :"userfield07" => :form,
-      :"userfield08" => :form,
-      :"userfield09" => :form,
-      :"userfield10" => :form,
-      :"userfield11" => :form,
-      :"userfield12" => :form,
-      :"userfield13" => :form,
-      :"userfield14" => :form,
-      :"userfield15" => :form,
-      :"userfield16" => :form,
-      :"userfield17" => :form,
-      :"userfield18" => :form,
-      :"userfield19" => :form,
-      :"userfield20" => :form,
-      :"id" => :form,
-      :"created_by" => :form,
-      :"modified_by" => :form,
-      :"creation_date" => :form,
-      :"last_modified" => :form,
-      :"folder_id" => :form,
-      :"categories" => :form,
-      :"private_flag" => :form,
-      :"color_label" => :form,
-      :"number_of_attachments" => :form,
-      :"lastModifiedOfNewestAttachmentUTC" => :form
+      :timezone => :query,
+      :start => :query,
+      :end => :query,
+      :sort => :query,
+      :order => :query,
+      :limit => :query,
+      :contact_id => :form,
+      :internal_userid => :form,
+      :uid => :form,
+      :display_name => :form,
+      :first_name => :form,
+      :last_name => :form,
+      :second_name => :form,
+      :suffix => :form,
+      :title => :form,
+      :street_home => :form,
+      :postal_code_home => :form,
+      :city_home => :form,
+      :state_home => :form,
+      :country_home => :form,
+      :birthday => :form,
+      :marital_status => :form,
+      :number_of_children => :form,
+      :profession => :form,
+      :nickname => :form,
+      :spouse_name => :form,
+      :anniversary => :form,
+      :note => :form,
+      :department => :form,
+      :position => :form,
+      :employee_type => :form,
+      :room_number => :form,
+      :street_business => :form,
+      :postal_code_business => :form,
+      :city_business => :form,
+      :state_business => :form,
+      :country_business => :form,
+      :user_id => :form,
+      :number_of_employees => :form,
+      :sales_volume => :form,
+      :tax_id => :form,
+      :commercial_register => :form,
+      :branches => :form,
+      :business_category => :form,
+      :info => :form,
+      :manager_name => :form,
+      :assistant_name => :form,
+      :street_other => :form,
+      :postal_code_other => :form,
+      :city_other => :form,
+      :state_other => :form,
+      :country_other => :form,
+      :telephone_business1 => :form,
+      :telephone_business2 => :form,
+      :fax_business => :form,
+      :telephone_callback => :form,
+      :telephone_car => :form,
+      :telephone_company => :form,
+      :telephone_home1 => :form,
+      :telephone_home2 => :form,
+      :fax_home => :form,
+      :cellular_telephone1 => :form,
+      :cellular_telephone2 => :form,
+      :telephone_other => :form,
+      :fax_other => :form,
+      :email1 => :form,
+      :email2 => :form,
+      :email3 => :form,
+      :url => :form,
+      :telephone_isdn => :form,
+      :telephone_pager => :form,
+      :telephone_primary => :form,
+      :telephone_radio => :form,
+      :telephone_telex => :form,
+      :telephone_ttytdd => :form,
+      :instant_messenger1 => :form,
+      :instant_messenger2 => :form,
+      :telephone_ip => :form,
+      :telephone_assistant => :form,
+      :company => :form,
+      :image1 => :form,
+      :image1_content_type => :form,
+      :image1_url => :form,
+      :number_of_images => :form,
+      :image_last_modified => :form,
+      :distribution_list => :form,
+      :number_of_distribution_list => :form,
+      :mark_as_distributionlist => :form,
+      :file_as => :form,
+      :default_address => :form,
+      :useCount => :form,
+      :yomiFirstName => :form,
+      :yomiLastName => :form,
+      :yomiCompany => :form,
+      :addressHome => :form,
+      :addressBusiness => :form,
+      :addressOther => :form,
+      :userfield01 => :form,
+      :userfield02 => :form,
+      :userfield03 => :form,
+      :userfield04 => :form,
+      :userfield05 => :form,
+      :userfield06 => :form,
+      :userfield07 => :form,
+      :userfield08 => :form,
+      :userfield09 => :form,
+      :userfield10 => :form,
+      :userfield11 => :form,
+      :userfield12 => :form,
+      :userfield13 => :form,
+      :userfield14 => :form,
+      :userfield15 => :form,
+      :userfield16 => :form,
+      :userfield17 => :form,
+      :userfield18 => :form,
+      :userfield19 => :form,
+      :userfield20 => :form,
+      :id => :form,
+      :created_by => :form,
+      :modified_by => :form,
+      :creation_date => :form,
+      :last_modified => :form,
+      :folder_id => :form,
+      :categories => :form,
+      :private_flag => :form,
+      :color_label => :form,
+      :number_of_attachments => :form,
+      :lastModifiedOfNewestAttachmentUTC => :form
     }
+
     %{}
     |> method(:put)
     |> url("/halo/contact?action&#x3D;investigate")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"provider", provider)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :provider, provider)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.HaloInvestigationResponse{}}
+      {200, %OpenXchangeClient.Model.HaloInvestigationResponse{}}
     ])
   end
 end

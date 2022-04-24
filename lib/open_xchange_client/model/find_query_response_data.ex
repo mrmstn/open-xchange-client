@@ -4,23 +4,23 @@
 
 defmodule OpenXchangeClient.Model.FindQueryResponseData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"num_found",
-    :"start",
-    :"size",
-    :"results"
+    :num_found,
+    :start,
+    :size,
+    :results
   ]
 
   @type t :: %__MODULE__{
-    :"num_found" => integer() | nil,
-    :"start" => integer() | nil,
-    :"size" => integer() | nil,
-    :"results" => map() | nil
-  }
+          :num_found => integer() | nil,
+          :start => integer() | nil,
+          :size => integer() | nil,
+          :results => map() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FindQueryResponseData do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.FindQueryResponseData do
     value
   end
 end
-

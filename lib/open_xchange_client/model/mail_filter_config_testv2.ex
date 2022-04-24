@@ -4,23 +4,23 @@
 
 defmodule OpenXchangeClient.Model.MailFilterConfigTestv2 do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"comparisons",
-    :"headers",
-    :"parts"
+    :id,
+    :comparisons,
+    :headers,
+    :parts
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"comparisons" => [String.t] | nil,
-    :"headers" => [String.t] | nil,
-    :"parts" => [String.t] | nil
-  }
+          :id => String.t() | nil,
+          :comparisons => [String.t()] | nil,
+          :headers => [String.t()] | nil,
+          :parts => [String.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailFilterConfigTestv2 do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailFilterConfigTestv2 do
     value
   end
 end
-

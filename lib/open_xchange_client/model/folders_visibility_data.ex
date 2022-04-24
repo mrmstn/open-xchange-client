@@ -4,21 +4,21 @@
 
 defmodule OpenXchangeClient.Model.FoldersVisibilityData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"private",
-    :"public",
-    :"shared"
+    :private,
+    :public,
+    :shared
   ]
 
   @type t :: %__MODULE__{
-    :"private" => map() | nil,
-    :"public" => map() | nil,
-    :"shared" => map() | nil
-  }
+          :private => map() | nil,
+          :public => map() | nil,
+          :shared => map() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FoldersVisibilityData do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.FoldersVisibilityData do
     value
   end
 end
-

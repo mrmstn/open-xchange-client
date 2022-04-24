@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.FolderCheckLimitsFiles do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"size",
-    :"name"
+    :size,
+    :name
   ]
 
   @type t :: %__MODULE__{
-    :"size" => integer() | nil,
-    :"name" => String.t | nil
-  }
+          :size => integer() | nil,
+          :name => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderCheckLimitsFiles do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderCheckLimitsFiles do
     value
   end
 end
-

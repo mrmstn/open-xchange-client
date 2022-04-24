@@ -9,23 +9,23 @@ defmodule OpenXchangeClient.Model.MultifactorStartRegistrationResponseDataChalle
 
   @derive [Poison.Encoder]
   defstruct [
-    :"version",
-    :"challenge",
-    :"appId",
-    :"requestId"
+    :version,
+    :challenge,
+    :appId,
+    :requestId
   ]
 
   @type t :: %__MODULE__{
-    :"version" => String.t | nil,
-    :"challenge" => String.t | nil,
-    :"appId" => String.t | nil,
-    :"requestId" => String.t | nil
-  }
+          :version => String.t() | nil,
+          :challenge => String.t() | nil,
+          :appId => String.t() | nil,
+          :requestId => String.t() | nil
+        }
 end
 
-defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultifactorStartRegistrationResponseDataChallengeRegisterRequests do
+defimpl Poison.Decoder,
+  for: OpenXchangeClient.Model.MultifactorStartRegistrationResponseDataChallengeRegisterRequests do
   def decode(value, _options) do
     value
   end
 end
-

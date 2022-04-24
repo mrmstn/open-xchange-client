@@ -4,21 +4,21 @@
 
 defmodule OpenXchangeClient.Model.OAuthServiceMetaData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"displayName",
-    :"availableScopes"
+    :id,
+    :displayName,
+    :availableScopes
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"displayName" => String.t | nil,
-    :"availableScopes" => [String.t] | nil
-  }
+          :id => String.t() | nil,
+          :displayName => String.t() | nil,
+          :availableScopes => [String.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.OAuthServiceMetaData do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.OAuthServiceMetaData do
     value
   end
 end
-

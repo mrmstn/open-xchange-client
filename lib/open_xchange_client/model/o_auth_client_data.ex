@@ -4,25 +4,25 @@
 
 defmodule OpenXchangeClient.Model.OAuthClientData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"name",
-    :"description",
-    :"website",
-    :"icon"
+    :id,
+    :name,
+    :description,
+    :website,
+    :icon
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"name" => String.t | nil,
-    :"description" => String.t | nil,
-    :"website" => String.t | nil,
-    :"icon" => String.t | nil
-  }
+          :id => String.t() | nil,
+          :name => String.t() | nil,
+          :description => String.t() | nil,
+          :website => String.t() | nil,
+          :icon => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.OAuthClientData do
@@ -30,4 +30,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.OAuthClientData do
     value
   end
 end
-

@@ -4,27 +4,27 @@
 
 defmodule OpenXchangeClient.Model.ChronosAttachment do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"filename",
-    :"fmtType",
-    :"size",
-    :"created",
-    :"managedId",
-    :"uri"
+    :filename,
+    :fmtType,
+    :size,
+    :created,
+    :managedId,
+    :uri
   ]
 
   @type t :: %__MODULE__{
-    :"filename" => String.t | nil,
-    :"fmtType" => String.t | nil,
-    :"size" => integer() | nil,
-    :"created" => integer() | nil,
-    :"managedId" => integer() | nil,
-    :"uri" => String.t | nil
-  }
+          :filename => String.t() | nil,
+          :fmtType => String.t() | nil,
+          :size => integer() | nil,
+          :created => integer() | nil,
+          :managedId => integer() | nil,
+          :uri => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ChronosAttachment do
@@ -32,4 +32,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ChronosAttachment do
     value
   end
 end
-

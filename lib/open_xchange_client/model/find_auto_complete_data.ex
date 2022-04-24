@@ -4,24 +4,24 @@
 
 defmodule OpenXchangeClient.Model.FindAutoCompleteData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"facets"
+    :facets
   ]
 
   @type t :: %__MODULE__{
-    :"facets" => [OpenXchangeClient.Model.FindFacetData.t] | nil
-  }
+          :facets => [OpenXchangeClient.Model.FindFacetData.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FindAutoCompleteData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"facets", :list, OpenXchangeClient.Model.FindFacetData, options)
+    |> deserialize(:facets, :list, OpenXchangeClient.Model.FindFacetData, options)
   end
 end
-

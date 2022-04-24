@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.PutAttachmentBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"filename",
-    :"description"
+    :filename,
+    :description
   ]
 
   @type t :: %__MODULE__{
-    :"filename" => String.t | nil,
-    :"description" => String.t | nil
-  }
+          :filename => String.t() | nil,
+          :description => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.PutAttachmentBody do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.PutAttachmentBody do
     value
   end
 end
-

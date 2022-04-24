@@ -9,26 +9,26 @@ defmodule OpenXchangeClient.Model.Error do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"error",
-    :"error_params",
-    :"error_id",
-    :"error_desc",
-    :"error_stack",
-    :"code",
-    :"categories",
-    :"category"
+    :error,
+    :error_params,
+    :error_id,
+    :error_desc,
+    :error_stack,
+    :code,
+    :categories,
+    :category
   ]
 
   @type t :: %__MODULE__{
-    :"error" => String.t | nil,
-    :"error_params" => [String.t] | nil,
-    :"error_id" => String.t | nil,
-    :"error_desc" => String.t | nil,
-    :"error_stack" => [String.t] | nil,
-    :"code" => String.t | nil,
-    :"categories" => String.t | nil,
-    :"category" => integer() | nil
-  }
+          :error => String.t() | nil,
+          :error_params => [String.t()] | nil,
+          :error_id => String.t() | nil,
+          :error_desc => String.t() | nil,
+          :error_stack => [String.t()] | nil,
+          :code => String.t() | nil,
+          :categories => String.t() | nil,
+          :category => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.Error do
@@ -36,4 +36,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.Error do
     value
   end
 end
-

@@ -4,27 +4,27 @@
 
 defmodule OpenXchangeClient.Model.FileServiceConfiguration do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"widget",
-    :"name",
-    :"displayName",
-    :"mandatory",
-    :"options",
-    :"defaultValue"
+    :widget,
+    :name,
+    :displayName,
+    :mandatory,
+    :options,
+    :defaultValue
   ]
 
   @type t :: %__MODULE__{
-    :"widget" => String.t | nil,
-    :"name" => String.t | nil,
-    :"displayName" => String.t | nil,
-    :"mandatory" => boolean() | nil,
-    :"options" => map() | nil,
-    :"defaultValue" => map() | nil
-  }
+          :widget => String.t() | nil,
+          :name => String.t() | nil,
+          :displayName => String.t() | nil,
+          :mandatory => boolean() | nil,
+          :options => map() | nil,
+          :defaultValue => map() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FileServiceConfiguration do
@@ -32,4 +32,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.FileServiceConfiguration do
     value
   end
 end
-

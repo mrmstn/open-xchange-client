@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Snippet do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Attaches one or more files to an existing snippet.
   It can be uploaded multiple files at once. Each file must be specified in an own form field (the form field name is arbitrary). 
@@ -28,19 +27,26 @@ defmodule OpenXchangeClient.Api.Snippet do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec add_snippet_attachment(Tesla.Env.client, String.t, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec add_snippet_attachment(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def add_snippet_attachment(connection, session, id, type, file, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/snippet?action&#x3D;attach")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"type", type)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :type, type)
+    |> add_param(:file, :file, file)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -58,17 +64,22 @@ defmodule OpenXchangeClient.Api.Snippet do
   {:ok, OpenXchangeClient.Model.SnippetUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_snippet(Tesla.Env.client, String.t, OpenXchangeClient.Model.SnippetData.t, keyword()) :: {:ok, OpenXchangeClient.Model.SnippetUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec create_snippet(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.SnippetData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.SnippetUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def create_snippet(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/snippet?action&#x3D;new")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.SnippetUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.SnippetUpdateResponse{}}
     ])
   end
 
@@ -87,22 +98,24 @@ defmodule OpenXchangeClient.Api.Snippet do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_snippet(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_snippet(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def delete_snippet(connection, session, opts \\ []) do
     optional_params = %{
-      :"id" => :query,
+      :id => :query,
       :body => :body
     }
+
     %{}
     |> method(:put)
     |> url("/snippet?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -120,20 +133,22 @@ defmodule OpenXchangeClient.Api.Snippet do
   {:ok, OpenXchangeClient.Model.SnippetsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_snippets(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.SnippetsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_snippets(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.SnippetsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_snippets(connection, session, opts \\ []) do
     optional_params = %{
-      :"type" => :query
+      :type => :query
     }
+
     %{}
     |> method(:get)
     |> url("/snippet?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.SnippetsResponse{}}
+      {200, %OpenXchangeClient.Model.SnippetsResponse{}}
     ])
   end
 
@@ -151,17 +166,18 @@ defmodule OpenXchangeClient.Api.Snippet do
   {:ok, OpenXchangeClient.Model.SnippetResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_snippet(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.SnippetResponse.t} | {:error, Tesla.Env.t}
+  @spec get_snippet(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.SnippetResponse.t()} | {:error, Tesla.Env.t()}
   def get_snippet(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/snippet?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.SnippetResponse{}}
+      {200, %OpenXchangeClient.Model.SnippetResponse{}}
     ])
   end
 
@@ -180,19 +196,20 @@ defmodule OpenXchangeClient.Api.Snippet do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_snippet_attachment(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_snippet_attachment(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_snippet_attachment(connection, session, id, attachmentid, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/snippet?action&#x3D;getattachment")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"attachmentid", attachmentid)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :attachmentid, attachmentid)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 500, false}
+      {200, false},
+      {500, false}
     ])
   end
 
@@ -210,17 +227,18 @@ defmodule OpenXchangeClient.Api.Snippet do
   {:ok, OpenXchangeClient.Model.SnippetsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_snippet_list(Tesla.Env.client, String.t, list(String.t), keyword()) :: {:ok, OpenXchangeClient.Model.SnippetsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_snippet_list(Tesla.Env.client(), String.t(), list(String.t()), keyword()) ::
+          {:ok, OpenXchangeClient.Model.SnippetsResponse.t()} | {:error, Tesla.Env.t()}
   def get_snippet_list(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/snippet?action&#x3D;list")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.SnippetsResponse{}}
+      {200, %OpenXchangeClient.Model.SnippetsResponse{}}
     ])
   end
 
@@ -239,18 +257,24 @@ defmodule OpenXchangeClient.Api.Snippet do
   {:ok, OpenXchangeClient.Model.SnippetUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec remove_snippet_attachments(Tesla.Env.client, String.t, String.t, list(OpenXchangeClient.Model.SnippetAttachmentListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.SnippetUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec remove_snippet_attachments(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          list(OpenXchangeClient.Model.SnippetAttachmentListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.SnippetUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def remove_snippet_attachments(connection, session, id, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/snippet?action&#x3D;detach")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.SnippetUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.SnippetUpdateResponse{}}
     ])
   end
 
@@ -269,18 +293,24 @@ defmodule OpenXchangeClient.Api.Snippet do
   {:ok, OpenXchangeClient.Model.SnippetResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_snippet(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.SnippetData.t, keyword()) :: {:ok, OpenXchangeClient.Model.SnippetResponse.t} | {:error, Tesla.Env.t}
+  @spec update_snippet(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.SnippetData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.SnippetResponse.t()} | {:error, Tesla.Env.t()}
   def update_snippet(connection, session, id, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/snippet?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.SnippetResponse{}}
+      {200, %OpenXchangeClient.Model.SnippetResponse{}}
     ])
   end
 end

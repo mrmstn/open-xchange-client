@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.ShareManagement do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Deletes a share link.
 
@@ -26,18 +25,24 @@ defmodule OpenXchangeClient.Api.ShareManagement do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_share_link(Tesla.Env.client, String.t, integer(), OpenXchangeClient.Model.ShareTargetData.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_share_link(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.ShareTargetData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def delete_share_link(connection, session, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/share/management?action&#x3D;deleteLink")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -55,17 +60,22 @@ defmodule OpenXchangeClient.Api.ShareManagement do
   {:ok, OpenXchangeClient.Model.ShareLinkResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_share_link(Tesla.Env.client, String.t, OpenXchangeClient.Model.ShareTargetData.t, keyword()) :: {:ok, OpenXchangeClient.Model.ShareLinkResponse.t} | {:error, Tesla.Env.t}
+  @spec get_share_link(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.ShareTargetData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ShareLinkResponse.t()} | {:error, Tesla.Env.t()}
   def get_share_link(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/share/management?action&#x3D;getLink")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ShareLinkResponse{}}
+      {200, %OpenXchangeClient.Model.ShareLinkResponse{}}
     ])
   end
 
@@ -83,17 +93,22 @@ defmodule OpenXchangeClient.Api.ShareManagement do
   {:ok, OpenXchangeClient.Model.ShareLinkSendResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec send_share_link(Tesla.Env.client, String.t, OpenXchangeClient.Model.ShareLinkSendBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.ShareLinkSendResponse.t} | {:error, Tesla.Env.t}
+  @spec send_share_link(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.ShareLinkSendBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ShareLinkSendResponse.t()} | {:error, Tesla.Env.t()}
   def send_share_link(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/share/management?action&#x3D;sendLink")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ShareLinkSendResponse{}}
+      {200, %OpenXchangeClient.Model.ShareLinkSendResponse{}}
     ])
   end
 
@@ -112,18 +127,24 @@ defmodule OpenXchangeClient.Api.ShareManagement do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_share_link(Tesla.Env.client, String.t, integer(), OpenXchangeClient.Model.ShareLinkUpdateBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec update_share_link(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.ShareLinkUpdateBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def update_share_link(connection, session, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/share/management?action&#x3D;updateLink")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 end

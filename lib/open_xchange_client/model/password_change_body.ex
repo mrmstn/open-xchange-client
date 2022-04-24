@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.PasswordChangeBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"old_password",
-    :"new_password"
+    :old_password,
+    :new_password
   ]
 
   @type t :: %__MODULE__{
-    :"old_password" => String.t | nil,
-    :"new_password" => String.t | nil
-  }
+          :old_password => String.t() | nil,
+          :new_password => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.PasswordChangeBody do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.PasswordChangeBody do
     value
   end
 end
-

@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Advertisement do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Retrieves the advertisement configuration
 
@@ -24,16 +23,17 @@ defmodule OpenXchangeClient.Api.Advertisement do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_advertisement_config(Tesla.Env.client, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_advertisement_config(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_advertisement_config(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/advertisement?action&#x3D;get")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 end

@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.SAML do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Assertion Consumer Service
   SAML 2.0 Assertion Consumer Service. Accepts `<Response>` messages of the Web Browser SSO Profile per `HTTP-POST` binding. 
@@ -26,7 +25,12 @@ defmodule OpenXchangeClient.Api.SAML do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec acs(Tesla.Env.client, String.t, OpenXchangeClient.Model.UNKNOWN_BASE_TYPE.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec acs(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.UNKNOWN_BASE_TYPE.t(),
+          keyword()
+        ) :: {:ok, nil} | {:error, Tesla.Env.t()}
   def acs(connection, tenant, u_nknownbasetype, _opts \\ []) do
     %{}
     |> method(:post)
@@ -35,8 +39,8 @@ defmodule OpenXchangeClient.Api.SAML do
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 302, false},
-      { :default, false}
+      {302, false},
+      {:default, false}
     ])
   end
 
@@ -57,13 +61,17 @@ defmodule OpenXchangeClient.Api.SAML do
   {:ok, OpenXchangeClient.Model.InlineResponse2003.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec init(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.InlineResponse2003.t} | {:error, Tesla.Env.t}
+  @spec init(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil}
+          | {:ok, OpenXchangeClient.Model.InlineResponse2003.t()}
+          | {:error, Tesla.Env.t()}
   def init(connection, tenant, opts \\ []) do
     optional_params = %{
-      :"flow" => :query,
-      :"session" => :query,
-      :"redirect" => :query
+      :flow => :query,
+      :session => :query,
+      :redirect => :query
     }
+
     %{}
     |> method(:get)
     |> url("/saml/#{tenant}/init")
@@ -71,10 +79,10 @@ defmodule OpenXchangeClient.Api.SAML do
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InlineResponse2003{}},
-      { 302, false},
-      { 400, false},
-      { 500, false}
+      {200, %OpenXchangeClient.Model.InlineResponse2003{}},
+      {302, false},
+      {400, false},
+      {500, false}
     ])
   end
 
@@ -92,7 +100,8 @@ defmodule OpenXchangeClient.Api.SAML do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec metadata(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec metadata(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:error, Tesla.Env.t()}
   def metadata(connection, tenant, _opts \\ []) do
     %{}
     |> method(:get)
@@ -100,8 +109,8 @@ defmodule OpenXchangeClient.Api.SAML do
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 500, false}
+      {200, false},
+      {500, false}
     ])
   end
 
@@ -123,26 +132,28 @@ defmodule OpenXchangeClient.Api.SAML do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec saml_login(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec saml_login(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:error, Tesla.Env.t()}
   def saml_login(connection, token, opts \\ []) do
     optional_params = %{
-      :"client" => :query,
-      :"clientUserAgent" => :query,
-      :"loginPath" => :query,
-      :"shard" => :query
+      :client => :query,
+      :clientUserAgent => :query,
+      :loginPath => :query,
+      :shard => :query
     }
+
     %{}
     |> method(:get)
     |> url("/login?action&#x3D;samlLogin")
-    |> add_param(:query, :"token", token)
+    |> add_param(:query, :token, token)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 302, false},
-      { 400, false},
-      { 403, false}
+      {200, false},
+      {302, false},
+      {400, false},
+      {403, false}
     ])
   end
 
@@ -160,17 +171,18 @@ defmodule OpenXchangeClient.Api.SAML do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec saml_logout(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec saml_logout(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:error, Tesla.Env.t()}
   def saml_logout(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/login?action&#x3D;samlLogout")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 302, false}
+      {200, false},
+      {302, false}
     ])
   end
 
@@ -192,25 +204,27 @@ defmodule OpenXchangeClient.Api.SAML do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec sls_req(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec sls_req(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, nil} | {:error, Tesla.Env.t()}
   def sls_req(connection, tenant, s_aml_request, opts \\ []) do
     optional_params = %{
-      :"SigAlg" => :query,
-      :"Signature" => :query,
-      :"RelayState" => :query
+      :SigAlg => :query,
+      :Signature => :query,
+      :RelayState => :query
     }
+
     %{}
     |> method(:get)
     |> url("/saml/#{tenant}/sls")
-    |> add_param(:query, :"SAMLRequest", s_aml_request)
+    |> add_param(:query, :SAMLRequest, s_aml_request)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 302, false},
-      { 400, false},
-      { 500, false}
+      {200, false},
+      {302, false},
+      {400, false},
+      {500, false}
     ])
   end
 
@@ -229,7 +243,12 @@ defmodule OpenXchangeClient.Api.SAML do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec sls_resp(Tesla.Env.client, String.t, OpenXchangeClient.Model.UNKNOWN_BASE_TYPE.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec sls_resp(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.UNKNOWN_BASE_TYPE.t(),
+          keyword()
+        ) :: {:ok, nil} | {:error, Tesla.Env.t()}
   def sls_resp(connection, tenant, u_nknownbasetype, _opts \\ []) do
     %{}
     |> method(:post)
@@ -238,8 +257,8 @@ defmodule OpenXchangeClient.Api.SAML do
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 302, false},
-      { :default, false}
+      {302, false},
+      {:default, false}
     ])
   end
 end

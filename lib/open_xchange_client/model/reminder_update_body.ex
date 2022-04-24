@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.ReminderUpdateBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"alarm"
+    :alarm
   ]
 
   @type t :: %__MODULE__{
-    :"alarm" => integer() | nil
-  }
+          :alarm => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ReminderUpdateBody do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ReminderUpdateBody do
     value
   end
 end
-

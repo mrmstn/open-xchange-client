@@ -4,21 +4,21 @@
 
 defmodule OpenXchangeClient.Model.CertificateStoreData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"fingerprint",
-    :"hostname",
-    :"trusted"
+    :fingerprint,
+    :hostname,
+    :trusted
   ]
 
   @type t :: %__MODULE__{
-    :"fingerprint" => String.t | nil,
-    :"hostname" => String.t | nil,
-    :"trusted" => boolean() | nil
-  }
+          :fingerprint => String.t() | nil,
+          :hostname => String.t() | nil,
+          :trusted => boolean() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.CertificateStoreData do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.CertificateStoreData do
     value
   end
 end
-

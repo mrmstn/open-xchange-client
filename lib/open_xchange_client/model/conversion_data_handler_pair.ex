@@ -4,7 +4,7 @@
 
 defmodule OpenXchangeClient.Model.ConversionDataHandlerPair do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
@@ -20,15 +20,15 @@ defmodule OpenXchangeClient.Model.ConversionDataHandlerPair do
   ]
 
   @type t :: %__MODULE__{
-    :"com.openexchange.groupware.calendar.folder" => String.t | nil,
-    :"com.openexchange.groupware.task.folder" => String.t | nil,
-    :"com.openexchange.groupware.calendar.confirmstatus" => String.t | nil,
-    :"com.openexchange.groupware.calendar.confirmmessage" => String.t | nil,
-    :"com.openexchange.groupware.calendar.timezone" => String.t | nil,
-    :"com.openexchange.grouware.calendar.recurrencePosition" => String.t | nil,
-    :"com.openexchange.groupware.calendar.searchobject" => String.t | nil,
-    :"com.openexchange.groupware.contact.folder" => String.t | nil
-  }
+          :"com.openexchange.groupware.calendar.folder" => String.t() | nil,
+          :"com.openexchange.groupware.task.folder" => String.t() | nil,
+          :"com.openexchange.groupware.calendar.confirmstatus" => String.t() | nil,
+          :"com.openexchange.groupware.calendar.confirmmessage" => String.t() | nil,
+          :"com.openexchange.groupware.calendar.timezone" => String.t() | nil,
+          :"com.openexchange.grouware.calendar.recurrencePosition" => String.t() | nil,
+          :"com.openexchange.groupware.calendar.searchobject" => String.t() | nil,
+          :"com.openexchange.groupware.contact.folder" => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ConversionDataHandlerPair do
@@ -36,4 +36,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ConversionDataHandlerPair d
     value
   end
 end
-

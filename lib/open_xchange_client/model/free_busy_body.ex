@@ -4,24 +4,24 @@
 
 defmodule OpenXchangeClient.Model.FreeBusyBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"attendees"
+    :attendees
   ]
 
   @type t :: %__MODULE__{
-    :"attendees" => [OpenXchangeClient.Model.Attendee.t] | nil
-  }
+          :attendees => [OpenXchangeClient.Model.Attendee.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FreeBusyBody do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"attendees", :list, OpenXchangeClient.Model.Attendee, options)
+    |> deserialize(:attendees, :list, OpenXchangeClient.Model.Attendee, options)
   end
 end
-

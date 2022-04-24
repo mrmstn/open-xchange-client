@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Sessionmanagement do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Get all user's sessions
 
@@ -24,16 +23,17 @@ defmodule OpenXchangeClient.Api.Sessionmanagement do
   {:ok, OpenXchangeClient.Model.AllSessionsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec all(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.AllSessionsResponse.t} | {:error, Tesla.Env.t}
+  @spec all(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.AllSessionsResponse.t()} | {:error, Tesla.Env.t()}
   def all(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/sessionmanagement?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AllSessionsResponse{}}
+      {200, %OpenXchangeClient.Model.AllSessionsResponse{}}
     ])
   end
 
@@ -50,16 +50,16 @@ defmodule OpenXchangeClient.Api.Sessionmanagement do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec clear(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec clear(Tesla.Env.client(), String.t(), keyword()) :: {:ok, nil} | {:error, Tesla.Env.t()}
   def clear(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/sessionmanagement?action&#x3D;clear")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -77,17 +77,18 @@ defmodule OpenXchangeClient.Api.Sessionmanagement do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete(Tesla.Env.client, String.t, list(String.t), keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec delete(Tesla.Env.client(), String.t(), list(String.t()), keyword()) ::
+          {:ok, nil} | {:error, Tesla.Env.t()}
   def delete(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/sessionmanagement?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 end

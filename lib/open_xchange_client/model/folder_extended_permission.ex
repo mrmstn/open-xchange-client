@@ -4,33 +4,33 @@
 
 defmodule OpenXchangeClient.Model.FolderExtendedPermission do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"entity",
-    :"bits",
-    :"type",
-    :"display_name",
-    :"contact",
-    :"share_url",
-    :"password",
-    :"expiry_date",
-    :"isInherited"
+    :entity,
+    :bits,
+    :type,
+    :display_name,
+    :contact,
+    :share_url,
+    :password,
+    :expiry_date,
+    :isInherited
   ]
 
   @type t :: %__MODULE__{
-    :"entity" => integer() | nil,
-    :"bits" => integer() | nil,
-    :"type" => String.t | nil,
-    :"display_name" => String.t | nil,
-    :"contact" => map() | nil,
-    :"share_url" => String.t | nil,
-    :"password" => String.t | nil,
-    :"expiry_date" => integer() | nil,
-    :"isInherited" => boolean() | nil
-  }
+          :entity => integer() | nil,
+          :bits => integer() | nil,
+          :type => String.t() | nil,
+          :display_name => String.t() | nil,
+          :contact => map() | nil,
+          :share_url => String.t() | nil,
+          :password => String.t() | nil,
+          :expiry_date => integer() | nil,
+          :isInherited => boolean() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderExtendedPermission do
@@ -38,4 +38,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderExtendedPermission do
     value
   end
 end
-

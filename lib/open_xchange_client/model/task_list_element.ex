@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.TaskListElement do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"folder"
+    :id,
+    :folder
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t,
-    :"folder" => String.t
-  }
+          :id => String.t(),
+          :folder => String.t()
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.TaskListElement do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.TaskListElement do
     value
   end
 end
-

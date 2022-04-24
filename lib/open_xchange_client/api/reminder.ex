@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Reminder do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Deletes reminders.
 
@@ -25,17 +24,22 @@ defmodule OpenXchangeClient.Api.Reminder do
   {:ok, OpenXchangeClient.Model.RemindersResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_reminders(Tesla.Env.client, String.t, list(OpenXchangeClient.Model.ReminderListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.RemindersResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_reminders(
+          Tesla.Env.client(),
+          String.t(),
+          list(OpenXchangeClient.Model.ReminderListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.RemindersResponse.t()} | {:error, Tesla.Env.t()}
   def delete_reminders(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/reminder?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.RemindersResponse{}}
+      {200, %OpenXchangeClient.Model.RemindersResponse{}}
     ])
   end
 
@@ -55,21 +59,23 @@ defmodule OpenXchangeClient.Api.Reminder do
   {:ok, OpenXchangeClient.Model.RemindersResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_range(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.RemindersResponse.t} | {:error, Tesla.Env.t}
+  @spec get_range(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.RemindersResponse.t()} | {:error, Tesla.Env.t()}
   def get_range(connection, session, opts \\ []) do
     optional_params = %{
-      :"end" => :query,
-      :"modules" => :query
+      :end => :query,
+      :modules => :query
     }
+
     %{}
     |> method(:get)
     |> url("/reminder?action&#x3D;range")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.RemindersResponse{}}
+      {200, %OpenXchangeClient.Model.RemindersResponse{}}
     ])
   end
 
@@ -88,18 +94,24 @@ defmodule OpenXchangeClient.Api.Reminder do
   {:ok, OpenXchangeClient.Model.ReminderResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec remind_again(Tesla.Env.client, String.t, integer(), OpenXchangeClient.Model.ReminderUpdateBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.ReminderResponse.t} | {:error, Tesla.Env.t}
+  @spec remind_again(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.ReminderUpdateBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ReminderResponse.t()} | {:error, Tesla.Env.t()}
   def remind_again(connection, session, id, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/reminder?action&#x3D;remindAgain")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ReminderResponse{}}
+      {200, %OpenXchangeClient.Model.ReminderResponse{}}
     ])
   end
 end

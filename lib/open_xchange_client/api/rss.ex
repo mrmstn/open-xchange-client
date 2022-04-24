@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.RSS do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Get the RSS Feed of a specific link.
 
@@ -28,24 +27,26 @@ defmodule OpenXchangeClient.Api.RSS do
   {:ok, OpenXchangeClient.Model.RssResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_rss_feed(Tesla.Env.client, String.t, list(String.t), keyword()) :: {:ok, OpenXchangeClient.Model.RssResponse.t} | {:error, Tesla.Env.t}
+  @spec get_rss_feed(Tesla.Env.client(), String.t(), list(String.t()), keyword()) ::
+          {:ok, OpenXchangeClient.Model.RssResponse.t()} | {:error, Tesla.Env.t()}
   def get_rss_feed(connection, session, feed_url, opts \\ []) do
     optional_params = %{
-      :"limit" => :query,
-      :"sort" => :query,
-      :"order" => :query
+      :limit => :query,
+      :sort => :query,
+      :order => :query
     }
+
     %{}
     |> method(:put)
     |> url("/rss")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"feedUrl", feed_url)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :feedUrl, feed_url)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.RssResponse{}}
+      {200, %OpenXchangeClient.Model.RssResponse{}}
     ])
   end
 end

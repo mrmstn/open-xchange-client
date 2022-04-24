@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Contacts do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Creates a contact.
   Creates a new contact. This request cannot add contact images. Therefor it is necessary to use the `POST` method.
@@ -26,17 +25,22 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_contact(Tesla.Env.client, String.t, OpenXchangeClient.Model.ContactData.t, keyword()) :: {:ok, OpenXchangeClient.Model.ContactUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec create_contact(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.ContactData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ContactUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def create_contact(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/contacts?action&#x3D;new")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.ContactUpdateResponse{}}
     ])
   end
 
@@ -56,18 +60,19 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_contact_advanced(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec create_contact_advanced(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def create_contact_advanced(connection, session, json, file, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/contacts?action&#x3D;new")
-    |> add_param(:query, :"session", session)
-    |> add_param(:form, :"json", json)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:form, :json, json)
+    |> add_param(:file, :file, file)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -86,18 +91,24 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactDeletionsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_contacts(Tesla.Env.client, String.t, integer(), list(OpenXchangeClient.Model.ContactListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.ContactDeletionsResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_contacts(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          list(OpenXchangeClient.Model.ContactListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ContactDeletionsResponse.t()} | {:error, Tesla.Env.t()}
   def delete_contacts(connection, session, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/contacts?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactDeletionsResponse{}}
+      {200, %OpenXchangeClient.Model.ContactDeletionsResponse{}}
     ])
   end
 
@@ -124,28 +135,35 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec do_auto_complete_contacts(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t} | {:error, Tesla.Env.t}
+  @spec do_auto_complete_contacts(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t()} | {:error, Tesla.Env.t()}
   def do_auto_complete_contacts(connection, session, columns, query, opts \\ []) do
     optional_params = %{
-      :"email" => :query,
-      :"folder" => :query,
-      :"sort" => :query,
-      :"order" => :query,
-      :"collation" => :query,
-      :"left_hand_limit" => :query,
-      :"right_hand_limit" => :query
+      :email => :query,
+      :folder => :query,
+      :sort => :query,
+      :order => :query,
+      :collation => :query,
+      :left_hand_limit => :query,
+      :right_hand_limit => :query
     }
+
     %{}
     |> method(:get)
     |> url("/contacts?action&#x3D;autocomplete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"query", query)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
+    |> add_param(:query, :query, query)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactsResponse{}}
+      {200, %OpenXchangeClient.Model.ContactsResponse{}}
     ])
   end
 
@@ -168,25 +186,27 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_contacts(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_contacts(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.ContactsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_contacts(connection, session, folder, columns, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query,
-      :"admin" => :query,
-      :"collation" => :query
+      :sort => :query,
+      :order => :query,
+      :admin => :query,
+      :collation => :query
     }
+
     %{}
     |> method(:get)
     |> url("/contacts?action&#x3D;all")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactsResponse{}}
+      {200, %OpenXchangeClient.Model.ContactsResponse{}}
     ])
   end
 
@@ -205,18 +225,19 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_contact(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.ContactResponse.t} | {:error, Tesla.Env.t}
+  @spec get_contact(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.ContactResponse.t()} | {:error, Tesla.Env.t()}
   def get_contact(connection, session, id, folder, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/contacts?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactResponse{}}
+      {200, %OpenXchangeClient.Model.ContactResponse{}}
     ])
   end
 
@@ -234,17 +255,18 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_contact_by_user(Tesla.Env.client, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.ContactResponse.t} | {:error, Tesla.Env.t}
+  @spec get_contact_by_user(Tesla.Env.client(), String.t(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.ContactResponse.t()} | {:error, Tesla.Env.t()}
   def get_contact_by_user(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/contacts?action&#x3D;getuser")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactResponse{}}
+      {200, %OpenXchangeClient.Model.ContactResponse{}}
     ])
   end
 
@@ -263,18 +285,24 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_contact_list(Tesla.Env.client, String.t, String.t, list(OpenXchangeClient.Model.ContactListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_contact_list(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          list(OpenXchangeClient.Model.ContactListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t()} | {:error, Tesla.Env.t()}
   def get_contact_list(connection, session, columns, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/contacts?action&#x3D;list")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactsResponse{}}
+      {200, %OpenXchangeClient.Model.ContactsResponse{}}
     ])
   end
 
@@ -293,18 +321,24 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_contact_list_by_users(Tesla.Env.client, String.t, String.t, list(Integer.t), keyword()) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_contact_list_by_users(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          list(Integer.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t()} | {:error, Tesla.Env.t()}
   def get_contact_list_by_users(connection, session, columns, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/contacts?action&#x3D;listuser")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactsResponse{}}
+      {200, %OpenXchangeClient.Model.ContactsResponse{}}
     ])
   end
 
@@ -335,33 +369,35 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_contact_picture(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_contact_picture(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_contact_picture(connection, session, opts \\ []) do
     optional_params = %{
-      :"user_id" => :query,
-      :"contact_id" => :query,
-      :"folder_id" => :query,
-      :"email" => :query,
-      :"rotate" => :query,
-      :"width" => :query,
-      :"height" => :query,
-      :"shrinkOnly" => :query,
-      :"scaleType" => :query,
-      :"cropWidth" => :query,
-      :"cropHeight" => :query,
-      :"cropX" => :query,
-      :"cropY" => :query
+      :user_id => :query,
+      :contact_id => :query,
+      :folder_id => :query,
+      :email => :query,
+      :rotate => :query,
+      :width => :query,
+      :height => :query,
+      :shrinkOnly => :query,
+      :scaleType => :query,
+      :cropWidth => :query,
+      :cropHeight => :query,
+      :cropX => :query,
+      :cropY => :query
     }
+
     %{}
     |> method(:get)
     |> url("/contacts/picture?action&#x3D;get")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 404, false}
+      {200, false},
+      {404, false}
     ])
   end
 
@@ -384,25 +420,33 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactUpdatesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_contact_updates(Tesla.Env.client, String.t, String.t, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.ContactUpdatesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_contact_updates(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ContactUpdatesResponse.t()} | {:error, Tesla.Env.t()}
   def get_contact_updates(connection, session, folder, columns, timestamp, opts \\ []) do
     optional_params = %{
-      :"ignore" => :query,
-      :"sort" => :query,
-      :"order" => :query
+      :ignore => :query,
+      :sort => :query,
+      :order => :query
     }
+
     %{}
     |> method(:get)
     |> url("/contacts?action&#x3D;updates")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactUpdatesResponse{}}
+      {200, %OpenXchangeClient.Model.ContactUpdatesResponse{}}
     ])
   end
 
@@ -424,24 +468,31 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec search_contacts(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.ContactSearchBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t} | {:error, Tesla.Env.t}
+  @spec search_contacts(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.ContactSearchBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t()} | {:error, Tesla.Env.t()}
   def search_contacts(connection, session, columns, body, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query,
-      :"collation" => :query
+      :sort => :query,
+      :order => :query,
+      :collation => :query
     }
+
     %{}
     |> method(:put)
     |> url("/contacts?action&#x3D;search")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactsResponse{}}
+      {200, %OpenXchangeClient.Model.ContactsResponse{}}
     ])
   end
 
@@ -464,25 +515,32 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec search_contacts_advanced(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t} | {:error, Tesla.Env.t}
+  @spec search_contacts_advanced(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t()} | {:error, Tesla.Env.t()}
   def search_contacts_advanced(connection, session, columns, body, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query,
-      :"collation" => :query,
-      :"admin" => :query
+      :sort => :query,
+      :order => :query,
+      :collation => :query,
+      :admin => :query
     }
+
     %{}
     |> method(:put)
     |> url("/contacts?action&#x3D;advancedSearch")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactsResponse{}}
+      {200, %OpenXchangeClient.Model.ContactsResponse{}}
     ])
   end
 
@@ -507,26 +565,41 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec search_contacts_by_anniversary(Tesla.Env.client, String.t, String.t, integer(), integer(), keyword()) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t} | {:error, Tesla.Env.t}
-  def search_contacts_by_anniversary(connection, session, columns, start_date, end_date, opts \\ []) do
+  @spec search_contacts_by_anniversary(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          integer(),
+          integer(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t()} | {:error, Tesla.Env.t()}
+  def search_contacts_by_anniversary(
+        connection,
+        session,
+        columns,
+        start_date,
+        end_date,
+        opts \\ []
+      ) do
     optional_params = %{
-      :"folder" => :query,
-      :"sort" => :query,
-      :"order" => :query,
-      :"collation" => :query
+      :folder => :query,
+      :sort => :query,
+      :order => :query,
+      :collation => :query
     }
+
     %{}
     |> method(:get)
     |> url("/contacts?action&#x3D;anniversaries")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"start", start_date)
-    |> add_param(:query, :"end", end_date)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
+    |> add_param(:query, :start, start_date)
+    |> add_param(:query, :end, end_date)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactsResponse{}}
+      {200, %OpenXchangeClient.Model.ContactsResponse{}}
     ])
   end
 
@@ -551,26 +624,34 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec search_contacts_by_birthday(Tesla.Env.client, String.t, String.t, integer(), integer(), keyword()) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t} | {:error, Tesla.Env.t}
+  @spec search_contacts_by_birthday(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          integer(),
+          integer(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t()} | {:error, Tesla.Env.t()}
   def search_contacts_by_birthday(connection, session, columns, start_date, end_date, opts \\ []) do
     optional_params = %{
-      :"folder" => :query,
-      :"sort" => :query,
-      :"order" => :query,
-      :"collation" => :query
+      :folder => :query,
+      :sort => :query,
+      :order => :query,
+      :collation => :query
     }
+
     %{}
     |> method(:get)
     |> url("/contacts?action&#x3D;birthdays")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"start", start_date)
-    |> add_param(:query, :"end", end_date)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
+    |> add_param(:query, :start, start_date)
+    |> add_param(:query, :end, end_date)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactsResponse{}}
+      {200, %OpenXchangeClient.Model.ContactsResponse{}}
     ])
   end
 
@@ -592,20 +673,28 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, OpenXchangeClient.Model.ContactUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_contact(Tesla.Env.client, String.t, String.t, String.t, integer(), OpenXchangeClient.Model.ContactData.t, keyword()) :: {:ok, OpenXchangeClient.Model.ContactUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec update_contact(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.ContactData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ContactUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def update_contact(connection, session, folder, id, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/contacts?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ContactUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.ContactUpdateResponse{}}
     ])
   end
 
@@ -628,21 +717,30 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_contact_advanced(Tesla.Env.client, String.t, String.t, String.t, integer(), String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec update_contact_advanced(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def update_contact_advanced(connection, session, folder, id, timestamp, json, file, _opts \\ []) do
     %{}
     |> method(:post)
     |> url("/contacts?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
-    |> add_param(:form, :"json", json)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
+    |> add_param(:form, :json, json)
+    |> add_param(:file, :file, file)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 end

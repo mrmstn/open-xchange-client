@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Resources do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Creates a resource.
 
@@ -25,17 +24,22 @@ defmodule OpenXchangeClient.Api.Resources do
   {:ok, OpenXchangeClient.Model.ResourceUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_resource(Tesla.Env.client, String.t, OpenXchangeClient.Model.ResourceData.t, keyword()) :: {:ok, OpenXchangeClient.Model.ResourceUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec create_resource(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.ResourceData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ResourceUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def create_resource(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/resource?action&#x3D;new")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ResourceUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.ResourceUpdateResponse{}}
     ])
   end
 
@@ -54,18 +58,24 @@ defmodule OpenXchangeClient.Api.Resources do
   {:ok, OpenXchangeClient.Model.ResourcesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_resources(Tesla.Env.client, String.t, integer(), list(OpenXchangeClient.Model.ResourceListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.ResourcesResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_resources(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          list(OpenXchangeClient.Model.ResourceListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ResourcesResponse.t()} | {:error, Tesla.Env.t()}
   def delete_resources(connection, session, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/resource?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ResourcesResponse{}}
+      {200, %OpenXchangeClient.Model.ResourcesResponse{}}
     ])
   end
 
@@ -82,16 +92,17 @@ defmodule OpenXchangeClient.Api.Resources do
   {:ok, OpenXchangeClient.Model.AllResourcesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_resources(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.AllResourcesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_resources(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.AllResourcesResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_resources(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/resource?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AllResourcesResponse{}}
+      {200, %OpenXchangeClient.Model.AllResourcesResponse{}}
     ])
   end
 
@@ -109,17 +120,18 @@ defmodule OpenXchangeClient.Api.Resources do
   {:ok, OpenXchangeClient.Model.ResourceResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_resource(Tesla.Env.client, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.ResourceResponse.t} | {:error, Tesla.Env.t}
+  @spec get_resource(Tesla.Env.client(), String.t(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.ResourceResponse.t()} | {:error, Tesla.Env.t()}
   def get_resource(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/resource?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ResourceResponse{}}
+      {200, %OpenXchangeClient.Model.ResourceResponse{}}
     ])
   end
 
@@ -137,17 +149,22 @@ defmodule OpenXchangeClient.Api.Resources do
   {:ok, OpenXchangeClient.Model.ResourcesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_resource_list(Tesla.Env.client, String.t, list(OpenXchangeClient.Model.ResourceListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.ResourcesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_resource_list(
+          Tesla.Env.client(),
+          String.t(),
+          list(OpenXchangeClient.Model.ResourceListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ResourcesResponse.t()} | {:error, Tesla.Env.t()}
   def get_resource_list(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/resource?action&#x3D;list")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ResourcesResponse{}}
+      {200, %OpenXchangeClient.Model.ResourcesResponse{}}
     ])
   end
 
@@ -165,17 +182,18 @@ defmodule OpenXchangeClient.Api.Resources do
   {:ok, OpenXchangeClient.Model.ResourceUpdatesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_resource_updates(Tesla.Env.client, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.ResourceUpdatesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_resource_updates(Tesla.Env.client(), String.t(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.ResourceUpdatesResponse.t()} | {:error, Tesla.Env.t()}
   def get_resource_updates(connection, session, timestamp, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/resource?action&#x3D;updates")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :timestamp, timestamp)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ResourceUpdatesResponse{}}
+      {200, %OpenXchangeClient.Model.ResourceUpdatesResponse{}}
     ])
   end
 
@@ -193,17 +211,22 @@ defmodule OpenXchangeClient.Api.Resources do
   {:ok, OpenXchangeClient.Model.ResourcesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec search_resources(Tesla.Env.client, String.t, OpenXchangeClient.Model.ResourceSearchBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.ResourcesResponse.t} | {:error, Tesla.Env.t}
+  @spec search_resources(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.ResourceSearchBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ResourcesResponse.t()} | {:error, Tesla.Env.t()}
   def search_resources(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/resource?action&#x3D;search")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ResourcesResponse{}}
+      {200, %OpenXchangeClient.Model.ResourcesResponse{}}
     ])
   end
 
@@ -223,19 +246,26 @@ defmodule OpenXchangeClient.Api.Resources do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_resource(Tesla.Env.client, String.t, integer(), integer(), OpenXchangeClient.Model.ResourceData.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec update_resource(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          integer(),
+          OpenXchangeClient.Model.ResourceData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def update_resource(connection, session, id, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/resource?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 end

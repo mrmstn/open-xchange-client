@@ -2,14 +2,17 @@ defmodule OpenXchangeClient.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :open_xchange_client,
-     version: "7.10.2",
-     elixir: "~> 1.6",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     package: package(),
-     description: "Documentation of the Open-Xchange HTTP API which is used by the new AJAX GUI. ",
-     deps: deps()]
+    [
+      app: :open_xchange_client,
+      version: "7.10.2",
+      elixir: "~> 1.6",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      package: package(),
+      description:
+        "Documentation of the Open-Xchange HTTP API which is used by the new AJAX GUI. ",
+      deps: deps()
+    ]
   end
 
   # Configuration for the OTP application
@@ -36,7 +39,7 @@ defmodule OpenXchangeClient.Mixfile do
     ]
   end
 
-   defp package() do
+  defp package() do
     [
       name: "open_xchange_client",
       files: ~w(lib mix.exs README* LICENSE*),

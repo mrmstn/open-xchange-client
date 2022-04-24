@@ -4,38 +4,38 @@
 
 defmodule OpenXchangeClient.Model.InfoItemExtendedPermission do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"entity",
-    :"bits",
-    :"type",
-    :"display_name",
-    :"contact",
-    :"share_url",
-    :"password",
-    :"expiry_date"
+    :entity,
+    :bits,
+    :type,
+    :display_name,
+    :contact,
+    :share_url,
+    :password,
+    :expiry_date
   ]
 
   @type t :: %__MODULE__{
-    :"entity" => integer() | nil,
-    :"bits" => integer() | nil,
-    :"type" => String.t | nil,
-    :"display_name" => String.t | nil,
-    :"contact" => OpenXchangeClient.Model.ContactData.t | nil,
-    :"share_url" => String.t | nil,
-    :"password" => String.t | nil,
-    :"expiry_date" => integer() | nil
-  }
+          :entity => integer() | nil,
+          :bits => integer() | nil,
+          :type => String.t() | nil,
+          :display_name => String.t() | nil,
+          :contact => OpenXchangeClient.Model.ContactData.t() | nil,
+          :share_url => String.t() | nil,
+          :password => String.t() | nil,
+          :expiry_date => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoItemExtendedPermission do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"contact", :struct, OpenXchangeClient.Model.ContactData, options)
+    |> deserialize(:contact, :struct, OpenXchangeClient.Model.ContactData, options)
   end
 end
-

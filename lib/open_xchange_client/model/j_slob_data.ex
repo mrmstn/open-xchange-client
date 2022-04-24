@@ -4,21 +4,21 @@
 
 defmodule OpenXchangeClient.Model.JSlobData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"tree",
-    :"meta"
+    :id,
+    :tree,
+    :meta
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"tree" => map() | nil,
-    :"meta" => map() | nil
-  }
+          :id => String.t() | nil,
+          :tree => map() | nil,
+          :meta => map() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.JSlobData do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.JSlobData do
     value
   end
 end
-

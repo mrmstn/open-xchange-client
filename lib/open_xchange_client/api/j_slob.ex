@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.JSlob do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Gets all JSlobs.
 
@@ -25,20 +24,22 @@ defmodule OpenXchangeClient.Api.JSlob do
   {:ok, OpenXchangeClient.Model.JSlobsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_j_slobs(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.JSlobsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_j_slobs(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.JSlobsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_j_slobs(connection, session, opts \\ []) do
     optional_params = %{
-      :"serviceId" => :query
+      :serviceId => :query
     }
+
     %{}
     |> method(:get)
     |> url("/jslob?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.JSlobsResponse{}}
+      {200, %OpenXchangeClient.Model.JSlobsResponse{}}
     ])
   end
 
@@ -57,21 +58,23 @@ defmodule OpenXchangeClient.Api.JSlob do
   {:ok, OpenXchangeClient.Model.JSlobsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_j_slob_list(Tesla.Env.client, String.t, list(String.t), keyword()) :: {:ok, OpenXchangeClient.Model.JSlobsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_j_slob_list(Tesla.Env.client(), String.t(), list(String.t()), keyword()) ::
+          {:ok, OpenXchangeClient.Model.JSlobsResponse.t()} | {:error, Tesla.Env.t()}
   def get_j_slob_list(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"serviceId" => :query
+      :serviceId => :query
     }
+
     %{}
     |> method(:put)
     |> url("/jslob?action&#x3D;list")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.JSlobsResponse{}}
+      {200, %OpenXchangeClient.Model.JSlobsResponse{}}
     ])
   end
 
@@ -92,22 +95,24 @@ defmodule OpenXchangeClient.Api.JSlob do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec set_j_slob(Tesla.Env.client, String.t, %{optional(String.t) => any()}, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec set_j_slob(Tesla.Env.client(), String.t(), %{optional(String.t()) => any()}, keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def set_j_slob(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"id" => :query,
-      :"serviceId" => :query
+      :id => :query,
+      :serviceId => :query
     }
+
     %{}
     |> method(:put)
     |> url("/jslob?action&#x3D;set")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -127,22 +132,24 @@ defmodule OpenXchangeClient.Api.JSlob do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_j_slob(Tesla.Env.client, String.t, %{optional(String.t) => any()}, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec update_j_slob(Tesla.Env.client(), String.t(), %{optional(String.t()) => any()}, keyword()) ::
+          {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def update_j_slob(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"id" => :query,
-      :"serviceId" => :query
+      :id => :query,
+      :serviceId => :query
     }
+
     %{}
     |> method(:put)
     |> url("/jslob?action&#x3D;update")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 end

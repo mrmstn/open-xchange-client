@@ -4,25 +4,25 @@
 
 defmodule OpenXchangeClient.Model.InlineResponse200Data do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"mailFolder",
-    :"mailUID",
-    :"id",
-    :"folder_id",
-    :"filename"
+    :mailFolder,
+    :mailUID,
+    :id,
+    :folder_id,
+    :filename
   ]
 
   @type t :: %__MODULE__{
-    :"mailFolder" => String.t | nil,
-    :"mailUID" => String.t | nil,
-    :"id" => String.t | nil,
-    :"folder_id" => String.t | nil,
-    :"filename" => String.t | nil
-  }
+          :mailFolder => String.t() | nil,
+          :mailUID => String.t() | nil,
+          :id => String.t() | nil,
+          :folder_id => String.t() | nil,
+          :filename => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InlineResponse200Data do
@@ -30,4 +30,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.InlineResponse200Data do
     value
   end
 end
-

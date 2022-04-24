@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.QuotaData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"quota",
-    :"use"
+    :quota,
+    :use
   ]
 
   @type t :: %__MODULE__{
-    :"quota" => integer() | nil,
-    :"use" => integer() | nil
-  }
+          :quota => integer() | nil,
+          :use => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.QuotaData do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.QuotaData do
     value
   end
 end
-

@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Config do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Gets data of a configuration node.
   The configuration is stored in a tree. Each node of the tree has a name and a value. The values of leaf nodes are strings which store the actual configuration data. The values of inner nodes are defined recursively as objects with one field for each child node. The name and the value of each field is the name and the value of the corresponding child node, respectively. 
@@ -26,16 +25,17 @@ defmodule OpenXchangeClient.Api.Config do
   {:ok, OpenXchangeClient.Model.ConfigResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_config_node(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.ConfigResponse.t} | {:error, Tesla.Env.t}
+  @spec get_config_node(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.ConfigResponse.t()} | {:error, Tesla.Env.t()}
   def get_config_node(connection, path, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/config/#{path}")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ConfigResponse{}}
+      {200, %OpenXchangeClient.Model.ConfigResponse{}}
     ])
   end
 
@@ -53,17 +53,18 @@ defmodule OpenXchangeClient.Api.Config do
   {:ok, OpenXchangeClient.Model.ConfigPropertyResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_config_property(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.ConfigPropertyResponse.t} | {:error, Tesla.Env.t}
+  @spec get_config_property(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.ConfigPropertyResponse.t()} | {:error, Tesla.Env.t()}
   def get_config_property(connection, session, name, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/config?action&#x3D;get_property")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"name", name)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :name, name)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ConfigPropertyResponse{}}
+      {200, %OpenXchangeClient.Model.ConfigPropertyResponse{}}
     ])
   end
 
@@ -83,17 +84,23 @@ defmodule OpenXchangeClient.Api.Config do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec put_config_node(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.ConfigBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec put_config_node(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.ConfigBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def put_config_node(connection, path, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/config/#{path}")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -112,18 +119,24 @@ defmodule OpenXchangeClient.Api.Config do
   {:ok, OpenXchangeClient.Model.ConfigPropertyResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec set_config_property(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.ConfigPropertyBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.ConfigPropertyResponse.t} | {:error, Tesla.Env.t}
+  @spec set_config_property(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.ConfigPropertyBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.ConfigPropertyResponse.t()} | {:error, Tesla.Env.t()}
   def set_config_property(connection, session, name, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/config?action&#x3D;set_property")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"name", name)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :name, name)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ConfigPropertyResponse{}}
+      {200, %OpenXchangeClient.Model.ConfigPropertyResponse{}}
     ])
   end
 end

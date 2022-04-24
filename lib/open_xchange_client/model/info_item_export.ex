@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.InfoItemExport do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"folder_id"
+    :id,
+    :folder_id
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t,
-    :"folder_id" => String.t
-  }
+          :id => String.t(),
+          :folder_id => String.t()
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoItemExport do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoItemExport do
     value
   end
 end
-

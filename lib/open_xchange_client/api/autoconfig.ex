@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Autoconfig do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Gets the auto configuration for a mail account.
 
@@ -28,23 +27,25 @@ defmodule OpenXchangeClient.Api.Autoconfig do
   {:ok, OpenXchangeClient.Model.AutoConfigResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_auto_config(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.AutoConfigResponse.t} | {:error, Tesla.Env.t}
+  @spec get_auto_config(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.AutoConfigResponse.t()} | {:error, Tesla.Env.t()}
   def get_auto_config(connection, session, email, password, opts \\ []) do
     optional_params = %{
-      :"force_secure" => :form,
-      :"oauth" => :form
+      :force_secure => :form,
+      :oauth => :form
     }
+
     %{}
     |> method(:post)
     |> url("/autoconfig?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:form, :"email", email)
-    |> add_param(:form, :"password", password)
+    |> add_param(:query, :session, session)
+    |> add_param(:form, :email, email)
+    |> add_param(:form, :password, password)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AutoConfigResponse{}}
+      {200, %OpenXchangeClient.Model.AutoConfigResponse{}}
     ])
   end
 end

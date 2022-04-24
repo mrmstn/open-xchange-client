@@ -4,23 +4,23 @@
 
 defmodule OpenXchangeClient.Model.InfoJobData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"action",
-    :"module",
-    :"done"
+    :id,
+    :action,
+    :module,
+    :done
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"action" => String.t | nil,
-    :"module" => String.t | nil,
-    :"done" => boolean() | nil
-  }
+          :id => String.t() | nil,
+          :action => String.t() | nil,
+          :module => String.t() | nil,
+          :done => boolean() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoJobData do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoJobData do
     value
   end
 end
-

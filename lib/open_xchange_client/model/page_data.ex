@@ -4,38 +4,38 @@
 
 defmodule OpenXchangeClient.Model.PageData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"item_id",
-    :"name",
-    :"category_id",
-    :"category",
-    :"country",
-    :"description",
-    :"icon",
-    :"page_sections"
+    :item_id,
+    :name,
+    :category_id,
+    :category,
+    :country,
+    :description,
+    :icon,
+    :page_sections
   ]
 
   @type t :: %__MODULE__{
-    :"item_id" => integer() | nil,
-    :"name" => String.t | nil,
-    :"category_id" => integer() | nil,
-    :"category" => String.t | nil,
-    :"country" => String.t | nil,
-    :"description" => String.t | nil,
-    :"icon" => String.t | nil,
-    :"page_sections" => [OpenXchangeClient.Model.PageSectionsData.t] | nil
-  }
+          :item_id => integer() | nil,
+          :name => String.t() | nil,
+          :category_id => integer() | nil,
+          :category => String.t() | nil,
+          :country => String.t() | nil,
+          :description => String.t() | nil,
+          :icon => String.t() | nil,
+          :page_sections => [OpenXchangeClient.Model.PageSectionsData.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.PageData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"page_sections", :list, OpenXchangeClient.Model.PageSectionsData, options)
+    |> deserialize(:page_sections, :list, OpenXchangeClient.Model.PageSectionsData, options)
   end
 end
-

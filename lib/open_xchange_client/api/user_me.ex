@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.UserMe do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Gets information about current user.
 
@@ -24,16 +23,17 @@ defmodule OpenXchangeClient.Api.UserMe do
   {:ok, OpenXchangeClient.Model.CurrentUserResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_current_user(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CurrentUserResponse.t} | {:error, Tesla.Env.t}
+  @spec get_current_user(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CurrentUserResponse.t()} | {:error, Tesla.Env.t()}
   def get_current_user(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/user/me")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CurrentUserResponse{}}
+      {200, %OpenXchangeClient.Model.CurrentUserResponse{}}
     ])
   end
 end

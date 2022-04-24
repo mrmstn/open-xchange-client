@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Mail do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Auto saves an e-mail as draft.
 
@@ -59,55 +58,57 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec autosave(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailsResponse.t} | {:error, Tesla.Env.t}
+  @spec autosave(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailsResponse.t()} | {:error, Tesla.Env.t()}
   def autosave(connection, session, opts \\ []) do
     optional_params = %{
-      :"csid" => :query,
-      :"nested_msgs" => :form,
-      :"security_info" => :form,
-      :"security" => :form,
-      :"authenticity" => :form,
-      :"color_label" => :form,
-      :"id" => :form,
-      :"folder_id" => :form,
-      :"attachment" => :form,
-      :"from" => :form,
-      :"to" => :form,
-      :"cc" => :form,
-      :"bcc" => :form,
-      :"subject" => :form,
-      :"size" => :form,
-      :"sent_date" => :form,
-      :"received_date" => :form,
-      :"flags" => :form,
-      :"level" => :form,
-      :"disp_notification_to" => :form,
-      :"priority" => :form,
-      :"msg_ref" => :form,
-      :"flag_seen" => :form,
-      :"account_name" => :form,
-      :"account_id" => :form,
-      :"user" => :form,
-      :"headers" => :form,
-      :"attachments" => :form,
-      :"truncated" => :form,
-      :"source" => :form,
-      :"cid" => :form,
-      :"original_id" => :form,
-      :"original_folder_id" => :form,
-      :"content_type" => :form,
-      :"text_preview" => :form
+      :csid => :query,
+      :nested_msgs => :form,
+      :security_info => :form,
+      :security => :form,
+      :authenticity => :form,
+      :color_label => :form,
+      :id => :form,
+      :folder_id => :form,
+      :attachment => :form,
+      :from => :form,
+      :to => :form,
+      :cc => :form,
+      :bcc => :form,
+      :subject => :form,
+      :size => :form,
+      :sent_date => :form,
+      :received_date => :form,
+      :flags => :form,
+      :level => :form,
+      :disp_notification_to => :form,
+      :priority => :form,
+      :msg_ref => :form,
+      :flag_seen => :form,
+      :account_name => :form,
+      :account_id => :form,
+      :user => :form,
+      :headers => :form,
+      :attachments => :form,
+      :truncated => :form,
+      :source => :form,
+      :cid => :form,
+      :original_id => :form,
+      :original_folder_id => :form,
+      :content_type => :form,
+      :text_preview => :form
     }
+
     %{}
     |> method(:put)
     |> url("/mail?action&#x3D;autosave")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailsResponse{}}
+      {200, %OpenXchangeClient.Model.MailsResponse{}}
     ])
   end
 
@@ -126,21 +127,23 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailsCleanUpResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec clear_mail_folders(Tesla.Env.client, String.t, list(String.t), keyword()) :: {:ok, OpenXchangeClient.Model.MailsCleanUpResponse.t} | {:error, Tesla.Env.t}
+  @spec clear_mail_folders(Tesla.Env.client(), String.t(), list(String.t()), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailsCleanUpResponse.t()} | {:error, Tesla.Env.t()}
   def clear_mail_folders(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"timestamp" => :query
+      :timestamp => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mail?action&#x3D;clear")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailsCleanUpResponse{}}
+      {200, %OpenXchangeClient.Model.MailsCleanUpResponse{}}
     ])
   end
 
@@ -160,19 +163,26 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailDestinationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec copy_mail(Tesla.Env.client, String.t, String.t, String.t, OpenXchangeClient.Model.MailDestinationBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailDestinationResponse.t} | {:error, Tesla.Env.t}
+  @spec copy_mail(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.MailDestinationBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.MailDestinationResponse.t()} | {:error, Tesla.Env.t()}
   def copy_mail(connection, session, id, folder, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/mail?action&#x3D;copy")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailDestinationResponse{}}
+      {200, %OpenXchangeClient.Model.MailDestinationResponse{}}
     ])
   end
 
@@ -193,23 +203,29 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailsCleanUpResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_mails(Tesla.Env.client, String.t, list(OpenXchangeClient.Model.MailListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.MailsCleanUpResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_mails(
+          Tesla.Env.client(),
+          String.t(),
+          list(OpenXchangeClient.Model.MailListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.MailsCleanUpResponse.t()} | {:error, Tesla.Env.t()}
   def delete_mails(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"timestamp" => :query,
-      :"harddelete" => :query,
-      :"returnAffectedFolders" => :query
+      :timestamp => :query,
+      :harddelete => :query,
+      :returnAffectedFolders => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mail?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailsCleanUpResponse{}}
+      {200, %OpenXchangeClient.Model.MailsCleanUpResponse{}}
     ])
   end
 
@@ -227,17 +243,18 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.ExamineResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec examine(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.ExamineResponse.t} | {:error, Tesla.Env.t}
+  @spec examine(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.ExamineResponse.t()} | {:error, Tesla.Env.t()}
   def examine(connection, session, folder, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;examine")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ExamineResponse{}}
+      {200, %OpenXchangeClient.Model.ExamineResponse{}}
     ])
   end
 
@@ -261,25 +278,27 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailReplyResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec forward_mail(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailReplyResponse.t} | {:error, Tesla.Env.t}
+  @spec forward_mail(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailReplyResponse.t()} | {:error, Tesla.Env.t()}
   def forward_mail(connection, session, folder, id, opts \\ []) do
     optional_params = %{
-      :"view" => :query,
-      :"max_size" => :query,
-      :"decrypt" => :query,
-      :"cryptoAuth" => :query
+      :view => :query,
+      :max_size => :query,
+      :decrypt => :query,
+      :cryptoAuth => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;forward")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailReplyResponse{}}
+      {200, %OpenXchangeClient.Model.MailReplyResponse{}}
     ])
   end
 
@@ -307,30 +326,32 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_mails(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_mails(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_mails(connection, session, folder, columns, opts \\ []) do
     optional_params = %{
-      :"headers" => :query,
-      :"unseen" => :query,
-      :"deleted" => :query,
-      :"sort" => :query,
-      :"order" => :query,
-      :"left_hand_limit" => :query,
-      :"right_hand_limit" => :query,
-      :"limit" => :query,
-      :"categoryid" => :query
+      :headers => :query,
+      :unseen => :query,
+      :deleted => :query,
+      :sort => :query,
+      :order => :query,
+      :left_hand_limit => :query,
+      :right_hand_limit => :query,
+      :limit => :query,
+      :categoryid => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;all")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailsResponse{}}
+      {200, %OpenXchangeClient.Model.MailsResponse{}}
     ])
   end
 
@@ -351,23 +372,31 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_attachments_as_zip(Tesla.Env.client, String.t, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_attachments_as_zip(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_attachments_as_zip(connection, session, folder, id, attachment, opts \\ []) do
     optional_params = %{
-      :"scan" => :query
+      :scan => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;zip_attachments")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"attachment", attachment)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :attachment, attachment)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -398,33 +427,35 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mail(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailResponse.t} | {:error, Tesla.Env.t}
+  @spec get_mail(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailResponse.t()} | {:error, Tesla.Env.t()}
   def get_mail(connection, session, folder, opts \\ []) do
     optional_params = %{
-      :"id" => :query,
-      :"message_id" => :query,
-      :"edit" => :query,
-      :"view" => :query,
-      :"forceImages" => :query,
-      :"unseen" => :query,
-      :"max_size" => :query,
-      :"attach_src" => :query,
-      :"estimate_length" => :query,
-      :"pregenerate_previews" => :query,
-      :"no_nested_message" => :query,
-      :"decrypt" => :query,
-      :"cryptoAuth" => :query
+      :id => :query,
+      :message_id => :query,
+      :edit => :query,
+      :view => :query,
+      :forceImages => :query,
+      :unseen => :query,
+      :max_size => :query,
+      :attach_src => :query,
+      :estimate_length => :query,
+      :pregenerate_previews => :query,
+      :no_nested_message => :query,
+      :decrypt => :query,
+      :cryptoAuth => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailResponse{}}
+      {200, %OpenXchangeClient.Model.MailResponse{}}
     ])
   end
 
@@ -461,39 +492,41 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mail_attachment(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_mail_attachment(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_mail_attachment(connection, session, folder, id, opts \\ []) do
     optional_params = %{
-      :"attachment" => :query,
-      :"cid" => :query,
-      :"save" => :query,
-      :"filter" => :query,
-      :"allow_nested_messages" => :query,
-      :"scan" => :query,
-      :"as_json" => :query,
-      :"decrypt" => :query,
-      :"cryptoAuth" => :query,
-      :"rotate" => :query,
-      :"width" => :query,
-      :"height" => :query,
-      :"shrinkOnly" => :query,
-      :"scaleType" => :query,
-      :"cropWidth" => :query,
-      :"cropHeight" => :query,
-      :"cropX" => :query,
-      :"cropY" => :query
+      :attachment => :query,
+      :cid => :query,
+      :save => :query,
+      :filter => :query,
+      :allow_nested_messages => :query,
+      :scan => :query,
+      :as_json => :query,
+      :decrypt => :query,
+      :cryptoAuth => :query,
+      :rotate => :query,
+      :width => :query,
+      :height => :query,
+      :shrinkOnly => :query,
+      :scaleType => :query,
+      :cropWidth => :query,
+      :cropHeight => :query,
+      :cropX => :query,
+      :cropY => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;attachment")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -523,32 +556,34 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailConversationsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mail_conversations(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailConversationsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_mail_conversations(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailConversationsResponse.t()} | {:error, Tesla.Env.t()}
   def get_mail_conversations(connection, session, folder, columns, opts \\ []) do
     optional_params = %{
-      :"headers" => :query,
-      :"unseen" => :query,
-      :"deleted" => :query,
-      :"sort" => :query,
-      :"order" => :query,
-      :"includeSent" => :query,
-      :"left_hand_limit" => :query,
-      :"right_hand_limit" => :query,
-      :"limit" => :query,
-      :"categoryid" => :query,
-      :"max" => :query
+      :headers => :query,
+      :unseen => :query,
+      :deleted => :query,
+      :sort => :query,
+      :order => :query,
+      :includeSent => :query,
+      :left_hand_limit => :query,
+      :right_hand_limit => :query,
+      :limit => :query,
+      :categoryid => :query,
+      :max => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;threadedAll")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailConversationsResponse{}}
+      {200, %OpenXchangeClient.Model.MailConversationsResponse{}}
     ])
   end
 
@@ -566,17 +601,18 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailCountResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mail_count(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailCountResponse.t} | {:error, Tesla.Env.t}
+  @spec get_mail_count(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailCountResponse.t()} | {:error, Tesla.Env.t()}
   def get_mail_count(connection, session, folder, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;count")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailCountResponse{}}
+      {200, %OpenXchangeClient.Model.MailCountResponse{}}
     ])
   end
 
@@ -598,23 +634,25 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailHeadersResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mail_headers(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailHeadersResponse.t} | {:error, Tesla.Env.t}
+  @spec get_mail_headers(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailHeadersResponse.t()} | {:error, Tesla.Env.t()}
   def get_mail_headers(connection, session, folder, opts \\ []) do
     optional_params = %{
-      :"id" => :query,
-      :"message_id" => :query,
-      :"unseen" => :query
+      :id => :query,
+      :message_id => :query,
+      :unseen => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;get&amp;hdr&#x3D;1")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailHeadersResponse{}}
+      {200, %OpenXchangeClient.Model.MailHeadersResponse{}}
     ])
   end
 
@@ -634,22 +672,29 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mail_list(Tesla.Env.client, String.t, String.t, list(OpenXchangeClient.Model.MailListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.MailsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_mail_list(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          list(OpenXchangeClient.Model.MailListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.MailsResponse.t()} | {:error, Tesla.Env.t()}
   def get_mail_list(connection, session, columns, body, opts \\ []) do
     optional_params = %{
-      :"headers" => :query
+      :headers => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mail?action&#x3D;list")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailsResponse{}}
+      {200, %OpenXchangeClient.Model.MailsResponse{}}
     ])
   end
 
@@ -672,24 +717,26 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailSourceResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mail_source(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailSourceResponse.t} | {:error, Tesla.Env.t}
+  @spec get_mail_source(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailSourceResponse.t()} | {:error, Tesla.Env.t()}
   def get_mail_source(connection, session, folder, opts \\ []) do
     optional_params = %{
-      :"id" => :query,
-      :"message_id" => :query,
-      :"unseen" => :query,
-      :"save" => :query
+      :id => :query,
+      :message_id => :query,
+      :unseen => :query,
+      :save => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;get&amp;src&#x3D;1")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailSourceResponse{}}
+      {200, %OpenXchangeClient.Model.MailSourceResponse{}}
     ])
   end
 
@@ -711,23 +758,25 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mail_updates(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_mail_updates(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailsResponse.t()} | {:error, Tesla.Env.t()}
   def get_mail_updates(connection, session, folder, columns, opts \\ []) do
     optional_params = %{
-      :"headers" => :query,
-      :"ignore" => :query
+      :headers => :query,
+      :ignore => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;updates")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailsResponse{}}
+      {200, %OpenXchangeClient.Model.MailsResponse{}}
     ])
   end
 
@@ -746,18 +795,19 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mails_as_zip(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_mails_as_zip(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def get_mails_as_zip(connection, session, folder, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;zip_messages")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -780,25 +830,28 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailThreadReferencesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_thread_references(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailThreadReferencesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_thread_references(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailThreadReferencesResponse.t()}
+          | {:error, Tesla.Env.t()}
   def get_thread_references(connection, session, folder, columns, opts \\ []) do
     optional_params = %{
-      :"headers" => :query,
-      :"sort" => :query,
-      :"order" => :query,
-      :"size" => :query
+      :headers => :query,
+      :sort => :query,
+      :order => :query,
+      :size => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;thread_references")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailThreadReferencesResponse{}}
+      {200, %OpenXchangeClient.Model.MailThreadReferencesResponse{}}
     ])
   end
 
@@ -820,23 +873,25 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailImportResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec import_mail(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailImportResponse.t} | {:error, Tesla.Env.t}
+  @spec import_mail(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailImportResponse.t()} | {:error, Tesla.Env.t()}
   def import_mail(connection, session, folder, file, opts \\ []) do
     optional_params = %{
-      :"flags" => :query,
-      :"force" => :query
+      :flags => :query,
+      :force => :query
     }
+
     %{}
     |> method(:post)
     |> url("/mail?action&#x3D;import")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:file, :"file", file)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:file, :file, file)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailImportResponse{}}
+      {200, %OpenXchangeClient.Model.MailImportResponse{}}
     ])
   end
 
@@ -854,18 +909,19 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailsAllSeenResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec mark_all_mails_as_read(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailsAllSeenResponse.t} | {:error, Tesla.Env.t}
+  @spec mark_all_mails_as_read(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailsAllSeenResponse.t()} | {:error, Tesla.Env.t()}
   def mark_all_mails_as_read(connection, session, folder, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/mail?action&#x3D;all_seen")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailsAllSeenResponse{}}
+      {200, %OpenXchangeClient.Model.MailsAllSeenResponse{}}
     ])
   end
 
@@ -887,21 +943,39 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.InlineResponse200.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec put_mail_attachment(Tesla.Env.client, String.t, String.t, String.t, String.t, String.t, OpenXchangeClient.Model.PutAttachmentBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.InlineResponse200.t} | {:error, Tesla.Env.t}
-  def put_mail_attachment(connection, session, folder, id, attachment, dest_folder, body, _opts \\ []) do
+  @spec put_mail_attachment(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.PutAttachmentBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.InlineResponse200.t()} | {:error, Tesla.Env.t()}
+  def put_mail_attachment(
+        connection,
+        session,
+        folder,
+        id,
+        attachment,
+        dest_folder,
+        body,
+        _opts \\ []
+      ) do
     %{}
     |> method(:put)
     |> url("/mail?action&#x3D;attachment")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"attachment", attachment)
-    |> add_param(:query, :"dest_folder", dest_folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :attachment, attachment)
+    |> add_param(:query, :dest_folder, dest_folder)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InlineResponse200{}}
+      {200, %OpenXchangeClient.Model.InlineResponse200{}}
     ])
   end
 
@@ -920,17 +994,22 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailAckResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec receipt_mail_ack(Tesla.Env.client, String.t, OpenXchangeClient.Model.MailAckBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailAckResponse.t} | {:error, Tesla.Env.t}
+  @spec receipt_mail_ack(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MailAckBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.MailAckResponse.t()} | {:error, Tesla.Env.t()}
   def receipt_mail_ack(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/mail?action&#x3D;receipt_ack")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailAckResponse{}}
+      {200, %OpenXchangeClient.Model.MailAckResponse{}}
     ])
   end
 
@@ -955,26 +1034,28 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailReplyResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec reply_all_mail(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailReplyResponse.t} | {:error, Tesla.Env.t}
+  @spec reply_all_mail(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailReplyResponse.t()} | {:error, Tesla.Env.t()}
   def reply_all_mail(connection, session, folder, id, opts \\ []) do
     optional_params = %{
-      :"view" => :query,
-      :"setFrom" => :query,
-      :"max_size" => :query,
-      :"decrypt" => :query,
-      :"cryptoAuth" => :query
+      :view => :query,
+      :setFrom => :query,
+      :max_size => :query,
+      :decrypt => :query,
+      :cryptoAuth => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;replyall")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailReplyResponse{}}
+      {200, %OpenXchangeClient.Model.MailReplyResponse{}}
     ])
   end
 
@@ -999,26 +1080,28 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailReplyResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec reply_mail(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailReplyResponse.t} | {:error, Tesla.Env.t}
+  @spec reply_mail(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailReplyResponse.t()} | {:error, Tesla.Env.t()}
   def reply_mail(connection, session, folder, id, opts \\ []) do
     optional_params = %{
-      :"view" => :query,
-      :"setFrom" => :query,
-      :"max_size" => :query,
-      :"decrypt" => :query,
-      :"cryptoAuth" => :query
+      :view => :query,
+      :setFrom => :query,
+      :max_size => :query,
+      :decrypt => :query,
+      :cryptoAuth => :query
     }
+
     %{}
     |> method(:get)
     |> url("/mail?action&#x3D;reply")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailReplyResponse{}}
+      {200, %OpenXchangeClient.Model.MailReplyResponse{}}
     ])
   end
 
@@ -1036,17 +1119,24 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.ResolveShareReferenceResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec resolve_share_reference(Tesla.Env.client, String.t, OpenXchangeClient.Model.ResolveShareReferenceElement.t, keyword()) :: {:ok, OpenXchangeClient.Model.ResolveShareReferenceResponse.t} | {:error, Tesla.Env.t}
+  @spec resolve_share_reference(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.ResolveShareReferenceElement.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.ResolveShareReferenceResponse.t()}
+          | {:error, Tesla.Env.t()}
   def resolve_share_reference(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/mail?action&#x3D;resolve_share_reference")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.ResolveShareReferenceResponse{}}
+      {200, %OpenXchangeClient.Model.ResolveShareReferenceResponse{}}
     ])
   end
 
@@ -1071,27 +1161,35 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec search_mails(Tesla.Env.client, String.t, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailsResponse.t} | {:error, Tesla.Env.t}
+  @spec search_mails(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.MailsResponse.t()} | {:error, Tesla.Env.t()}
   def search_mails(connection, session, folder, columns, body, opts \\ []) do
     optional_params = %{
-      :"headers" => :query,
-      :"unseen" => :query,
-      :"deleted" => :query,
-      :"sort" => :query,
-      :"order" => :query
+      :headers => :query,
+      :unseen => :query,
+      :deleted => :query,
+      :sort => :query,
+      :order => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mail?action&#x3D;search")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailsResponse{}}
+      {200, %OpenXchangeClient.Model.MailsResponse{}}
     ])
   end
 
@@ -1111,21 +1209,23 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec send_mail(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec send_mail(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, String.t()} | {:error, Tesla.Env.t()}
   def send_mail(connection, session, json0, opts \\ []) do
     optional_params = %{
-      :"lineWrapAfter" => :query
+      :lineWrapAfter => :query
     }
+
     %{}
     |> method(:post)
     |> url("/mail?action&#x3D;new")
-    |> add_param(:query, :"session", session)
-    |> add_param(:form, :"json_0", json0)
+    |> add_param(:query, :session, session)
+    |> add_param(:form, :json_0, json0)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -1144,22 +1244,24 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailDestinationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec send_or_save_mail(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailDestinationResponse.t} | {:error, Tesla.Env.t}
+  @spec send_or_save_mail(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MailDestinationResponse.t()} | {:error, Tesla.Env.t()}
   def send_or_save_mail(connection, session, opts \\ []) do
     optional_params = %{
-      :"folder" => :query,
-      :"flags" => :query
+      :folder => :query,
+      :flags => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mail?action&#x3D;new")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailDestinationResponse{}}
+      {200, %OpenXchangeClient.Model.MailDestinationResponse{}}
     ])
   end
 
@@ -1181,23 +1283,30 @@ defmodule OpenXchangeClient.Api.Mail do
   {:ok, OpenXchangeClient.Model.MailDestinationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_mail(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.MailUpdateBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.MailDestinationResponse.t} | {:error, Tesla.Env.t}
+  @spec update_mail(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.MailUpdateBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.MailDestinationResponse.t()} | {:error, Tesla.Env.t()}
   def update_mail(connection, session, folder, body, opts \\ []) do
     optional_params = %{
-      :"id" => :query,
-      :"message_id" => :query
+      :id => :query,
+      :message_id => :query
     }
+
     %{}
     |> method(:put)
     |> url("/mail?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MailDestinationResponse{}}
+      {200, %OpenXchangeClient.Model.MailDestinationResponse{}}
     ])
   end
 end

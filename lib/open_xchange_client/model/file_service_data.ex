@@ -4,28 +4,33 @@
 
 defmodule OpenXchangeClient.Model.FileServiceData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"displayName",
-    :"configuration"
+    :id,
+    :displayName,
+    :configuration
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"displayName" => String.t | nil,
-    :"configuration" => [OpenXchangeClient.Model.FileServiceConfiguration.t] | nil
-  }
+          :id => String.t() | nil,
+          :displayName => String.t() | nil,
+          :configuration => [OpenXchangeClient.Model.FileServiceConfiguration.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FileServiceData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"configuration", :list, OpenXchangeClient.Model.FileServiceConfiguration, options)
+    |> deserialize(
+      :configuration,
+      :list,
+      OpenXchangeClient.Model.FileServiceConfiguration,
+      options
+    )
   end
 end
-

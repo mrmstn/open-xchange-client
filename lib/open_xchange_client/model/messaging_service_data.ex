@@ -4,30 +4,35 @@
 
 defmodule OpenXchangeClient.Model.MessagingServiceData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"displayName",
-    :"formDescription",
-    :"messagingActions"
+    :id,
+    :displayName,
+    :formDescription,
+    :messagingActions
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"displayName" => String.t | nil,
-    :"formDescription" => [OpenXchangeClient.Model.MessagingFormDescription.t] | nil,
-    :"messagingActions" => [String.t] | nil
-  }
+          :id => String.t() | nil,
+          :displayName => String.t() | nil,
+          :formDescription => [OpenXchangeClient.Model.MessagingFormDescription.t()] | nil,
+          :messagingActions => [String.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MessagingServiceData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"formDescription", :list, OpenXchangeClient.Model.MessagingFormDescription, options)
+    |> deserialize(
+      :formDescription,
+      :list,
+      OpenXchangeClient.Model.MessagingFormDescription,
+      options
+    )
   end
 end
-

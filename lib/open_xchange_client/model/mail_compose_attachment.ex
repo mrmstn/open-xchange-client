@@ -9,24 +9,24 @@ defmodule OpenXchangeClient.Model.MailComposeAttachment do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"name",
-    :"size",
-    :"mimeType",
-    :"cid",
-    :"contentDisposition",
-    :"origin"
+    :id,
+    :name,
+    :size,
+    :mimeType,
+    :cid,
+    :contentDisposition,
+    :origin
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"name" => String.t | nil,
-    :"size" => integer() | nil,
-    :"mimeType" => String.t | nil,
-    :"cid" => String.t | nil,
-    :"contentDisposition" => String.t | nil,
-    :"origin" => String.t | nil
-  }
+          :id => String.t() | nil,
+          :name => String.t() | nil,
+          :size => integer() | nil,
+          :mimeType => String.t() | nil,
+          :cid => String.t() | nil,
+          :contentDisposition => String.t() | nil,
+          :origin => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailComposeAttachment do
@@ -34,4 +34,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailComposeAttachment do
     value
   end
 end
-

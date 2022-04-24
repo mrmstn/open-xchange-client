@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Messaging do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Creates a messaging account.
 
@@ -25,17 +24,24 @@ defmodule OpenXchangeClient.Api.Messaging do
   {:ok, OpenXchangeClient.Model.MessagingAccountUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_messaging_account(Tesla.Env.client, String.t, OpenXchangeClient.Model.MessagingAccountData.t, keyword()) :: {:ok, OpenXchangeClient.Model.MessagingAccountUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec create_messaging_account(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MessagingAccountData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MessagingAccountUpdateResponse.t()}
+          | {:error, Tesla.Env.t()}
   def create_messaging_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/messaging/account?action&#x3D;new")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MessagingAccountUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.MessagingAccountUpdateResponse{}}
     ])
   end
 
@@ -54,18 +60,20 @@ defmodule OpenXchangeClient.Api.Messaging do
   {:ok, OpenXchangeClient.Model.MessagingAccountUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_messaging_account(Tesla.Env.client, String.t, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.MessagingAccountUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_messaging_account(Tesla.Env.client(), String.t(), String.t(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MessagingAccountUpdateResponse.t()}
+          | {:error, Tesla.Env.t()}
   def delete_messaging_account(connection, session, messaging_service, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/messaging/account?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"messagingService", messaging_service)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :messagingService, messaging_service)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MessagingAccountUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.MessagingAccountUpdateResponse{}}
     ])
   end
 
@@ -83,20 +91,22 @@ defmodule OpenXchangeClient.Api.Messaging do
   {:ok, OpenXchangeClient.Model.MessagingAccountsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_messaging_accounts(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MessagingAccountsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_messaging_accounts(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MessagingAccountsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_messaging_accounts(connection, session, opts \\ []) do
     optional_params = %{
-      :"messagingService" => :query
+      :messagingService => :query
     }
+
     %{}
     |> method(:get)
     |> url("/messaging/account?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MessagingAccountsResponse{}}
+      {200, %OpenXchangeClient.Model.MessagingAccountsResponse{}}
     ])
   end
 
@@ -117,23 +127,31 @@ defmodule OpenXchangeClient.Api.Messaging do
   {:ok, OpenXchangeClient.Model.MessagingMessagesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_messaging_messages(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MessagingMessagesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_messaging_messages(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MessagingMessagesResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_messaging_messages(connection, session, columns, folder, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query
+      :sort => :query,
+      :order => :query
     }
+
     %{}
     |> method(:get)
     |> url("/messaging/message?action&#x3D;all")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
+    |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MessagingMessagesResponse{}}
+      {200, %OpenXchangeClient.Model.MessagingMessagesResponse{}}
     ])
   end
 
@@ -150,16 +168,17 @@ defmodule OpenXchangeClient.Api.Messaging do
   {:ok, OpenXchangeClient.Model.MessagingServicesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_messaging_services(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MessagingServicesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_messaging_services(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MessagingServicesResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_messaging_services(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/messaging/service?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MessagingServicesResponse{}}
+      {200, %OpenXchangeClient.Model.MessagingServicesResponse{}}
     ])
   end
 
@@ -178,18 +197,19 @@ defmodule OpenXchangeClient.Api.Messaging do
   {:ok, OpenXchangeClient.Model.MessagingAccountResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_messaging_account(Tesla.Env.client, String.t, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.MessagingAccountResponse.t} | {:error, Tesla.Env.t}
+  @spec get_messaging_account(Tesla.Env.client(), String.t(), String.t(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MessagingAccountResponse.t()} | {:error, Tesla.Env.t()}
   def get_messaging_account(connection, session, messaging_service, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/messaging/account?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"messagingService", messaging_service)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :messagingService, messaging_service)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MessagingAccountResponse{}}
+      {200, %OpenXchangeClient.Model.MessagingAccountResponse{}}
     ])
   end
 
@@ -210,22 +230,24 @@ defmodule OpenXchangeClient.Api.Messaging do
   {:ok, OpenXchangeClient.Model.MessagingMessageResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_messaging_message(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MessagingMessageResponse.t} | {:error, Tesla.Env.t}
+  @spec get_messaging_message(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MessagingMessageResponse.t()} | {:error, Tesla.Env.t()}
   def get_messaging_message(connection, session, id, folder, opts \\ []) do
     optional_params = %{
-      :"peek" => :query
+      :peek => :query
     }
+
     %{}
     |> method(:get)
     |> url("/messaging/message?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MessagingMessageResponse{}}
+      {200, %OpenXchangeClient.Model.MessagingMessageResponse{}}
     ])
   end
 
@@ -244,18 +266,25 @@ defmodule OpenXchangeClient.Api.Messaging do
   {:ok, OpenXchangeClient.Model.MessagingMessagesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_messaging_message_list(Tesla.Env.client, String.t, String.t, list(list(Map.t)), keyword()) :: {:ok, OpenXchangeClient.Model.MessagingMessagesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_messaging_message_list(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          list(list(Map.t())),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MessagingMessagesResponse.t()} | {:error, Tesla.Env.t()}
   def get_messaging_message_list(connection, session, columns, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/messaging/message?action&#x3D;list")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MessagingMessagesResponse{}}
+      {200, %OpenXchangeClient.Model.MessagingMessagesResponse{}}
     ])
   end
 
@@ -273,17 +302,18 @@ defmodule OpenXchangeClient.Api.Messaging do
   {:ok, OpenXchangeClient.Model.MessagingServiceResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_messaging_service(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.MessagingServiceResponse.t} | {:error, Tesla.Env.t}
+  @spec get_messaging_service(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.MessagingServiceResponse.t()} | {:error, Tesla.Env.t()}
   def get_messaging_service(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/messaging/service?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MessagingServiceResponse{}}
+      {200, %OpenXchangeClient.Model.MessagingServiceResponse{}}
     ])
   end
 
@@ -306,24 +336,33 @@ defmodule OpenXchangeClient.Api.Messaging do
   {:ok, OpenXchangeClient.Model.MessagingMessageUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec perform_messaging_action(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.MessagingMessageData.t, keyword()) :: {:ok, OpenXchangeClient.Model.MessagingMessageUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec perform_messaging_action(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.MessagingMessageData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MessagingMessageUpdateResponse.t()}
+          | {:error, Tesla.Env.t()}
   def perform_messaging_action(connection, session, message_action, body, opts \\ []) do
     optional_params = %{
-      :"id" => :query,
-      :"folder" => :query,
-      :"account" => :query
+      :id => :query,
+      :folder => :query,
+      :account => :query
     }
+
     %{}
     |> method(:put)
     |> url("/messaging/message?action&#x3D;perform")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"messageAction", message_action)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :messageAction, message_action)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MessagingMessageUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.MessagingMessageUpdateResponse{}}
     ])
   end
 
@@ -342,21 +381,29 @@ defmodule OpenXchangeClient.Api.Messaging do
   {:ok, OpenXchangeClient.Model.MessagingMessageUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec send_messaging_message(Tesla.Env.client, String.t, OpenXchangeClient.Model.MessagingMessageData.t, keyword()) :: {:ok, OpenXchangeClient.Model.MessagingMessageUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec send_messaging_message(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MessagingMessageData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MessagingMessageUpdateResponse.t()}
+          | {:error, Tesla.Env.t()}
   def send_messaging_message(connection, session, body, opts \\ []) do
     optional_params = %{
-      :"recipients" => :query
+      :recipients => :query
     }
+
     %{}
     |> method(:put)
     |> url("/messaging/message?action&#x3D;send")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MessagingMessageUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.MessagingMessageUpdateResponse{}}
     ])
   end
 
@@ -374,17 +421,24 @@ defmodule OpenXchangeClient.Api.Messaging do
   {:ok, OpenXchangeClient.Model.MessagingAccountUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_messaging_account(Tesla.Env.client, String.t, OpenXchangeClient.Model.MessagingAccountData.t, keyword()) :: {:ok, OpenXchangeClient.Model.MessagingAccountUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec update_messaging_account(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.MessagingAccountData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.MessagingAccountUpdateResponse.t()}
+          | {:error, Tesla.Env.t()}
   def update_messaging_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/messaging/account?action&#x3D;update")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.MessagingAccountUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.MessagingAccountUpdateResponse{}}
     ])
   end
 end

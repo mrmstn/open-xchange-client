@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.MailFilterConfigTest do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"test",
-    :"comparison"
+    :test,
+    :comparison
   ]
 
   @type t :: %__MODULE__{
-    :"test" => String.t | nil,
-    :"comparison" => [String.t] | nil
-  }
+          :test => String.t() | nil,
+          :comparison => [String.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailFilterConfigTest do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailFilterConfigTest do
     value
   end
 end
-

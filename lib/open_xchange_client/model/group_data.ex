@@ -4,25 +4,25 @@
 
 defmodule OpenXchangeClient.Model.GroupData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"display_name",
-    :"name",
-    :"members",
-    :"last_modified_utc"
+    :id,
+    :display_name,
+    :name,
+    :members,
+    :last_modified_utc
   ]
 
   @type t :: %__MODULE__{
-    :"id" => integer() | nil,
-    :"display_name" => String.t | nil,
-    :"name" => String.t | nil,
-    :"members" => [integer()] | nil,
-    :"last_modified_utc" => integer() | nil
-  }
+          :id => integer() | nil,
+          :display_name => String.t() | nil,
+          :name => String.t() | nil,
+          :members => [integer()] | nil,
+          :last_modified_utc => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.GroupData do
@@ -30,4 +30,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.GroupData do
     value
   end
 end
-

@@ -4,25 +4,25 @@
 
 defmodule OpenXchangeClient.Model.SnippetAttachment do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"filename",
-    :"mimetype",
-    :"contentid",
-    :"size"
+    :id,
+    :filename,
+    :mimetype,
+    :contentid,
+    :size
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"filename" => String.t | nil,
-    :"mimetype" => String.t | nil,
-    :"contentid" => String.t | nil,
-    :"size" => integer() | nil
-  }
+          :id => String.t() | nil,
+          :filename => String.t() | nil,
+          :mimetype => String.t() | nil,
+          :contentid => String.t() | nil,
+          :size => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.SnippetAttachment do
@@ -30,4 +30,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.SnippetAttachment do
     value
   end
 end
-

@@ -4,24 +4,24 @@
 
 defmodule OpenXchangeClient.Model.AllSessionsResponse do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"data"
+    :data
   ]
 
   @type t :: %__MODULE__{
-    :"data" => [OpenXchangeClient.Model.SessionManagementData.t] | nil
-  }
+          :data => [OpenXchangeClient.Model.SessionManagementData.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.AllSessionsResponse do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"data", :list, OpenXchangeClient.Model.SessionManagementData, options)
+    |> deserialize(:data, :list, OpenXchangeClient.Model.SessionManagementData, options)
   end
 end
-

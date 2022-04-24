@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.ChronosFolderBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"folders"
+    :folders
   ]
 
   @type t :: %__MODULE__{
-    :"folders" => [String.t] | nil
-  }
+          :folders => [String.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ChronosFolderBody do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ChronosFolderBody do
     value
   end
 end
-

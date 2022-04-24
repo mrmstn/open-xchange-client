@@ -4,21 +4,21 @@
 
 defmodule OpenXchangeClient.Model.LanguageData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"language_id",
-    :"name",
-    :"iso_639_1"
+    :language_id,
+    :name,
+    :iso_639_1
   ]
 
   @type t :: %__MODULE__{
-    :"language_id" => integer() | nil,
-    :"name" => String.t | nil,
-    :"iso_639_1" => String.t | nil
-  }
+          :language_id => integer() | nil,
+          :name => String.t() | nil,
+          :iso_639_1 => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.LanguageData do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.LanguageData do
     value
   end
 end
-

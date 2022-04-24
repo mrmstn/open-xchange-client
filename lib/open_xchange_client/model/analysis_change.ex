@@ -4,44 +4,59 @@
 
 defmodule OpenXchangeClient.Model.AnalysisChange do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"introduction",
-    :"type",
-    :"exception",
-    :"newEvent",
-    :"currentEvent",
-    :"masterEvent",
-    :"deletedEvent",
-    :"conflicts",
-    :"diffDescription"
+    :introduction,
+    :type,
+    :exception,
+    :newEvent,
+    :currentEvent,
+    :masterEvent,
+    :deletedEvent,
+    :conflicts,
+    :diffDescription
   ]
 
   @type t :: %__MODULE__{
-    :"introduction" => String.t | nil,
-    :"type" => String.t | nil,
-    :"exception" => boolean() | nil,
-    :"newEvent" => OpenXchangeClient.Model.AnalysisChangeNewEvent.t | nil,
-    :"currentEvent" => OpenXchangeClient.Model.AnalysisChangeCurrentEvent.t | nil,
-    :"masterEvent" => OpenXchangeClient.Model.AnalysisChangeMasterEvent.t | nil,
-    :"deletedEvent" => OpenXchangeClient.Model.AnalysisChangeDeletedEvent.t | nil,
-    :"conflicts" => [OpenXchangeClient.Model.Conflict.t] | nil,
-    :"diffDescription" => [String.t] | nil
-  }
+          :introduction => String.t() | nil,
+          :type => String.t() | nil,
+          :exception => boolean() | nil,
+          :newEvent => OpenXchangeClient.Model.AnalysisChangeNewEvent.t() | nil,
+          :currentEvent => OpenXchangeClient.Model.AnalysisChangeCurrentEvent.t() | nil,
+          :masterEvent => OpenXchangeClient.Model.AnalysisChangeMasterEvent.t() | nil,
+          :deletedEvent => OpenXchangeClient.Model.AnalysisChangeDeletedEvent.t() | nil,
+          :conflicts => [OpenXchangeClient.Model.Conflict.t()] | nil,
+          :diffDescription => [String.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.AnalysisChange do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"newEvent", :struct, OpenXchangeClient.Model.AnalysisChangeNewEvent, options)
-    |> deserialize(:"currentEvent", :struct, OpenXchangeClient.Model.AnalysisChangeCurrentEvent, options)
-    |> deserialize(:"masterEvent", :struct, OpenXchangeClient.Model.AnalysisChangeMasterEvent, options)
-    |> deserialize(:"deletedEvent", :struct, OpenXchangeClient.Model.AnalysisChangeDeletedEvent, options)
-    |> deserialize(:"conflicts", :list, OpenXchangeClient.Model.Conflict, options)
+    |> deserialize(:newEvent, :struct, OpenXchangeClient.Model.AnalysisChangeNewEvent, options)
+    |> deserialize(
+      :currentEvent,
+      :struct,
+      OpenXchangeClient.Model.AnalysisChangeCurrentEvent,
+      options
+    )
+    |> deserialize(
+      :masterEvent,
+      :struct,
+      OpenXchangeClient.Model.AnalysisChangeMasterEvent,
+      options
+    )
+    |> deserialize(
+      :deletedEvent,
+      :struct,
+      OpenXchangeClient.Model.AnalysisChangeDeletedEvent,
+      options
+    )
+    |> deserialize(:conflicts, :list, OpenXchangeClient.Model.Conflict, options)
   end
 end
-

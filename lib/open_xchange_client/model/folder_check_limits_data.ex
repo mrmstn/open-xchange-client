@@ -4,24 +4,24 @@
 
 defmodule OpenXchangeClient.Model.FolderCheckLimitsData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"files"
+    :files
   ]
 
   @type t :: %__MODULE__{
-    :"files" => [OpenXchangeClient.Model.FolderCheckLimitsFiles.t] | nil
-  }
+          :files => [OpenXchangeClient.Model.FolderCheckLimitsFiles.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderCheckLimitsData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"files", :list, OpenXchangeClient.Model.FolderCheckLimitsFiles, options)
+    |> deserialize(:files, :list, OpenXchangeClient.Model.FolderCheckLimitsFiles, options)
   end
 end
-

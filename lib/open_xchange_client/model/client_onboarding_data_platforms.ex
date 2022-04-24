@@ -4,25 +4,25 @@
 
 defmodule OpenXchangeClient.Model.ClientOnboardingDataPlatforms do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"enabled",
-    :"name",
-    :"description",
-    :"icon"
+    :id,
+    :enabled,
+    :name,
+    :description,
+    :icon
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"enabled" => boolean() | nil,
-    :"name" => String.t | nil,
-    :"description" => String.t | nil,
-    :"icon" => [String.t] | nil
-  }
+          :id => String.t() | nil,
+          :enabled => boolean() | nil,
+          :name => String.t() | nil,
+          :description => String.t() | nil,
+          :icon => [String.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ClientOnboardingDataPlatforms do
@@ -30,4 +30,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ClientOnboardingDataPlatfor
     value
   end
 end
-

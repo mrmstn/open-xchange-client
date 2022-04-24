@@ -9,20 +9,20 @@ defmodule OpenXchangeClient.Model.SharedAttachments do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"language",
-    :"enabled",
-    :"autodelete",
-    :"expiryDate",
-    :"password"
+    :language,
+    :enabled,
+    :autodelete,
+    :expiryDate,
+    :password
   ]
 
   @type t :: %__MODULE__{
-    :"language" => String.t | nil,
-    :"enabled" => boolean() | nil,
-    :"autodelete" => boolean() | nil,
-    :"expiryDate" => integer() | nil,
-    :"password" => String.t | nil
-  }
+          :language => String.t() | nil,
+          :enabled => boolean() | nil,
+          :autodelete => boolean() | nil,
+          :expiryDate => integer() | nil,
+          :password => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.SharedAttachments do
@@ -30,4 +30,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.SharedAttachments do
     value
   end
 end
-

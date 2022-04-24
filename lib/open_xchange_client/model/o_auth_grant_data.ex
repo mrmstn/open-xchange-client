@@ -4,28 +4,28 @@
 
 defmodule OpenXchangeClient.Model.OAuthGrantData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"client",
-    :"scopes",
-    :"date"
+    :client,
+    :scopes,
+    :date
   ]
 
   @type t :: %__MODULE__{
-    :"client" => OpenXchangeClient.Model.OAuthClientData.t | nil,
-    :"scopes" => map() | nil,
-    :"date" => integer() | nil
-  }
+          :client => OpenXchangeClient.Model.OAuthClientData.t() | nil,
+          :scopes => map() | nil,
+          :date => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.OAuthGrantData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"client", :struct, OpenXchangeClient.Model.OAuthClientData, options)
+    |> deserialize(:client, :struct, OpenXchangeClient.Model.OAuthClientData, options)
   end
 end
-

@@ -4,21 +4,21 @@
 
 defmodule OpenXchangeClient.Model.ShareTargetData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"module",
-    :"folder",
-    :"item"
+    :module,
+    :folder,
+    :item
   ]
 
   @type t :: %__MODULE__{
-    :"module" => String.t | nil,
-    :"folder" => String.t | nil,
-    :"item" => String.t | nil
-  }
+          :module => String.t() | nil,
+          :folder => String.t() | nil,
+          :item => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ShareTargetData do
@@ -26,4 +26,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ShareTargetData do
     value
   end
 end
-

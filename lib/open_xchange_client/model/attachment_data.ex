@@ -4,51 +4,51 @@
 
 defmodule OpenXchangeClient.Model.AttachmentData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"folder",
-    :"attached",
-    :"module",
-    :"filename",
-    :"file_size",
-    :"file_mimetype",
-    :"rft_flag",
-    :"id",
-    :"created_by",
-    :"modified_by",
-    :"creation_date",
-    :"last_modified",
-    :"folder_id",
-    :"categories",
-    :"private_flag",
-    :"color_label",
-    :"number_of_attachments",
-    :"lastModifiedOfNewestAttachmentUTC"
+    :folder,
+    :attached,
+    :module,
+    :filename,
+    :file_size,
+    :file_mimetype,
+    :rft_flag,
+    :id,
+    :created_by,
+    :modified_by,
+    :creation_date,
+    :last_modified,
+    :folder_id,
+    :categories,
+    :private_flag,
+    :color_label,
+    :number_of_attachments,
+    :lastModifiedOfNewestAttachmentUTC
   ]
 
   @type t :: %__MODULE__{
-    :"folder" => integer() | nil,
-    :"attached" => integer() | nil,
-    :"module" => integer() | nil,
-    :"filename" => String.t | nil,
-    :"file_size" => integer() | nil,
-    :"file_mimetype" => String.t | nil,
-    :"rft_flag" => boolean() | nil,
-    :"id" => String.t | nil,
-    :"created_by" => String.t | nil,
-    :"modified_by" => String.t | nil,
-    :"creation_date" => integer() | nil,
-    :"last_modified" => integer() | nil,
-    :"folder_id" => String.t | nil,
-    :"categories" => String.t | nil,
-    :"private_flag" => boolean() | nil,
-    :"color_label" => integer() | nil,
-    :"number_of_attachments" => integer() | nil,
-    :"lastModifiedOfNewestAttachmentUTC" => integer() | nil
-  }
+          :folder => integer() | nil,
+          :attached => integer() | nil,
+          :module => integer() | nil,
+          :filename => String.t() | nil,
+          :file_size => integer() | nil,
+          :file_mimetype => String.t() | nil,
+          :rft_flag => boolean() | nil,
+          :id => String.t() | nil,
+          :created_by => String.t() | nil,
+          :modified_by => String.t() | nil,
+          :creation_date => integer() | nil,
+          :last_modified => integer() | nil,
+          :folder_id => String.t() | nil,
+          :categories => String.t() | nil,
+          :private_flag => boolean() | nil,
+          :color_label => integer() | nil,
+          :number_of_attachments => integer() | nil,
+          :lastModifiedOfNewestAttachmentUTC => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.AttachmentData do
@@ -56,4 +56,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.AttachmentData do
     value
   end
 end
-

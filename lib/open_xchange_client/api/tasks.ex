@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Tasks do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Confirms a task.
 
@@ -28,20 +27,28 @@ defmodule OpenXchangeClient.Api.Tasks do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec confirm_task(Tesla.Env.client, String.t, String.t, String.t, integer(), OpenXchangeClient.Model.TaskConfirmationBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec confirm_task(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.TaskConfirmationBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def confirm_task(connection, session, id, folder, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/tasks?action&#x3D;confirm")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -59,17 +66,22 @@ defmodule OpenXchangeClient.Api.Tasks do
   {:ok, OpenXchangeClient.Model.TaskUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_task(Tesla.Env.client, String.t, OpenXchangeClient.Model.TaskData.t, keyword()) :: {:ok, OpenXchangeClient.Model.TaskUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec create_task(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.TaskData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.TaskUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def create_task(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/tasks?action&#x3D;new")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.TaskUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.TaskUpdateResponse{}}
     ])
   end
 
@@ -88,18 +100,24 @@ defmodule OpenXchangeClient.Api.Tasks do
   {:ok, OpenXchangeClient.Model.TaskDeletionsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_tasks(Tesla.Env.client, String.t, integer(), list(OpenXchangeClient.Model.TaskListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.TaskDeletionsResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_tasks(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          list(OpenXchangeClient.Model.TaskListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.TaskDeletionsResponse.t()} | {:error, Tesla.Env.t()}
   def delete_tasks(connection, session, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/tasks?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.TaskDeletionsResponse{}}
+      {200, %OpenXchangeClient.Model.TaskDeletionsResponse{}}
     ])
   end
 
@@ -120,23 +138,25 @@ defmodule OpenXchangeClient.Api.Tasks do
   {:ok, OpenXchangeClient.Model.TasksResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_tasks(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.TasksResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_tasks(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.TasksResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_tasks(connection, session, folder, columns, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query
+      :sort => :query,
+      :order => :query
     }
+
     %{}
     |> method(:get)
     |> url("/tasks?action&#x3D;all")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.TasksResponse{}}
+      {200, %OpenXchangeClient.Model.TasksResponse{}}
     ])
   end
 
@@ -155,18 +175,19 @@ defmodule OpenXchangeClient.Api.Tasks do
   {:ok, OpenXchangeClient.Model.TaskResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_task(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.TaskResponse.t} | {:error, Tesla.Env.t}
+  @spec get_task(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.TaskResponse.t()} | {:error, Tesla.Env.t()}
   def get_task(connection, session, id, folder, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/tasks?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.TaskResponse{}}
+      {200, %OpenXchangeClient.Model.TaskResponse{}}
     ])
   end
 
@@ -185,18 +206,24 @@ defmodule OpenXchangeClient.Api.Tasks do
   {:ok, OpenXchangeClient.Model.TasksResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_task_list(Tesla.Env.client, String.t, String.t, list(OpenXchangeClient.Model.TaskListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.TasksResponse.t} | {:error, Tesla.Env.t}
+  @spec get_task_list(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          list(OpenXchangeClient.Model.TaskListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.TasksResponse.t()} | {:error, Tesla.Env.t()}
   def get_task_list(connection, session, columns, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/tasks?action&#x3D;list")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.TasksResponse{}}
+      {200, %OpenXchangeClient.Model.TasksResponse{}}
     ])
   end
 
@@ -219,25 +246,33 @@ defmodule OpenXchangeClient.Api.Tasks do
   {:ok, OpenXchangeClient.Model.TaskUpdatesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_task_updates(Tesla.Env.client, String.t, String.t, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.TaskUpdatesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_task_updates(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.TaskUpdatesResponse.t()} | {:error, Tesla.Env.t()}
   def get_task_updates(connection, session, folder, columns, timestamp, opts \\ []) do
     optional_params = %{
-      :"ignore" => :query,
-      :"sort" => :query,
-      :"order" => :query
+      :ignore => :query,
+      :sort => :query,
+      :order => :query
     }
+
     %{}
     |> method(:get)
     |> url("/tasks?action&#x3D;updates")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.TaskUpdatesResponse{}}
+      {200, %OpenXchangeClient.Model.TaskUpdatesResponse{}}
     ])
   end
 
@@ -258,23 +293,30 @@ defmodule OpenXchangeClient.Api.Tasks do
   {:ok, OpenXchangeClient.Model.TasksResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec search_tasks(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.TaskSearchBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.TasksResponse.t} | {:error, Tesla.Env.t}
+  @spec search_tasks(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.TaskSearchBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.TasksResponse.t()} | {:error, Tesla.Env.t()}
   def search_tasks(connection, session, columns, body, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query
+      :sort => :query,
+      :order => :query
     }
+
     %{}
     |> method(:put)
     |> url("/tasks?action&#x3D;search")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.TasksResponse{}}
+      {200, %OpenXchangeClient.Model.TasksResponse{}}
     ])
   end
 
@@ -295,20 +337,28 @@ defmodule OpenXchangeClient.Api.Tasks do
   {:ok, OpenXchangeClient.Model.TaskUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_task(Tesla.Env.client, String.t, String.t, String.t, integer(), OpenXchangeClient.Model.TaskData.t, keyword()) :: {:ok, OpenXchangeClient.Model.TaskUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec update_task(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.TaskData.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.TaskUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def update_task(connection, session, folder, id, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/tasks?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.TaskUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.TaskUpdateResponse{}}
     ])
   end
 end

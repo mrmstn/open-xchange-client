@@ -4,29 +4,29 @@
 
 defmodule OpenXchangeClient.Model.UserSearchBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"pattern",
-    :"startletter",
-    :"last_name",
-    :"first_name",
-    :"display_name",
-    :"orSearch",
-    :"emailAutoComplete"
+    :pattern,
+    :startletter,
+    :last_name,
+    :first_name,
+    :display_name,
+    :orSearch,
+    :emailAutoComplete
   ]
 
   @type t :: %__MODULE__{
-    :"pattern" => String.t | nil,
-    :"startletter" => boolean() | nil,
-    :"last_name" => String.t | nil,
-    :"first_name" => String.t | nil,
-    :"display_name" => String.t | nil,
-    :"orSearch" => boolean() | nil,
-    :"emailAutoComplete" => boolean() | nil
-  }
+          :pattern => String.t() | nil,
+          :startletter => boolean() | nil,
+          :last_name => String.t() | nil,
+          :first_name => String.t() | nil,
+          :display_name => String.t() | nil,
+          :orSearch => boolean() | nil,
+          :emailAutoComplete => boolean() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.UserSearchBody do
@@ -34,4 +34,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.UserSearchBody do
     value
   end
 end
-

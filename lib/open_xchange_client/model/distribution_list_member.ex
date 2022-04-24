@@ -4,27 +4,27 @@
 
 defmodule OpenXchangeClient.Model.DistributionListMember do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"folder_id",
-    :"display_name",
-    :"sort_name",
-    :"mail",
-    :"mail_field"
+    :id,
+    :folder_id,
+    :display_name,
+    :sort_name,
+    :mail,
+    :mail_field
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"folder_id" => String.t | nil,
-    :"display_name" => String.t | nil,
-    :"sort_name" => String.t | nil,
-    :"mail" => String.t | nil,
-    :"mail_field" => float() | nil
-  }
+          :id => String.t() | nil,
+          :folder_id => String.t() | nil,
+          :display_name => String.t() | nil,
+          :sort_name => String.t() | nil,
+          :mail => String.t() | nil,
+          :mail_field => float() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.DistributionListMember do
@@ -32,4 +32,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.DistributionListMember do
     value
   end
 end
-

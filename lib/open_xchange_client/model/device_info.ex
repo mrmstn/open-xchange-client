@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.DeviceInfo do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"info",
-    :"type"
+    :info,
+    :type
   ]
 
   @type t :: %__MODULE__{
-    :"info" => String.t | nil,
-    :"type" => String.t | nil
-  }
+          :info => String.t() | nil,
+          :type => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.DeviceInfo do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.DeviceInfo do
     value
   end
 end
-

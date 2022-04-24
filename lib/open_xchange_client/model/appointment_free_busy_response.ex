@@ -4,42 +4,42 @@
 
 defmodule OpenXchangeClient.Model.AppointmentFreeBusyResponse do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"data",
-    :"error",
-    :"error_params",
-    :"error_id",
-    :"error_desc",
-    :"error_stack",
-    :"code",
-    :"categories",
-    :"category",
-    :"timestamp"
+    :data,
+    :error,
+    :error_params,
+    :error_id,
+    :error_desc,
+    :error_stack,
+    :code,
+    :categories,
+    :category,
+    :timestamp
   ]
 
   @type t :: %__MODULE__{
-    :"data" => [OpenXchangeClient.Model.AppointmentFreeBusyItem.t] | nil,
-    :"error" => String.t | nil,
-    :"error_params" => [String.t] | nil,
-    :"error_id" => String.t | nil,
-    :"error_desc" => String.t | nil,
-    :"error_stack" => [String.t] | nil,
-    :"code" => String.t | nil,
-    :"categories" => String.t | nil,
-    :"category" => integer() | nil,
-    :"timestamp" => integer() | nil
-  }
+          :data => [OpenXchangeClient.Model.AppointmentFreeBusyItem.t()] | nil,
+          :error => String.t() | nil,
+          :error_params => [String.t()] | nil,
+          :error_id => String.t() | nil,
+          :error_desc => String.t() | nil,
+          :error_stack => [String.t()] | nil,
+          :code => String.t() | nil,
+          :categories => String.t() | nil,
+          :category => integer() | nil,
+          :timestamp => integer() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.AppointmentFreeBusyResponse do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"data", :list, OpenXchangeClient.Model.AppointmentFreeBusyItem, options)
+    |> deserialize(:data, :list, OpenXchangeClient.Model.AppointmentFreeBusyItem, options)
   end
 end
-

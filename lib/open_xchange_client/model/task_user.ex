@@ -4,23 +4,23 @@
 
 defmodule OpenXchangeClient.Model.TaskUser do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"display_name",
-    :"confirm",
-    :"confirmmessage"
+    :id,
+    :display_name,
+    :confirm,
+    :confirmmessage
   ]
 
   @type t :: %__MODULE__{
-    :"id" => integer() | nil,
-    :"display_name" => String.t | nil,
-    :"confirm" => integer() | nil,
-    :"confirmmessage" => String.t | nil
-  }
+          :id => integer() | nil,
+          :display_name => String.t() | nil,
+          :confirm => integer() | nil,
+          :confirmmessage => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.TaskUser do
@@ -28,4 +28,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.TaskUser do
     value
   end
 end
-

@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Find do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Suggests possible search filters based on a user's input.
   Filters are grouped into categories, the so called facets. #### Facets The style of a facet is responsible for how the according object is structured, how it is handled on the server-side and how the client has to handle it. We distinguish three styles of facets:  * simple  * default  * exclusive ___ Every facet value contains an embedded `filter` object. The filter must not be changed by the client, it has to be seen as a black-box. Instead the filters of selected facet values have to be copied and sent to the server with the subsequent requests. #### Simple facets A simple facet is a special facet that has exactly one value. The facet's type and its value are strictly coupled, in a way that a display name for both, facet and value would be redundant. A simple facet generally denotes a logical field like 'phone number'. Internally this logical field can map to several internal fields (e.g. 'phone_private', 'phone_mobile', 'phone_business'). In clients the facet as a whole can be displayed as a single item. Example: \"Search for 'term' in field 'phone number'\". #### Default facets A default facet contains multiple values and may be present multiple times in search requests to filter results by a combination of different values (e.g. \"mails with 'foo' and 'bar' in subject\").  Facet values may be one- or two-dimensional. A one-dimensional value can be displayed as is and contains an according filter object. A two-dimensional value contains an array \"options\" with every option defining different semantics of how the value is used to filter the search results. #### Exclusive facets An exclusive facet is a facet where the contained values are mutually exclusive. That means that the facet must only be present once in an autocomplete or query request.  Facet values may be one- or two-dimensional. A one-dimensional value can be displayed as is and contains an according filter object. A two-dimensional value contains an array \"options\" with every option defining different semantics of how the value is used to filter the search results. 
@@ -28,22 +27,29 @@ defmodule OpenXchangeClient.Api.Find do
   {:ok, OpenXchangeClient.Model.FindAutoCompleteResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec do_auto_complete(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.FindAutoCompleteBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.FindAutoCompleteResponse.t} | {:error, Tesla.Env.t}
+  @spec do_auto_complete(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.FindAutoCompleteBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.FindAutoCompleteResponse.t()} | {:error, Tesla.Env.t()}
   def do_auto_complete(connection, session, module, body, opts \\ []) do
     optional_params = %{
-      :"limit" => :query
+      :limit => :query
     }
+
     %{}
     |> method(:put)
     |> url("/find?action&#x3D;autocomplete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"module", module)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :module, module)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FindAutoCompleteResponse{}}
+      {200, %OpenXchangeClient.Model.FindAutoCompleteResponse{}}
     ])
   end
 
@@ -65,23 +71,30 @@ defmodule OpenXchangeClient.Api.Find do
   {:ok, OpenXchangeClient.Model.FindQueryResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec do_query(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.FindQueryBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.FindQueryResponse.t} | {:error, Tesla.Env.t}
+  @spec do_query(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.FindQueryBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.FindQueryResponse.t()} | {:error, Tesla.Env.t()}
   def do_query(connection, session, module, body, opts \\ []) do
     optional_params = %{
-      :"columns" => :query,
-      :"fields" => :query
+      :columns => :query,
+      :fields => :query
     }
+
     %{}
     |> method(:put)
     |> url("/find?action&#x3D;query")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"module", module)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :module, module)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.FindQueryResponse{}}
+      {200, %OpenXchangeClient.Model.FindQueryResponse{}}
     ])
   end
 end

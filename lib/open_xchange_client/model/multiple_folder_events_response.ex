@@ -4,24 +4,24 @@
 
 defmodule OpenXchangeClient.Model.MultipleFolderEventsResponse do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"data"
+    :data
   ]
 
   @type t :: %__MODULE__{
-    :"data" => [OpenXchangeClient.Model.MultipleEventData.t] | nil
-  }
+          :data => [OpenXchangeClient.Model.MultipleEventData.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MultipleFolderEventsResponse do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"data", :list, OpenXchangeClient.Model.MultipleEventData, options)
+    |> deserialize(:data, :list, OpenXchangeClient.Model.MultipleEventData, options)
   end
 end
-

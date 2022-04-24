@@ -9,20 +9,20 @@ defmodule OpenXchangeClient.Model.Contact do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"first_name",
-    :"last_name",
-    :"title",
-    :"display_name",
-    :"image1_url"
+    :first_name,
+    :last_name,
+    :title,
+    :display_name,
+    :image1_url
   ]
 
   @type t :: %__MODULE__{
-    :"first_name" => String.t | nil,
-    :"last_name" => String.t | nil,
-    :"title" => String.t | nil,
-    :"display_name" => String.t | nil,
-    :"image1_url" => String.t | nil
-  }
+          :first_name => String.t() | nil,
+          :last_name => String.t() | nil,
+          :title => String.t() | nil,
+          :display_name => String.t() | nil,
+          :image1_url => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.Contact do
@@ -30,4 +30,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.Contact do
     value
   end
 end
-

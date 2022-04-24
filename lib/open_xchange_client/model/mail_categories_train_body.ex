@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.MailCategoriesTrainBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"from"
+    :from
   ]
 
   @type t :: %__MODULE__{
-    :"from" => [String.t] | nil
-  }
+          :from => [String.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailCategoriesTrainBody do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailCategoriesTrainBody do
     value
   end
 end
-

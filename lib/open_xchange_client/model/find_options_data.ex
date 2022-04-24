@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.FindOptionsData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"timezone",
-    :"admin"
+    :timezone,
+    :admin
   ]
 
   @type t :: %__MODULE__{
-    :"timezone" => String.t | nil,
-    :"admin" => boolean() | nil
-  }
+          :timezone => String.t() | nil,
+          :admin => boolean() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FindOptionsData do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.FindOptionsData do
     value
   end
 end
-

@@ -4,44 +4,45 @@
 
 defmodule OpenXchangeClient.Model.Alarm do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"uid",
-    :"id",
-    :"action",
-    :"acknowledged",
-    :"trigger",
-    :"attachments",
-    :"attendees",
-    :"summary",
-    :"description",
-    :"extendedProperties"
+    :uid,
+    :id,
+    :action,
+    :acknowledged,
+    :trigger,
+    :attachments,
+    :attendees,
+    :summary,
+    :description,
+    :extendedProperties
   ]
 
   @type t :: %__MODULE__{
-    :"uid" => String.t | nil,
-    :"id" => integer() | nil,
-    :"action" => String.t | nil,
-    :"acknowledged" => integer() | nil,
-    :"trigger" => OpenXchangeClient.Model.Trigger.t | nil,
-    :"attachments" => [OpenXchangeClient.Model.ChronosAttachment.t] | nil,
-    :"attendees" => [OpenXchangeClient.Model.Attendee.t] | nil,
-    :"summary" => String.t | nil,
-    :"description" => String.t | nil,
-    :"extendedProperties" => %{optional(String.t) => %{optional(String.t) => String.t}} | nil
-  }
+          :uid => String.t() | nil,
+          :id => integer() | nil,
+          :action => String.t() | nil,
+          :acknowledged => integer() | nil,
+          :trigger => OpenXchangeClient.Model.Trigger.t() | nil,
+          :attachments => [OpenXchangeClient.Model.ChronosAttachment.t()] | nil,
+          :attendees => [OpenXchangeClient.Model.Attendee.t()] | nil,
+          :summary => String.t() | nil,
+          :description => String.t() | nil,
+          :extendedProperties =>
+            %{optional(String.t()) => %{optional(String.t()) => String.t()}} | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.Alarm do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"trigger", :struct, OpenXchangeClient.Model.Trigger, options)
-    |> deserialize(:"attachments", :list, OpenXchangeClient.Model.ChronosAttachment, options)
-    |> deserialize(:"attendees", :list, OpenXchangeClient.Model.Attendee, options)
+    |> deserialize(:trigger, :struct, OpenXchangeClient.Model.Trigger, options)
+    |> deserialize(:attachments, :list, OpenXchangeClient.Model.ChronosAttachment, options)
+    |> deserialize(:attendees, :list, OpenXchangeClient.Model.Attendee, options)
   end
 end
-

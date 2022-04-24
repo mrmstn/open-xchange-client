@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.ResolveShareReferenceElement do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"reference"
+    :reference
   ]
 
   @type t :: %__MODULE__{
-    :"reference" => String.t
-  }
+          :reference => String.t()
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ResolveShareReferenceElement do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ResolveShareReferenceElemen
     value
   end
 end
-

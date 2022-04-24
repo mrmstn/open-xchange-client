@@ -9,34 +9,34 @@ defmodule OpenXchangeClient.Model.MailFilterNotTest do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"id",
-    :"comparison",
-    :"addresspart",
-    :"headers",
-    :"header",
-    :"values",
-    :"size",
-    :"datepart",
-    :"datevalue",
-    :"zone",
-    :"extensionskey",
-    :"extensionsvalue"
+    :id,
+    :comparison,
+    :addresspart,
+    :headers,
+    :header,
+    :values,
+    :size,
+    :datepart,
+    :datevalue,
+    :zone,
+    :extensionskey,
+    :extensionsvalue
   ]
 
   @type t :: %__MODULE__{
-    :"id" => String.t | nil,
-    :"comparison" => String.t | nil,
-    :"addresspart" => String.t | nil,
-    :"headers" => [String.t] | nil,
-    :"header" => String.t | nil,
-    :"values" => [String.t] | nil,
-    :"size" => integer() | nil,
-    :"datepart" => String.t | nil,
-    :"datevalue" => [integer()] | nil,
-    :"zone" => String.t | nil,
-    :"extensionskey" => String.t | nil,
-    :"extensionsvalue" => String.t | nil
-  }
+          :id => String.t() | nil,
+          :comparison => String.t() | nil,
+          :addresspart => String.t() | nil,
+          :headers => [String.t()] | nil,
+          :header => String.t() | nil,
+          :values => [String.t()] | nil,
+          :size => integer() | nil,
+          :datepart => String.t() | nil,
+          :datevalue => [integer()] | nil,
+          :zone => String.t() | nil,
+          :extensionskey => String.t() | nil,
+          :extensionsvalue => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailFilterNotTest do
@@ -44,4 +44,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailFilterNotTest do
     value
   end
 end
-

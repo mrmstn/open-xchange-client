@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.PageSectionsData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"items",
-    :"name"
+    :items,
+    :name
   ]
 
   @type t :: %__MODULE__{
-    :"items" => [map()] | nil,
-    :"name" => String.t | nil
-  }
+          :items => [map()] | nil,
+          :name => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.PageSectionsData do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.PageSectionsData do
     value
   end
 end
-

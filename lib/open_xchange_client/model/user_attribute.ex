@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.UserAttribute do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"name",
-    :"value"
+    :name,
+    :value
   ]
 
   @type t :: %__MODULE__{
-    :"name" => String.t | nil,
-    :"value" => String.t | nil
-  }
+          :name => String.t() | nil,
+          :value => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.UserAttribute do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.UserAttribute do
     value
   end
 end
-

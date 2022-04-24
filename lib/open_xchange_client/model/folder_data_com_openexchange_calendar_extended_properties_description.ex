@@ -9,17 +9,17 @@ defmodule OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPrope
 
   @derive [Poison.Encoder]
   defstruct [
-    :"value"
+    :value
   ]
 
   @type t :: %__MODULE__{
-    :"value" => String.t | nil
-  }
+          :value => String.t() | nil
+        }
 end
 
-defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesDescription do
+defimpl Poison.Decoder,
+  for: OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesDescription do
   def decode(value, _options) do
     value
   end
 end
-

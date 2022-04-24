@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Quota do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Gets the filestore usage data.
 
@@ -24,16 +23,17 @@ defmodule OpenXchangeClient.Api.Quota do
   {:ok, OpenXchangeClient.Model.QuotaResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_filestore_usage(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.QuotaResponse.t} | {:error, Tesla.Env.t}
+  @spec get_filestore_usage(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.QuotaResponse.t()} | {:error, Tesla.Env.t()}
   def get_filestore_usage(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/quota?action&#x3D;filestore")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.QuotaResponse{}}
+      {200, %OpenXchangeClient.Model.QuotaResponse{}}
     ])
   end
 
@@ -50,16 +50,17 @@ defmodule OpenXchangeClient.Api.Quota do
   {:ok, OpenXchangeClient.Model.QuotaResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_mail_usage(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.QuotaResponse.t} | {:error, Tesla.Env.t}
+  @spec get_mail_usage(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.QuotaResponse.t()} | {:error, Tesla.Env.t()}
   def get_mail_usage(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/quota?action&#x3D;mail")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.QuotaResponse{}}
+      {200, %OpenXchangeClient.Model.QuotaResponse{}}
     ])
   end
 
@@ -78,22 +79,24 @@ defmodule OpenXchangeClient.Api.Quota do
   {:ok, OpenXchangeClient.Model.QuotasResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_quota_information(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:ok, OpenXchangeClient.Model.QuotasResponse.t} | {:error, Tesla.Env.t}
+  @spec get_quota_information(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:ok, OpenXchangeClient.Model.QuotasResponse.t()} | {:error, Tesla.Env.t()}
   def get_quota_information(connection, session, opts \\ []) do
     optional_params = %{
-      :"module" => :query,
-      :"account" => :query
+      :module => :query,
+      :account => :query
     }
+
     %{}
     |> method(:get)
     |> url("/quota?action&#x3D;get")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.QuotasResponse{}},
-      { 400, false}
+      {200, %OpenXchangeClient.Model.QuotasResponse{}},
+      {400, false}
     ])
   end
 end

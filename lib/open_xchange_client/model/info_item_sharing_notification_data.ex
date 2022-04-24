@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.InfoItemSharingNotificationData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"warnings"
+    :warnings
   ]
 
   @type t :: %__MODULE__{
-    :"warnings" => [map()] | nil
-  }
+          :warnings => [map()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoItemSharingNotificationData do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.InfoItemSharingNotification
     value
   end
 end
-

@@ -9,14 +9,14 @@ defmodule OpenXchangeClient.Model.FindFacetFilter do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"fields",
-    :"queries"
+    :fields,
+    :queries
   ]
 
   @type t :: %__MODULE__{
-    :"fields" => [String.t] | nil,
-    :"queries" => [String.t] | nil
-  }
+          :fields => [String.t()] | nil,
+          :queries => [String.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FindFacetFilter do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.FindFacetFilter do
     value
   end
 end
-

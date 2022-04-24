@@ -9,23 +9,23 @@ defmodule OpenXchangeClient.Model.Analysis do
 
   @derive [Poison.Encoder]
   defstruct [
-    :"actions",
-    :"annotations",
-    :"changes"
+    :actions,
+    :annotations,
+    :changes
   ]
 
   @type t :: %__MODULE__{
-    :"actions" => [String.t] | nil,
-    :"annotations" => [String.t] | nil,
-    :"changes" => [OpenXchangeClient.Model.AnalysisChange.t] | nil
-  }
+          :actions => [String.t()] | nil,
+          :annotations => [String.t()] | nil,
+          :changes => [OpenXchangeClient.Model.AnalysisChange.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.Analysis do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"changes", :list, OpenXchangeClient.Model.AnalysisChange, options)
+    |> deserialize(:changes, :list, OpenXchangeClient.Model.AnalysisChange, options)
   end
 end
-

@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.AppointmentSearchBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"pattern",
-    :"startletter"
+    :pattern,
+    :startletter
   ]
 
   @type t :: %__MODULE__{
-    :"pattern" => String.t | nil,
-    :"startletter" => String.t | nil
-  }
+          :pattern => String.t() | nil,
+          :startletter => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.AppointmentSearchBody do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.AppointmentSearchBody do
     value
   end
 end
-

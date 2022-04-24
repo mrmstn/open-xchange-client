@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Certificate do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Deletes all fingerprint/hostname combinations for the user
   Deletes all fingerprint/hostname combinations for the user
@@ -25,17 +24,18 @@ defmodule OpenXchangeClient.Api.Certificate do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_all_certificates(Tesla.Env.client, String.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec delete_all_certificates(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, nil} | {:error, Tesla.Env.t()}
   def delete_all_certificates(connection, session, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/certificate?action&#x3D;deleteAll")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -55,22 +55,24 @@ defmodule OpenXchangeClient.Api.Certificate do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_certificate(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec delete_certificate(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, nil} | {:error, Tesla.Env.t()}
   def delete_certificate(connection, session, fingerprint, opts \\ []) do
     optional_params = %{
-      :"hostname" => :query
+      :hostname => :query
     }
+
     %{}
     |> method(:put)
     |> url("/certificate?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"fingerprint", fingerprint)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :fingerprint, fingerprint)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -89,17 +91,18 @@ defmodule OpenXchangeClient.Api.Certificate do
   {:ok, OpenXchangeClient.Model.CertificateExamineResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec examine_certificate(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CertificateExamineResponse.t} | {:error, Tesla.Env.t}
+  @spec examine_certificate(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CertificateExamineResponse.t()} | {:error, Tesla.Env.t()}
   def examine_certificate(connection, session, fingerprint, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/certificate?action&#x3D;examine")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"fingerprint", fingerprint)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :fingerprint, fingerprint)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CertificateExamineResponse{}}
+      {200, %OpenXchangeClient.Model.CertificateExamineResponse{}}
     ])
   end
 
@@ -117,16 +120,17 @@ defmodule OpenXchangeClient.Api.Certificate do
   {:ok, OpenXchangeClient.Model.CertificatesAllResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_certificates(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CertificatesAllResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_certificates(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CertificatesAllResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_certificates(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/certificate?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CertificatesAllResponse{}}
+      {200, %OpenXchangeClient.Model.CertificatesAllResponse{}}
     ])
   end
 
@@ -146,21 +150,23 @@ defmodule OpenXchangeClient.Api.Certificate do
   {:ok, OpenXchangeClient.Model.CertificatesAllResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_certificate(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CertificatesAllResponse.t} | {:error, Tesla.Env.t}
+  @spec get_certificate(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CertificatesAllResponse.t()} | {:error, Tesla.Env.t()}
   def get_certificate(connection, session, fingerprint, opts \\ []) do
     optional_params = %{
-      :"hostname" => :query
+      :hostname => :query
     }
+
     %{}
     |> method(:get)
     |> url("/certificate?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"fingerprint", fingerprint)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :fingerprint, fingerprint)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CertificatesAllResponse{}}
+      {200, %OpenXchangeClient.Model.CertificatesAllResponse{}}
     ])
   end
 
@@ -182,24 +188,32 @@ defmodule OpenXchangeClient.Api.Certificate do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec store_certificate(Tesla.Env.client, String.t, String.t, String.t, boolean(), keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec store_certificate(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          boolean(),
+          keyword()
+        ) :: {:ok, nil} | {:error, Tesla.Env.t()}
   def store_certificate(connection, session, fingerprint, hostname, trust, opts \\ []) do
     optional_params = %{
       :body => :body
     }
+
     %{}
     |> method(:put)
     |> url("/certificate?action&#x3D;store")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"fingerprint", fingerprint)
-    |> add_param(:query, :"hostname", hostname)
-    |> add_param(:query, :"trust", trust)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :fingerprint, fingerprint)
+    |> add_param(:query, :hostname, hostname)
+    |> add_param(:query, :trust, trust)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 
@@ -219,20 +233,27 @@ defmodule OpenXchangeClient.Api.Certificate do
   {:ok, nil} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec store_certificate_0(Tesla.Env.client, String.t, String.t, String.t, boolean(), keyword()) :: {:ok, nil} | {:error, Tesla.Env.t}
+  @spec store_certificate_0(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          boolean(),
+          keyword()
+        ) :: {:ok, nil} | {:error, Tesla.Env.t()}
   def store_certificate_0(connection, session, fingerprint, hostname, trust, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/certificate?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"fingerprint", fingerprint)
-    |> add_param(:query, :"hostname", hostname)
-    |> add_param(:query, :"trust", trust)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :fingerprint, fingerprint)
+    |> add_param(:query, :hostname, hostname)
+    |> add_param(:query, :trust, trust)
     |> ensure_body()
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false}
+      {200, false}
     ])
   end
 end

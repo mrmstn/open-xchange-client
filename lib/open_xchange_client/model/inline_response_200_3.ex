@@ -4,17 +4,17 @@
 
 defmodule OpenXchangeClient.Model.InlineResponse2003 do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"redirect_uri"
+    :redirect_uri
   ]
 
   @type t :: %__MODULE__{
-    :"redirect_uri" => String.t
-  }
+          :redirect_uri => String.t()
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.InlineResponse2003 do
@@ -22,4 +22,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.InlineResponse2003 do
     value
   end
 end
-

@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Jobqueue do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Get all user's jobs
 
@@ -24,16 +23,17 @@ defmodule OpenXchangeClient.Api.Jobqueue do
   {:ok, OpenXchangeClient.Model.AllJobsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec all_jobs(Tesla.Env.client, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.AllJobsResponse.t} | {:error, Tesla.Env.t}
+  @spec all_jobs(Tesla.Env.client(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.AllJobsResponse.t()} | {:error, Tesla.Env.t()}
   def all_jobs(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/jobs?action&#x3D;all")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AllJobsResponse{}}
+      {200, %OpenXchangeClient.Model.AllJobsResponse{}}
     ])
   end
 
@@ -51,17 +51,18 @@ defmodule OpenXchangeClient.Api.Jobqueue do
   {:ok, OpenXchangeClient.Model.CancelJobResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec cancel_job(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.CancelJobResponse.t} | {:error, Tesla.Env.t}
+  @spec cancel_job(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.CancelJobResponse.t()} | {:error, Tesla.Env.t()}
   def cancel_job(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/jobs?action&#x3D;cancel")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CancelJobResponse{}}
+      {200, %OpenXchangeClient.Model.CancelJobResponse{}}
     ])
   end
 
@@ -79,18 +80,21 @@ defmodule OpenXchangeClient.Api.Jobqueue do
   {:ok, String.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_job(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.GetJobResponse.t} | {:ok, String.t} | {:error, Tesla.Env.t}
+  @spec get_job(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.GetJobResponse.t()}
+          | {:ok, String.t()}
+          | {:error, Tesla.Env.t()}
   def get_job(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/jobs?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, false},
-      { 202, %OpenXchangeClient.Model.GetJobResponse{}}
+      {200, false},
+      {202, %OpenXchangeClient.Model.GetJobResponse{}}
     ])
   end
 
@@ -108,17 +112,18 @@ defmodule OpenXchangeClient.Api.Jobqueue do
   {:ok, OpenXchangeClient.Model.InfoJobResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec info_job(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.InfoJobResponse.t} | {:error, Tesla.Env.t}
+  @spec info_job(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.InfoJobResponse.t()} | {:error, Tesla.Env.t()}
   def info_job(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/jobs?action&#x3D;info")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.InfoJobResponse{}}
+      {200, %OpenXchangeClient.Model.InfoJobResponse{}}
     ])
   end
 end

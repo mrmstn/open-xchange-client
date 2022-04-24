@@ -4,19 +4,19 @@
 
 defmodule OpenXchangeClient.Model.FolderBodyNotification do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"transport",
-    :"message"
+    :transport,
+    :message
   ]
 
   @type t :: %__MODULE__{
-    :"transport" => String.t | nil,
-    :"message" => String.t | nil
-  }
+          :transport => String.t() | nil,
+          :message => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderBodyNotification do
@@ -24,4 +24,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.FolderBodyNotification do
     value
   end
 end
-

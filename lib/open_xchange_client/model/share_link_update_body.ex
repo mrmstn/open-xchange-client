@@ -4,35 +4,35 @@
 
 defmodule OpenXchangeClient.Model.ShareLinkUpdateBody do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"url",
-    :"entity",
-    :"is_new",
-    :"expiry_date",
-    :"password",
-    :"meta",
-    :"includeSubfolders",
-    :"module",
-    :"folder",
-    :"item"
+    :url,
+    :entity,
+    :is_new,
+    :expiry_date,
+    :password,
+    :meta,
+    :includeSubfolders,
+    :module,
+    :folder,
+    :item
   ]
 
   @type t :: %__MODULE__{
-    :"url" => String.t | nil,
-    :"entity" => integer() | nil,
-    :"is_new" => boolean() | nil,
-    :"expiry_date" => integer() | nil,
-    :"password" => String.t | nil,
-    :"meta" => map() | nil,
-    :"includeSubfolders" => boolean() | nil,
-    :"module" => String.t | nil,
-    :"folder" => String.t | nil,
-    :"item" => String.t | nil
-  }
+          :url => String.t() | nil,
+          :entity => integer() | nil,
+          :is_new => boolean() | nil,
+          :expiry_date => integer() | nil,
+          :password => String.t() | nil,
+          :meta => map() | nil,
+          :includeSubfolders => boolean() | nil,
+          :module => String.t() | nil,
+          :folder => String.t() | nil,
+          :item => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ShareLinkUpdateBody do
@@ -40,4 +40,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ShareLinkUpdateBody do
     value
   end
 end
-

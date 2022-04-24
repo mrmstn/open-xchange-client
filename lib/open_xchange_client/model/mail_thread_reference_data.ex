@@ -4,38 +4,38 @@
 
 defmodule OpenXchangeClient.Model.MailThreadReferenceData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"rootMailId",
-    :"rootOriginalMailId",
-    :"rootOriginalFolderId",
-    :"latestMailId",
-    :"latestOriginalMailId",
-    :"latestOriginalFolderId",
-    :"latestReceivedDate",
-    :"thread"
+    :rootMailId,
+    :rootOriginalMailId,
+    :rootOriginalFolderId,
+    :latestMailId,
+    :latestOriginalMailId,
+    :latestOriginalFolderId,
+    :latestReceivedDate,
+    :thread
   ]
 
   @type t :: %__MODULE__{
-    :"rootMailId" => String.t | nil,
-    :"rootOriginalMailId" => String.t | nil,
-    :"rootOriginalFolderId" => String.t | nil,
-    :"latestMailId" => String.t | nil,
-    :"latestOriginalMailId" => String.t | nil,
-    :"latestOriginalFolderId" => String.t | nil,
-    :"latestReceivedDate" => integer() | nil,
-    :"thread" => [OpenXchangeClient.Model.MailData.t] | nil
-  }
+          :rootMailId => String.t() | nil,
+          :rootOriginalMailId => String.t() | nil,
+          :rootOriginalFolderId => String.t() | nil,
+          :latestMailId => String.t() | nil,
+          :latestOriginalMailId => String.t() | nil,
+          :latestOriginalFolderId => String.t() | nil,
+          :latestReceivedDate => integer() | nil,
+          :thread => [OpenXchangeClient.Model.MailData.t()] | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.MailThreadReferenceData do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"thread", :list, OpenXchangeClient.Model.MailData, options)
+    |> deserialize(:thread, :list, OpenXchangeClient.Model.MailData, options)
   end
 end
-

@@ -4,27 +4,27 @@
 
 defmodule OpenXchangeClient.Model.ItemData do
   @moduledoc """
-  
+
   """
 
   @derive [Poison.Encoder]
   defstruct [
-    :"item_id",
-    :"name",
-    :"category_id",
-    :"category",
-    :"country",
-    :"icon"
+    :item_id,
+    :name,
+    :category_id,
+    :category,
+    :country,
+    :icon
   ]
 
   @type t :: %__MODULE__{
-    :"item_id" => integer() | nil,
-    :"name" => String.t | nil,
-    :"category_id" => integer() | nil,
-    :"category" => String.t | nil,
-    :"country" => String.t | nil,
-    :"icon" => String.t | nil
-  }
+          :item_id => integer() | nil,
+          :name => String.t() | nil,
+          :category_id => integer() | nil,
+          :category => String.t() | nil,
+          :country => String.t() | nil,
+          :icon => String.t() | nil
+        }
 end
 
 defimpl Poison.Decoder, for: OpenXchangeClient.Model.ItemData do
@@ -32,4 +32,3 @@ defimpl Poison.Decoder, for: OpenXchangeClient.Model.ItemData do
     value
   end
 end
-

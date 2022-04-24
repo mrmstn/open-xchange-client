@@ -9,28 +9,57 @@ defmodule OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalenda
 
   @derive [Poison.Encoder]
   defstruct [
-    :"description",
-    :"usedForSync",
-    :"color",
-    :"scheduleTransp"
+    :description,
+    :usedForSync,
+    :color,
+    :scheduleTransp
   ]
 
   @type t :: %__MODULE__{
-    :"description" => OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesDescription.t | nil,
-    :"usedForSync" => OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesUsedForSync.t | nil,
-    :"color" => OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesColor.t | nil,
-    :"scheduleTransp" => OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesScheduleTransp.t | nil
-  }
+          :description =>
+            OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesDescription.t()
+            | nil,
+          :usedForSync =>
+            OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesUsedForSync.t()
+            | nil,
+          :color =>
+            OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesColor.t()
+            | nil,
+          :scheduleTransp =>
+            OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesScheduleTransp.t()
+            | nil
+        }
 end
 
-defimpl Poison.Decoder, for: OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalendarExtendedProperties do
+defimpl Poison.Decoder,
+  for: OpenXchangeClient.Model.CalendarAccountProbeDataComOpenexchangeCalendarExtendedProperties do
   import OpenXchangeClient.Deserializer
+
   def decode(value, options) do
     value
-    |> deserialize(:"description", :struct, OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesDescription, options)
-    |> deserialize(:"usedForSync", :struct, OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesUsedForSync, options)
-    |> deserialize(:"color", :struct, OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesColor, options)
-    |> deserialize(:"scheduleTransp", :struct, OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesScheduleTransp, options)
+    |> deserialize(
+      :description,
+      :struct,
+      OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesDescription,
+      options
+    )
+    |> deserialize(
+      :usedForSync,
+      :struct,
+      OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesUsedForSync,
+      options
+    )
+    |> deserialize(
+      :color,
+      :struct,
+      OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesColor,
+      options
+    )
+    |> deserialize(
+      :scheduleTransp,
+      :struct,
+      OpenXchangeClient.Model.FolderDataComOpenexchangeCalendarExtendedPropertiesScheduleTransp,
+      options
+    )
   end
 end
-

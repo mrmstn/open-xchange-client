@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Calendar do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Confirms an appointment.
 
@@ -29,24 +28,33 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec confirm_appointment(Tesla.Env.client, String.t, String.t, String.t, integer(), OpenXchangeClient.Model.AppointmentConfirmationBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec confirm_appointment(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.AppointmentConfirmationBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def confirm_appointment(connection, session, id, folder, timestamp, body, opts \\ []) do
     optional_params = %{
-      :"occurrence" => :query
+      :occurrence => :query
     }
+
     %{}
     |> method(:put)
     |> url("/calendar?action&#x3D;confirm")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 
@@ -64,17 +72,23 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentCreationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_appointment(Tesla.Env.client, String.t, OpenXchangeClient.Model.AppointmentData.t, keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentCreationResponse.t} | {:error, Tesla.Env.t}
+  @spec create_appointment(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.AppointmentData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.AppointmentCreationResponse.t()} | {:error, Tesla.Env.t()}
   def create_appointment(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/calendar?action&#x3D;new")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentCreationResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentCreationResponse{}}
     ])
   end
 
@@ -96,21 +110,40 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentCreationResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec create_appointment_0(Tesla.Env.client, String.t, String.t, boolean(), String.t, String.t, OpenXchangeClient.Model.InlineObject.t, keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentCreationResponse.t} | {:error, Tesla.Env.t}
-  def create_appointment_0(connection, session, id, ignore_conflicts, folder, timezone, body, _opts \\ []) do
+  @spec create_appointment_0(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          boolean(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.InlineObject.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.AppointmentCreationResponse.t()} | {:error, Tesla.Env.t()}
+  def create_appointment_0(
+        connection,
+        session,
+        id,
+        ignore_conflicts,
+        folder,
+        timezone,
+        body,
+        _opts \\ []
+      ) do
     %{}
     |> method(:put)
     |> url("/calendar?action&#x3D;copy")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"ignore_conflicts", ignore_conflicts)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"timezone", timezone)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :ignore_conflicts, ignore_conflicts)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :timezone, timezone)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentCreationResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentCreationResponse{}}
     ])
   end
 
@@ -129,18 +162,26 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentDeletionsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec delete_appointment(Tesla.Env.client, String.t, integer(), list(OpenXchangeClient.Model.AppointmentDeletionsElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentDeletionsResponse.t} | {:error, Tesla.Env.t}
+  @spec delete_appointment(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          list(OpenXchangeClient.Model.AppointmentDeletionsElement.t()),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.AppointmentDeletionsResponse.t()}
+          | {:error, Tesla.Env.t()}
   def delete_appointment(connection, session, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/calendar?action&#x3D;delete")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentDeletionsResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentDeletionsResponse{}}
     ])
   end
 
@@ -162,24 +203,32 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_all_appointments(Tesla.Env.client, String.t, String.t, integer(), integer(), keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_all_appointments(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          integer(),
+          integer(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.AppointmentsResponse.t()} | {:error, Tesla.Env.t()}
   def get_all_appointments(connection, session, columns, start_date, end_date, opts \\ []) do
     optional_params = %{
-      :"folder" => :query,
-      :"recurrence_master" => :query
+      :folder => :query,
+      :recurrence_master => :query
     }
+
     %{}
     |> method(:get)
     |> url("/calendar?action&#x3D;all")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"start", start_date)
-    |> add_param(:query, :"end", end_date)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
+    |> add_param(:query, :start, start_date)
+    |> add_param(:query, :end, end_date)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentsResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentsResponse{}}
     ])
   end
 
@@ -199,22 +248,24 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_appointment(Tesla.Env.client, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentResponse.t} | {:error, Tesla.Env.t}
+  @spec get_appointment(Tesla.Env.client(), String.t(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.AppointmentResponse.t()} | {:error, Tesla.Env.t()}
   def get_appointment(connection, session, id, folder, opts \\ []) do
     optional_params = %{
-      :"recurrence_position" => :query
+      :recurrence_position => :query
     }
+
     %{}
     |> method(:get)
     |> url("/calendar?action&#x3D;get")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentResponse{}}
     ])
   end
 
@@ -234,22 +285,29 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_appointment_list(Tesla.Env.client, String.t, String.t, list(OpenXchangeClient.Model.AppointmentListElement.t), keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_appointment_list(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          list(OpenXchangeClient.Model.AppointmentListElement.t()),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.AppointmentsResponse.t()} | {:error, Tesla.Env.t()}
   def get_appointment_list(connection, session, columns, body, opts \\ []) do
     optional_params = %{
-      :"recurrence_master" => :query
+      :recurrence_master => :query
     }
+
     %{}
     |> method(:put)
     |> url("/calendar?action&#x3D;list")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentsResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentsResponse{}}
     ])
   end
 
@@ -273,26 +331,28 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentUpdatesResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_appointment_updates(Tesla.Env.client, String.t, String.t, integer(), keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentUpdatesResponse.t} | {:error, Tesla.Env.t}
+  @spec get_appointment_updates(Tesla.Env.client(), String.t(), String.t(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.AppointmentUpdatesResponse.t()} | {:error, Tesla.Env.t()}
   def get_appointment_updates(connection, session, columns, timestamp, opts \\ []) do
     optional_params = %{
-      :"folder" => :query,
-      :"start" => :query,
-      :"end" => :query,
-      :"ignore" => :query,
-      :"recurrence_master" => :query
+      :folder => :query,
+      :start => :query,
+      :end => :query,
+      :ignore => :query,
+      :recurrence_master => :query
     }
+
     %{}
     |> method(:get)
     |> url("/calendar?action&#x3D;updates")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentUpdatesResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentUpdatesResponse{}}
     ])
   end
 
@@ -312,19 +372,26 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_change_exceptions(Tesla.Env.client, String.t, String.t, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_change_exceptions(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.AppointmentsResponse.t()} | {:error, Tesla.Env.t()}
   def get_change_exceptions(connection, session, id, folder, columns, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/calendar?action&#x3D;getChangeExceptions")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :columns, columns)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentsResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentsResponse{}}
     ])
   end
 
@@ -345,20 +412,29 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentFreeBusyResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_free_and_busy(Tesla.Env.client, String.t, integer(), integer(), integer(), integer(), keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentFreeBusyResponse.t} | {:error, Tesla.Env.t}
+  @spec get_free_and_busy(
+          Tesla.Env.client(),
+          String.t(),
+          integer(),
+          integer(),
+          integer(),
+          integer(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.AppointmentFreeBusyResponse.t()} | {:error, Tesla.Env.t()}
   def get_free_and_busy(connection, session, id, start_date, end_date, type, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/calendar?action&#x3D;freebusy")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"start", start_date)
-    |> add_param(:query, :"end", end_date)
-    |> add_param(:query, :"type", type)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :start, start_date)
+    |> add_param(:query, :end, end_date)
+    |> add_param(:query, :type, type)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentFreeBusyResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentFreeBusyResponse{}}
     ])
   end
 
@@ -381,25 +457,34 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec get_new_appointments(Tesla.Env.client, String.t, String.t, integer(), integer(), String.t, keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentsResponse.t} | {:error, Tesla.Env.t}
+  @spec get_new_appointments(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          integer(),
+          integer(),
+          String.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.AppointmentsResponse.t()} | {:error, Tesla.Env.t()}
   def get_new_appointments(connection, session, columns, start_date, end_date, limit, opts \\ []) do
     optional_params = %{
-      :"sort" => :query,
-      :"order" => :query
+      :sort => :query,
+      :order => :query
     }
+
     %{}
     |> method(:get)
     |> url("/calendar?action&#x3D;newappointments")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"start", start_date)
-    |> add_param(:query, :"end", end_date)
-    |> add_param(:query, :"limit", limit)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
+    |> add_param(:query, :start, start_date)
+    |> add_param(:query, :end, end_date)
+    |> add_param(:query, :limit, limit)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentsResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentsResponse{}}
     ])
   end
 
@@ -418,18 +503,19 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentInfoResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec has_appointments_on_days(Tesla.Env.client, String.t, integer(), integer(), keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentInfoResponse.t} | {:error, Tesla.Env.t}
+  @spec has_appointments_on_days(Tesla.Env.client(), String.t(), integer(), integer(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.AppointmentInfoResponse.t()} | {:error, Tesla.Env.t()}
   def has_appointments_on_days(connection, session, start_date, end_date, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/calendar?action&#x3D;has")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"start", start_date)
-    |> add_param(:query, :"end", end_date)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :start, start_date)
+    |> add_param(:query, :end, end_date)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentInfoResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentInfoResponse{}}
     ])
   end
 
@@ -447,17 +533,18 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec resolve_uid(Tesla.Env.client, String.t, String.t, keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec resolve_uid(Tesla.Env.client(), String.t(), String.t(), keyword()) ::
+          {:ok, OpenXchangeClient.Model.AppointmentUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def resolve_uid(connection, session, uid, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/calendar?action&#x3D;resolveuid")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"uid", uid)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :uid, uid)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentUpdateResponse{}}
     ])
   end
 
@@ -476,18 +563,24 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentsResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec search_appointments(Tesla.Env.client, String.t, String.t, OpenXchangeClient.Model.AppointmentSearchBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentsResponse.t} | {:error, Tesla.Env.t}
+  @spec search_appointments(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          OpenXchangeClient.Model.AppointmentSearchBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.AppointmentsResponse.t()} | {:error, Tesla.Env.t()}
   def search_appointments(connection, session, columns, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/calendar?action&#x3D;search")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"columns", columns)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentsResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentsResponse{}}
     ])
   end
 
@@ -508,20 +601,29 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:ok, OpenXchangeClient.Model.AppointmentUpdateResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_appointment(Tesla.Env.client, String.t, String.t, String.t, integer(), OpenXchangeClient.Model.AppointmentData.t, keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentUpdateResponse.t} | {:error, Tesla.Env.t}
+  @spec update_appointment(
+          Tesla.Env.client(),
+          String.t(),
+          String.t(),
+          String.t(),
+          integer(),
+          OpenXchangeClient.Model.AppointmentData.t(),
+          keyword()
+        ) ::
+          {:ok, OpenXchangeClient.Model.AppointmentUpdateResponse.t()} | {:error, Tesla.Env.t()}
   def update_appointment(connection, session, id, folder, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/calendar?action&#x3D;update")
-    |> add_param(:query, :"session", session)
-    |> add_param(:query, :"id", id)
-    |> add_param(:query, :"folder", folder)
-    |> add_param(:query, :"timestamp", timestamp)
+    |> add_param(:query, :session, session)
+    |> add_param(:query, :id, id)
+    |> add_param(:query, :folder, folder)
+    |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.AppointmentUpdateResponse{}}
+      {200, %OpenXchangeClient.Model.AppointmentUpdateResponse{}}
     ])
   end
 end

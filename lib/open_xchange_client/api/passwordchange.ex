@@ -10,7 +10,6 @@ defmodule OpenXchangeClient.Api.Passwordchange do
   alias OpenXchangeClient.Connection
   import OpenXchangeClient.RequestBuilder
 
-
   @doc """
   Updates or changes the password of the current use.
   #### Note The new password will be set without any checks. The client must ensure that it is the password the user wants to set. 
@@ -26,17 +25,22 @@ defmodule OpenXchangeClient.Api.Passwordchange do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_password(Tesla.Env.client, String.t, OpenXchangeClient.Model.PasswordChangeBody.t, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec update_password(
+          Tesla.Env.client(),
+          String.t(),
+          OpenXchangeClient.Model.PasswordChangeBody.t(),
+          keyword()
+        ) :: {:ok, OpenXchangeClient.Model.CommonResponse.t()} | {:error, Tesla.Env.t()}
   def update_password(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
     |> url("/passwordchange?action&#x3D;update")
-    |> add_param(:query, :"session", session)
+    |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
-      { 200, %OpenXchangeClient.Model.CommonResponse{}}
+      {200, %OpenXchangeClient.Model.CommonResponse{}}
     ])
   end
 end
