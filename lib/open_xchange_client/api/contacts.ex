@@ -13,7 +13,7 @@ defmodule OpenXchangeClient.Api.Contacts do
 
   @doc """
   Creates a contact.
-  Creates a new contact. This request cannot add contact images. Therefor it is necessary to use the `POST` method. 
+  Creates a new contact. This request cannot add contact images. Therefor it is necessary to use the `POST` method.
 
   ## Parameters
 
@@ -42,7 +42,7 @@ defmodule OpenXchangeClient.Api.Contacts do
 
   @doc """
   Creates a contact.
-  Creates a new contact with contact images. The normal request body must be placed as form-data using the content-type `multipart/form-data`. The form field `json` contains the contact's data while the image file must be placed in a file field named `file` (see also [File uploads](#file-uploads)). 
+  Creates a new contact with contact images. The normal request body must be placed as form-data using the content-type `multipart/form-data`. The form field `json` contains the contact's data while the image file must be placed in a file field named `file` (see also [File uploads](#file-uploads)).
 
   ## Parameters
 
@@ -310,22 +310,22 @@ defmodule OpenXchangeClient.Api.Contacts do
 
   @doc """
   Gets a picture for a contact.
-  Tries to get a picture for a given contact. To specify a contact at least one of three informations must be given: <ul>   <li><code>user_id</code> - an id of an internal user.</li>   <li><code>contact_id</code> and <code>folder_id</code> - together those ids identifiy a contact.</li>   <li><code>email</code> - an email address.</li> </ul> 
+  Tries to get a picture for a given contact. To specify a contact at least one of three informations must be given: <ul>   <li><code>user_id</code> - an id of an internal user.</li>   <li><code>contact_id</code> and <code>folder_id</code> - together those ids identifiy a contact.</li>   <li><code>email</code> - an email address.</li> </ul>
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - opts (KeywordList): [optional] Optional parameters
-    - :user_id (String.t): The user identifier. 
-    - :contact_id (String.t): The contact identifier. 
-    - :folder_id (String.t): The folder id the contact id belongs to. 
-    - :email (String.t): The mail address of the contact. 
+    - :user_id (String.t): The user identifier.
+    - :contact_id (String.t): The contact identifier.
+    - :folder_id (String.t): The folder id the contact id belongs to.
+    - :email (String.t): The mail address of the contact.
     - :rotate (boolean()): Adds a 'rotate' transformation, leading to the image being rotated according to the contained EXIF information.
     - :width (integer()): The maximum width of the target image.
     - :height (integer()): The maximum height of the target image.
     - :shrink_only (boolean()): Set to true to only scale images 'greater than' target size.
-    - :scale_type (String.t): Defines the scale type. Possible value:  <ul>   <li><code>cover</code> - The \"cover\" scale type, specifying the minimum target dimensions. <br>   The source image will be resized in a way that the resulting image covers the target resolution entirely, with the original aspect ratio being preserved.    For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"cover\", will result in the picture being resized to 267x200 pixels.</li>    <li><code>contain</code> - The \"contain\" scale type, specifying the maximum target dimensions. <br>   The source image will be resized in a way that the resulting image fits into the target resolution entirely, with the original aspect ratio being preserved.    For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"contain\", will result in the picture being resized to 200x150 pixels.</li>    <li><code>containforcedimension</code> - The \"containforcedimension\" scale type, specifying the maximum target dimensions. <br>   The source image will be resized in a way that the resulting image fits into the target resolution entirely, with the original aspect ratio being preserved while smaller sides get    padded to fit exact dimension. For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"containforcedimension\", will result in the picture being    first resized to 200x150 pixels, then height gets padded by 25 pixels per side resulting in exactly 200x200 pixels.</li>    <li><code>coverandcrop</code> - The \"coverandcrop\" scale type, specifying the target dimensions. <br>   If the source image is bigger than the target dimension, in a first step the image will be resized in a way that the resulting image covers the target resolution entirely,    with the original aspect ratio being preserved. In a second step the image will be cropped to fit the target dimension. For example, scaling an image with an original resolution    of 640x480 pixels to 200x200 pixels and type \"coverandcrop\", will result in the picture being resized to 267x200 pixels and then cropped to fit 200x200.    In case the image is smaller than then target dimension the image will not be resized and instead it gets padded to fit exact dimension. For example,    with an original resolution of 100x100 pixels and a target dimension of 200x200 pixels and type \"coverandcrop\", will result in the picture being padded on all sides with 50 pixels.</li>    <li><code>auto</code> - The \"auto\" scale type.<br></li> </ul> 
+    - :scale_type (String.t): Defines the scale type. Possible value:  <ul>   <li><code>cover</code> - The \"cover\" scale type, specifying the minimum target dimensions. <br>   The source image will be resized in a way that the resulting image covers the target resolution entirely, with the original aspect ratio being preserved.    For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"cover\", will result in the picture being resized to 267x200 pixels.</li>    <li><code>contain</code> - The \"contain\" scale type, specifying the maximum target dimensions. <br>   The source image will be resized in a way that the resulting image fits into the target resolution entirely, with the original aspect ratio being preserved.    For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"contain\", will result in the picture being resized to 200x150 pixels.</li>    <li><code>containforcedimension</code> - The \"containforcedimension\" scale type, specifying the maximum target dimensions. <br>   The source image will be resized in a way that the resulting image fits into the target resolution entirely, with the original aspect ratio being preserved while smaller sides get    padded to fit exact dimension. For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"containforcedimension\", will result in the picture being    first resized to 200x150 pixels, then height gets padded by 25 pixels per side resulting in exactly 200x200 pixels.</li>    <li><code>coverandcrop</code> - The \"coverandcrop\" scale type, specifying the target dimensions. <br>   If the source image is bigger than the target dimension, in a first step the image will be resized in a way that the resulting image covers the target resolution entirely,    with the original aspect ratio being preserved. In a second step the image will be cropped to fit the target dimension. For example, scaling an image with an original resolution    of 640x480 pixels to 200x200 pixels and type \"coverandcrop\", will result in the picture being resized to 267x200 pixels and then cropped to fit 200x200.    In case the image is smaller than then target dimension the image will not be resized and instead it gets padded to fit exact dimension. For example,    with an original resolution of 100x100 pixels and a target dimension of 200x200 pixels and type \"coverandcrop\", will result in the picture being padded on all sides with 50 pixels.</li>    <li><code>auto</code> - The \"auto\" scale type.<br></li> </ul>
     - :crop_width (integer()): The width of the specified rectangular region.
     - :crop_height (integer()): The height of the specified rectangular region.
     - :crop_x (integer()): The X coordinate of the upper-left corner of the specified rectangular region.
@@ -453,7 +453,7 @@ defmodule OpenXchangeClient.Api.Contacts do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - columns (String.t): A comma-separated list of columns to return, like \"1,500\". Each column is specified by a numeric column identifier, see [Common object data](#common-object-data) and [Detailed contact data](#detailed-contact-data).
-  - body (String.t): A JSON object describing the search term as introducted in [Advanced search](https://documentation.open-xchange.com/latest/middleware/http_api/5_advanced_search.html). Example: `{\"filter\":[\"and\",[\"=\", {\"field\":\"last_name\"},\"Mustermann\"],[\"=\",{\"field\":\"first_name\"},\"Max\"]]}` which represents 'last_name = \"Mustermann\" AND first_name = \"Max\"'. Valid fields are the ones specified in [Contact data](#/definitions/ContactData) model. 
+  - body (String.t): A JSON object describing the search term as introducted in [Advanced search](https://documentation.open-xchange.com/latest/middleware/http_api/5_advanced_search.html). Example: `{\"filter\":[\"and\",[\"=\", {\"field\":\"last_name\"},\"Mustermann\"],[\"=\",{\"field\":\"first_name\"},\"Max\"]]}` which represents 'last_name = \"Mustermann\" AND first_name = \"Max\"'. Valid fields are the ones specified in [Contact data](#/definitions/ContactData) model.
   - opts (KeywordList): [optional] Optional parameters
     - :sort (String.t): The identifier of a column which determines the sort order of the response. If this parameter is specified , then the parameter order must be also specified.
     - :order (String.t): \"asc\" if the response entires should be sorted in the ascending order, \"desc\" if the response entries should be sorted in the descending order. If this parameter is specified, then the parameter sort must be also specified.
@@ -495,8 +495,8 @@ defmodule OpenXchangeClient.Api.Contacts do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - columns (String.t): A comma-separated list of columns to return, like \"1,500\". Each column is specified by a numeric column identifier, see [Common object data](#common-object-data) and [Detailed contact data](#detailed-contact-data).
-  - start (integer()): The lower (inclusive) limit of the requested time range.
-  - end (integer()): The upper (exclusive) limit of the requested time range.
+  - start_date (integer()): The lower (inclusive) limit of the requested time range.
+  - end_date (integer()): The upper (exclusive) limit of the requested time range.
   - opts (KeywordList): [optional] Optional parameters
     - :folder (String.t): Object ID of the parent folder that is searched. If not set, all visible folders are used.
     - :sort (String.t): The identifier of a column which determines the sort order of the response. If this parameter is specified , then the parameter order must be also specified.
@@ -508,7 +508,7 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:error, Tesla.Env.t} on failure
   """
   @spec search_contacts_by_anniversary(Tesla.Env.client, String.t, String.t, integer(), integer(), keyword()) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t} | {:error, Tesla.Env.t}
-  def search_contacts_by_anniversary(connection, session, columns, start, end, opts \\ []) do
+  def search_contacts_by_anniversary(connection, session, columns, start_date, end_date, opts \\ []) do
     optional_params = %{
       :"folder" => :query,
       :"sort" => :query,
@@ -520,8 +520,8 @@ defmodule OpenXchangeClient.Api.Contacts do
     |> url("/contacts?action&#x3D;anniversaries")
     |> add_param(:query, :"session", session)
     |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"start", start)
-    |> add_param(:query, :"end", end)
+    |> add_param(:query, :"start", start_date)
+    |> add_param(:query, :"end", end_date)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -539,8 +539,8 @@ defmodule OpenXchangeClient.Api.Contacts do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - columns (String.t): A comma-separated list of columns to return, like \"1,500\". Each column is specified by a numeric column identifier, see [Common object data](#common-object-data) and [Detailed contact data](#detailed-contact-data).
-  - start (integer()): The lower (inclusive) limit of the requested time range.
-  - end (integer()): The upper (exclusive) limit of the requested time range.
+  - start_date (integer()): The lower (inclusive) limit of the requested time range.
+  - end_date (integer()): The upper (exclusive) limit of the requested time range.
   - opts (KeywordList): [optional] Optional parameters
     - :folder (String.t): Object ID of the parent folder that is searched. If not set, all visible folders are used.
     - :sort (String.t): The identifier of a column which determines the sort order of the response. If this parameter is specified , then the parameter order must be also specified.
@@ -552,7 +552,7 @@ defmodule OpenXchangeClient.Api.Contacts do
   {:error, Tesla.Env.t} on failure
   """
   @spec search_contacts_by_birthday(Tesla.Env.client, String.t, String.t, integer(), integer(), keyword()) :: {:ok, OpenXchangeClient.Model.ContactsResponse.t} | {:error, Tesla.Env.t}
-  def search_contacts_by_birthday(connection, session, columns, start, end, opts \\ []) do
+  def search_contacts_by_birthday(connection, session, columns, start_date, end_date, opts \\ []) do
     optional_params = %{
       :"folder" => :query,
       :"sort" => :query,
@@ -564,8 +564,8 @@ defmodule OpenXchangeClient.Api.Contacts do
     |> url("/contacts?action&#x3D;birthdays")
     |> add_param(:query, :"session", session)
     |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"start", start)
-    |> add_param(:query, :"end", end)
+    |> add_param(:query, :"start", start_date)
+    |> add_param(:query, :"end", end_date)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -576,7 +576,7 @@ defmodule OpenXchangeClient.Api.Contacts do
 
   @doc """
   Updates a contact.
-  Updates a contact's data. This request cannot change or add contact images. Therefore it is necessary to use the `POST` method. 
+  Updates a contact's data. This request cannot change or add contact images. Therefore it is necessary to use the `POST` method.
 
   ## Parameters
 
@@ -611,7 +611,7 @@ defmodule OpenXchangeClient.Api.Contacts do
 
   @doc """
   Updates a contact.
-  Updates a contact's data and images. The normal request body must be placed as form-data using the content-type `multipart/form-data`. The form field `json` contains the contact's data while the image file must be placed in a file field named `file` (see also [File uploads](#file-uploads)). 
+  Updates a contact's data and images. The normal request body must be placed as form-data using the content-type `multipart/form-data`. The form field `json` contains the contact's data while the image file must be placed in a file field named `file` (see also [File uploads](#file-uploads)).
 
   ## Parameters
 

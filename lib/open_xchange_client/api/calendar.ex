@@ -89,7 +89,7 @@ defmodule OpenXchangeClient.Api.Calendar do
   - ignore_conflicts (boolean()): Flag indicating whether conflicts should be ignored or not.
   - folder (String.t): Object ID of the folder who contains the appointments.
   - timezone (String.t): The timezone which should be used
-  - body (InlineObject): 
+  - body (InlineObject):
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -152,8 +152,8 @@ defmodule OpenXchangeClient.Api.Calendar do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - columns (String.t): A comma-separated list of columns to return, like \"1,500\". Each column is specified by a numeric column identifier, see [Common object data](#common-object-data), [Detailed task and appointment data](#detailed-task-and-appointment-data) and [Detailed appointment data](#detailed-appointment-data).
-  - start (integer()): Lower inclusive limit of the queried range as a Date. Only appointments which start on or after this date are returned.
-  - end (integer()): Upper exclusive limit of the queried range as a Date. Only appointments which end before this date are returned.
+  - start_date (integer()): Lower inclusive limit of the queried range as a Date. Only appointments which start on or after this date are returned.
+  - end_date (integer()): Upper exclusive limit of the queried range as a Date. Only appointments which end before this date are returned.
   - opts (KeywordList): [optional] Optional parameters
     - :folder (String.t): Object ID of the folder, whose contents are queried. If not specified, defaults to all calendar folders.
     - :recurrence_master (boolean()): Extract the recurrence to several appointments. The default value is false so every appointment of the recurrence will be calculated.
@@ -163,7 +163,7 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:error, Tesla.Env.t} on failure
   """
   @spec get_all_appointments(Tesla.Env.client, String.t, String.t, integer(), integer(), keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentsResponse.t} | {:error, Tesla.Env.t}
-  def get_all_appointments(connection, session, columns, start, end, opts \\ []) do
+  def get_all_appointments(connection, session, columns, start_date, end_date, opts \\ []) do
     optional_params = %{
       :"folder" => :query,
       :"recurrence_master" => :query
@@ -173,8 +173,8 @@ defmodule OpenXchangeClient.Api.Calendar do
     |> url("/calendar?action&#x3D;all")
     |> add_param(:query, :"session", session)
     |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"start", start)
-    |> add_param(:query, :"end", end)
+    |> add_param(:query, :"start", start_date)
+    |> add_param(:query, :"end", end_date)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -336,8 +336,8 @@ defmodule OpenXchangeClient.Api.Calendar do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - id (integer()): Internal user id. Must be obtained from the contact module.
-  - start (integer()): Lower inclusive limit of the queried range as a Date. Only appointments which end on or after this date are returned.
-  - end (integer()): Upper exclusive limit of the queried range as a Date. Only appointments which start before this date are returned.
+  - start_date (integer()): Lower inclusive limit of the queried range as a Date. Only appointments which end on or after this date are returned.
+  - end_date (integer()): Upper exclusive limit of the queried range as a Date. Only appointments which start before this date are returned.
   - type (integer()): Constant for user or resource (1 for users, 3 for resources).
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
@@ -346,14 +346,14 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:error, Tesla.Env.t} on failure
   """
   @spec get_free_and_busy(Tesla.Env.client, String.t, integer(), integer(), integer(), integer(), keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentFreeBusyResponse.t} | {:error, Tesla.Env.t}
-  def get_free_and_busy(connection, session, id, start, end, type, _opts \\ []) do
+  def get_free_and_busy(connection, session, id, start_date, end_date, type, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/calendar?action&#x3D;freebusy")
     |> add_param(:query, :"session", session)
     |> add_param(:query, :"id", id)
-    |> add_param(:query, :"start", start)
-    |> add_param(:query, :"end", end)
+    |> add_param(:query, :"start", start_date)
+    |> add_param(:query, :"end", end_date)
     |> add_param(:query, :"type", type)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -370,8 +370,8 @@ defmodule OpenXchangeClient.Api.Calendar do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - columns (String.t): A comma-separated list of columns to return, like \"1,500\". Each column is specified by a numeric column identifier, see [Common object data](#common-object-data), [Detailed task and appointment data](#detailed-task-and-appointment-data) and [Detailed appointment data](#detailed-appointment-data).
-  - start (integer()): Lower inclusive limit of the queried range as a Date. Only appointments which end on or after this date are returned.
-  - end (integer()): Upper exclusive limit of the queried range as a Date. Only appointments which start before this date are returned.
+  - start_date (integer()): Lower inclusive limit of the queried range as a Date. Only appointments which end on or after this date are returned.
+  - end_date (integer()): Upper exclusive limit of the queried range as a Date. Only appointments which start before this date are returned.
   - limit (String.t): Limits the number of returned objects to the given value.
   - opts (KeywordList): [optional] Optional parameters
     - :sort (String.t): The identifier of a column which determines the sort order of the response. If this parameter is specified and holds a column number, then the parameter order must be also specified.
@@ -382,7 +382,7 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:error, Tesla.Env.t} on failure
   """
   @spec get_new_appointments(Tesla.Env.client, String.t, String.t, integer(), integer(), String.t, keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentsResponse.t} | {:error, Tesla.Env.t}
-  def get_new_appointments(connection, session, columns, start, end, limit, opts \\ []) do
+  def get_new_appointments(connection, session, columns, start_date, end_date, limit, opts \\ []) do
     optional_params = %{
       :"sort" => :query,
       :"order" => :query
@@ -392,8 +392,8 @@ defmodule OpenXchangeClient.Api.Calendar do
     |> url("/calendar?action&#x3D;newappointments")
     |> add_param(:query, :"session", session)
     |> add_param(:query, :"columns", columns)
-    |> add_param(:query, :"start", start)
-    |> add_param(:query, :"end", end)
+    |> add_param(:query, :"start", start_date)
+    |> add_param(:query, :"end", end_date)
     |> add_param(:query, :"limit", limit)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -410,8 +410,8 @@ defmodule OpenXchangeClient.Api.Calendar do
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
-  - start (integer()): Lower inclusive limit of the queried range as a Date. Only appointments which start on or after this date are returned.
-  - end (integer()): Upper exclusive limit of the queried range as a Date. Only appointments which end before this date are returned.
+  - start_date (integer()): Lower inclusive limit of the queried range as a Date. Only appointments which start on or after this date are returned.
+  - end_date (integer()): Upper exclusive limit of the queried range as a Date. Only appointments which end before this date are returned.
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -419,13 +419,13 @@ defmodule OpenXchangeClient.Api.Calendar do
   {:error, Tesla.Env.t} on failure
   """
   @spec has_appointments_on_days(Tesla.Env.client, String.t, integer(), integer(), keyword()) :: {:ok, OpenXchangeClient.Model.AppointmentInfoResponse.t} | {:error, Tesla.Env.t}
-  def has_appointments_on_days(connection, session, start, end, _opts \\ []) do
+  def has_appointments_on_days(connection, session, start_date, end_date, _opts \\ []) do
     %{}
     |> method(:get)
     |> url("/calendar?action&#x3D;has")
     |> add_param(:query, :"session", session)
-    |> add_param(:query, :"start", start)
-    |> add_param(:query, :"end", end)
+    |> add_param(:query, :"start", start_date)
+    |> add_param(:query, :"end", end_date)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
     |> evaluate_response([
@@ -501,7 +501,7 @@ defmodule OpenXchangeClient.Api.Calendar do
   - id (String.t): Object ID of the requested appointment.
   - folder (String.t): Object ID of the folder who contains the appointments.
   - timestamp (integer()): Timestamp of the updated appointment. If the appointment was modified after the specified timestamp, then the update must fail.
-  - body (AppointmentData): A JSON object containing the appointment's data. The field `recurrence_id` is always present if it is present in the original appointment. The field `recurrence_position` is present if it is present in the original appointment and only this single appointment should be modified. The field `id` is not present because it is already included as a parameter. Other fields are present only if modified. 
+  - body (AppointmentData): A JSON object containing the appointment's data. The field `recurrence_id` is always present if it is present in the original appointment. The field `recurrence_position` is present if it is present in the original appointment and only this single appointment should be modified. The field `id` is not present because it is already included as a parameter. Other fields are present only if modified.
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 

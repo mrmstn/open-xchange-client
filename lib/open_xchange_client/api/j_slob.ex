@@ -92,7 +92,7 @@ defmodule OpenXchangeClient.Api.JSlob do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec set_j_slob(Tesla.Env.client, String.t, %{optional(String.t) => }, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec set_j_slob(Tesla.Env.client, String.t, %{optional(String.t) => any()}, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
   def set_j_slob(connection, session, body, opts \\ []) do
     optional_params = %{
       :"id" => :query,
@@ -127,7 +127,7 @@ defmodule OpenXchangeClient.Api.JSlob do
   {:ok, OpenXchangeClient.Model.CommonResponse.t} on success
   {:error, Tesla.Env.t} on failure
   """
-  @spec update_j_slob(Tesla.Env.client, String.t, %{optional(String.t) => }, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
+  @spec update_j_slob(Tesla.Env.client, String.t, %{optional(String.t) => any()}, keyword()) :: {:ok, OpenXchangeClient.Model.CommonResponse.t} | {:error, Tesla.Env.t}
   def update_j_slob(connection, session, body, opts \\ []) do
     optional_params = %{
       :"id" => :query,
