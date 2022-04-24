@@ -35,7 +35,11 @@ defmodule OpenXchangeClient.Mixfile do
   defp deps do
     [
       {:tesla, "~> 1.2"},
-      {:poison, "~> 3.0"}
+      {:poison, "~> 3.0"},
+      {:hackney, "~> 1.13", optional: true},
+      {:credo, "~> 1.0", only: [:dev, :test]},
+      {:dotenvy, "~> 0.6.0", only: [:dev, :test]},
+      {:bypass, "~> 2.1.0", only: [:dev, :test]}
     ]
   end
 
@@ -43,7 +47,7 @@ defmodule OpenXchangeClient.Mixfile do
     [
       name: "open_xchange_client",
       files: ~w(lib mix.exs README* LICENSE*),
-      licenses: [""]
+      licenses: ["MIT"]
     ]
   end
 end
