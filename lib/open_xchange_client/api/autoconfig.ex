@@ -37,7 +37,7 @@ defmodule OpenXchangeClient.Api.Autoconfig do
 
     %{}
     |> method(:post)
-    |> url("/autoconfig?action&#x3D;get")
+    |> url("/autoconfig?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:form, :email, email)
     |> add_param(:form, :password, password)

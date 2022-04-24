@@ -37,7 +37,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   def accept(connection, session, data_source, description_format, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/chronos/itip?action&#x3D;accept")
+    |> url("/chronos/itip?action=accept")
     |> add_param(:query, :session, session)
     |> add_param(:query, :dataSource, data_source)
     |> add_param(:query, :descriptionFormat, description_format)
@@ -83,7 +83,7 @@ defmodule OpenXchangeClient.Api.Chronos do
       ) do
     %{}
     |> method(:put)
-    |> url("/chronos/itip?action&#x3D;accept_and_ignore_conflicts")
+    |> url("/chronos/itip?action=accept_and_ignore_conflicts")
     |> add_param(:query, :session, session)
     |> add_param(:query, :dataSource, data_source)
     |> add_param(:query, :descriptionFormat, description_format)
@@ -104,10 +104,10 @@ defmodule OpenXchangeClient.Api.Chronos do
   - session (String.t): A session ID previously obtained from the login module.
   - id (String.t): ID of the event.
   - folder (String.t): ID of the folder who contains the events.
-  - alarm_id (integer()): The id of the alarm which shall be acknowledged. 
+  - alarm_id (integer()): The id of the alarm which shall be acknowledged.
   - opts (KeywordList): [optional] Optional parameters
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
-    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
+    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data
   ## Returns
 
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
@@ -131,7 +131,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:get)
-    |> url("/chronos/alarm?action&#x3D;ack")
+    |> url("/chronos/alarm?action=ack")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :folder, folder)
@@ -176,7 +176,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:put)
-    |> url("/chronos/itip?action&#x3D;analyze")
+    |> url("/chronos/itip?action=analyze")
     |> add_param(:query, :session, session)
     |> add_param(:query, :dataSource, data_source)
     |> add_param(:query, :descriptionFormat, description_format)
@@ -198,8 +198,8 @@ defmodule OpenXchangeClient.Api.Chronos do
   - session (String.t): A session ID previously obtained from the login module.
   - opts (KeywordList): [optional] Optional parameters
     - :id (integer()): The identifier of the page.
-    - :language (String.t): The language/locale to translate the results to. If none is provided then the locale of the user's session will be used.  If that one is not available then falls back to 'en'. 
-    - :country (String.t): The country/location for which to fetch the available catalog pages from the SchedJoules. If none is provided then  the country of the user's session will be used. If that one is not available then falls back to 'us'. The 'country'  parameter is only used for the root page. Otherwise it has no effect. 
+    - :language (String.t): The language/locale to translate the results to. If none is provided then the locale of the user's session will be used.  If that one is not available then falls back to 'en'.
+    - :country (String.t): The country/location for which to fetch the available catalog pages from the SchedJoules. If none is provided then  the country of the user's session will be used. If that one is not available then falls back to 'us'. The 'country'  parameter is only used for the root page. Otherwise it has no effect.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.BrowseResponse.t} on success
@@ -216,7 +216,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:get)
-    |> url("/chronos/schedjoules?action&#x3D;browse")
+    |> url("/chronos/schedjoules?action=browse")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -236,15 +236,15 @@ defmodule OpenXchangeClient.Api.Chronos do
   - folder (String.t): ID of the folder who contains the events.
   - id (String.t): ID of the event.
   - timestamp (integer()): Timestamp of the last update of the event.
-  - change_organizer_body (InlineObject3): 
+  - change_organizer_body (InlineObject3):
   - opts (KeywordList): [optional] Optional parameters
     - :recurrence_id (String.t): The recurrence identifier.
     - :recurrence_range (String.t): The targeted range specified with the recurrence id.
     - :expand (boolean()): Defines if event series should be extended or not.
     - :fields (String.t): A comma-separated list of field identifiers.
-    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data 
-    - :range_start (String.t): If expand is set to 'true' this parameter defines a lower inclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which start on or after this date are returned. 
-    - :range_end (String.t): If expand is set to 'true' this parameter defines a upper exclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which end before this date are returned. 
+    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data
+    - :range_start (String.t): If expand is set to 'true' this parameter defines a lower inclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which start on or after this date are returned.
+    - :range_end (String.t): If expand is set to 'true' this parameter defines a upper exclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which end before this date are returned.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
@@ -282,7 +282,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:put)
-    |> url("/chronos?action&#x3D;changeOrganizer")
+    |> url("/chronos?action=changeOrganizer")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -304,7 +304,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - opts (KeywordList): [optional] Optional parameters
-    - :language (String.t): The language/locale to translate the results to. If none is provided then the locale of the user's session will be used.  If that one is not available then falls back to 'en'. 
+    - :language (String.t): The language/locale to translate the results to. If none is provided then the locale of the user's session will be used.  If that one is not available then falls back to 'en'.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.CountriesResponse.t} on success
@@ -319,7 +319,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:get)
-    |> url("/chronos/schedjoules?action&#x3D;countries")
+    |> url("/chronos/schedjoules?action=countries")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -341,12 +341,12 @@ defmodule OpenXchangeClient.Api.Chronos do
   - opts (KeywordList): [optional] Optional parameters
     - :check_conflicts (boolean()): Whether to check for conflicts or not.
     - :send_internal_notifications (boolean()): Specifies that attendees should be notified about the changes when saving a meeting or not.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
-    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data 
-    - :range_start (String.t): If expand is set to 'true' this parameter defines a lower inclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which start on or after this date are returned. 
-    - :range_end (String.t): If expand is set to 'true' this parameter defines a upper exclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which end before this date are returned. 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
+    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data
+    - :range_start (String.t): If expand is set to 'true' this parameter defines a lower inclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which start on or after this date are returned.
+    - :range_end (String.t): If expand is set to 'true' this parameter defines a upper exclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which end before this date are returned.
     - :expand (boolean()): Defines if event series should be extended or not.
-    - :used_groups (String.t): In case the client resolves groups into single attendees the client can provide the ids  of the groups he used (resolved) as a comma separated list. This way the usecount of those groups will be increased. 
+    - :used_groups (String.t): In case the client resolves groups into single attendees the client can provide the ids  of the groups he used (resolved) as a comma separated list. This way the usecount of those groups will be increased.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
@@ -375,7 +375,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:put)
-    |> url("/chronos?action&#x3D;new")
+    |> url("/chronos?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:body, :body, body)
@@ -389,7 +389,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
   @doc """
   Creates an event and attaches files.
-  #### Note It is possible to create multiple attachments at once. Therefore add additional form fields and replace \"[index]\" in `file_[index]`  with the appropriate index, like `file_1`. The index always starts with 0 (mandatory attachment object). There can only be one json payload describing the EventData, the rest json payloads (if present) will simply be ignored. 
+  #### Note It is possible to create multiple attachments at once. Therefore add additional form fields and replace \"[index]\" in `file_[index]`  with the appropriate index, like `file_1`. The index always starts with 0 (mandatory attachment object). There can only be one json payload describing the EventData, the rest json payloads (if present) will simply be ignored.
 
   ## Parameters
 
@@ -401,8 +401,8 @@ defmodule OpenXchangeClient.Api.Chronos do
   - opts (KeywordList): [optional] Optional parameters
     - :check_conflicts (boolean()): Whether to check for conflicts or not.
     - :send_internal_notifications (boolean()): Specifies that attendees should be notified about the changes when saving a meeting or not.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
-    - :used_groups (String.t): In case the client resolves groups into single attendees the client can provide the ids  of the groups he used (resolved) as a comma separated list. This way the usecount of those groups will be increased. 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
+    - :used_groups (String.t): In case the client resolves groups into single attendees the client can provide the ids  of the groups he used (resolved) as a comma separated list. This way the usecount of those groups will be increased.
   ## Returns
 
   {:ok, String.t} on success
@@ -426,7 +426,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:post)
-    |> url("/chronos?action&#x3D;new")
+    |> url("/chronos?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:form, :json_0, json0)
@@ -466,7 +466,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   def decline(connection, session, data_source, description_format, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/chronos/itip?action&#x3D;decline")
+    |> url("/chronos/itip?action=decline")
     |> add_param(:query, :session, session)
     |> add_param(:query, :dataSource, data_source)
     |> add_param(:query, :descriptionFormat, description_format)
@@ -486,14 +486,14 @@ defmodule OpenXchangeClient.Api.Chronos do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - timestamp (integer()): Timestamp of the last update of the events.
-  - delete_body (InlineObject2): 
+  - delete_body (InlineObject2):
   - opts (KeywordList): [optional] Optional parameters
-    - :range_start (String.t): If expand is set to 'true' this parameter defines a lower inclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which start on or after this date are returned. 
-    - :range_end (String.t): If expand is set to 'true' this parameter defines a upper exclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which end before this date are returned. 
+    - :range_start (String.t): If expand is set to 'true' this parameter defines a lower inclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which start on or after this date are returned.
+    - :range_end (String.t): If expand is set to 'true' this parameter defines a upper exclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which end before this date are returned.
     - :expand (boolean()): Defines if event series should be extended or not.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
     - :fields (String.t): A comma-separated list of field identifiers.
-    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data 
+    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data
   ## Returns
 
   {:ok, OpenXchangeClient.Model.ChronosMultipleCalendarResultResponse.t} on success
@@ -520,7 +520,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:put)
-    |> url("/chronos?action&#x3D;delete")
+    |> url("/chronos?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, delete_body)
@@ -541,10 +541,10 @@ defmodule OpenXchangeClient.Api.Chronos do
   - session (String.t): A session ID previously obtained from the login module.
   - from (String.t): Lower inclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which start on or after this date are returned.
   - until (String.t): Upper exclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which end before this date are returned.
-  - body (FreeBusyBody): 
+  - body (FreeBusyBody):
   - opts (KeywordList): [optional] Optional parameters
-    - :mask_id (String.t): The identifier of an existing event or event series to ignore when calculating free/busy information.  This is useful when a client wants to find a new timeslot for an existing event. 
-    - :merge (boolean()): Set to <code>true</code> to merge the resulting free/busy-times. 
+    - :mask_id (String.t): The identifier of an existing event or event series to ignore when calculating free/busy information.  This is useful when a client wants to find a new timeslot for an existing event.
+    - :merge (boolean()): Set to <code>true</code> to merge the resulting free/busy-times.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.ChronosFreeBusyResponse.t} on success
@@ -566,7 +566,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:put)
-    |> url("/chronos?action&#x3D;freeBusy")
+    |> url("/chronos?action=freeBusy")
     |> add_param(:query, :session, session)
     |> add_param(:query, :from, from)
     |> add_param(:query, :until, until)
@@ -586,9 +586,9 @@ defmodule OpenXchangeClient.Api.Chronos do
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
-  - range_end (String.t): Upper exclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which should trigger before this date are returned. 
+  - range_end (String.t): Upper exclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which should trigger before this date are returned.
   - opts (KeywordList): [optional] Optional parameters
-    - :actions (String.t): A comma separated list of alarm actions. Only this actions will be returned. 
+    - :actions (String.t): A comma separated list of alarm actions. Only this actions will be returned.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.AlarmTriggerResponse.t} on success
@@ -603,7 +603,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:get)
-    |> url("/chronos/alarm?action&#x3D;pending")
+    |> url("/chronos/alarm?action=pending")
     |> add_param(:query, :session, session)
     |> add_param(:query, :rangeEnd, range_end)
     |> add_optional_params(optional_params, opts)
@@ -621,16 +621,16 @@ defmodule OpenXchangeClient.Api.Chronos do
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
-  - range_start (String.t): Lower inclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which start on or after this date are returned. 
-  - range_end (String.t): Upper exclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which end before this date are returned. 
+  - range_start (String.t): Lower inclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which start on or after this date are returned.
+  - range_end (String.t): Upper exclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which end before this date are returned.
   - opts (KeywordList): [optional] Optional parameters
     - :folder (String.t): ID of the folder who contains the events. If not set, all events of the default account will be queried.
     - :fields (String.t): A comma-separated list of field identifiers.
     - :order (String.t): The sort order to apply, either <code>ASC</code> for ascending, or <code>DESC</code> for descending.
     - :sort (String.t): Specifies the field for sorting the results.
     - :expand (boolean()): Defines if event series should be extended or not.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
-    - :update_cache (boolean()): If set to 'true' the cache will be forced to be updated (e. g. by contacting the underlying external account) 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
+    - :update_cache (boolean()): If set to 'true' the cache will be forced to be updated (e. g. by contacting the underlying external account)
   ## Returns
 
   {:ok, OpenXchangeClient.Model.EventsResponse.t} on success
@@ -651,7 +651,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:get)
-    |> url("/chronos?action&#x3D;all")
+    |> url("/chronos?action=all")
     |> add_param(:query, :session, session)
     |> add_param(:query, :rangeStart, range_start)
     |> add_param(:query, :rangeEnd, range_end)
@@ -670,15 +670,15 @@ defmodule OpenXchangeClient.Api.Chronos do
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
-  - range_start (String.t): Lower inclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which start on or after this date are returned. 
-  - range_end (String.t): Upper exclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which end before this date are returned. 
+  - range_start (String.t): Lower inclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which start on or after this date are returned.
+  - range_end (String.t): Upper exclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which end before this date are returned.
   - body (ChronosFolderBody): A JSON object containing the folder ids.
   - opts (KeywordList): [optional] Optional parameters
     - :fields (String.t): A comma-separated list of field identifiers.
     - :order (String.t): The sort order to apply, either <code>ASC</code> for ascending, or <code>DESC</code> for descending.
     - :sort (String.t): Specifies the field for sorting the results.
     - :expand (boolean()): Defines if event series should be extended or not.
-    - :update_cache (boolean()): If set to 'true' the cache will be forced to be updated (e. g. by contacting the underlying external account) 
+    - :update_cache (boolean()): If set to 'true' the cache will be forced to be updated (e. g. by contacting the underlying external account)
   ## Returns
 
   {:ok, OpenXchangeClient.Model.MultipleFolderEventsResponse.t} on success
@@ -712,7 +712,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:put)
-    |> url("/chronos?action&#x3D;all")
+    |> url("/chronos?action=all")
     |> add_param(:query, :session, session)
     |> add_param(:query, :rangeStart, range_start)
     |> add_param(:query, :rangeEnd, range_end)
@@ -743,7 +743,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   def get_availability(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/chronos/availability?action&#x3D;get")
+    |> url("/chronos/availability?action=get")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -764,7 +764,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   - opts (KeywordList): [optional] Optional parameters
     - :recurrence_id (String.t): The recurrence identifier.
     - :fields (String.t): A comma-separated list of field identifiers.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.EventResponse.t} on success
@@ -781,7 +781,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:get)
-    |> url("/chronos?action&#x3D;get")
+    |> url("/chronos?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :folder, folder)
@@ -820,7 +820,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   def get_event_attachment(connection, session, id, folder, managed_id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/chronos?action&#x3D;getAttachment")
+    |> url("/chronos?action=getAttachment")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :folder, folder)
@@ -842,7 +842,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   - body ([OpenXchangeClient.Model.EventId.t]): A JSON array of JSON objects with the id and optionally the recurrence position of the event.
   - opts (KeywordList): [optional] Optional parameters
     - :fields (String.t): A comma-separated list of field identifiers.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.EventsResponse.t} on success
@@ -862,7 +862,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:put)
-    |> url("/chronos?action&#x3D;list")
+    |> url("/chronos?action=list")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -880,13 +880,13 @@ defmodule OpenXchangeClient.Api.Chronos do
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
-  - range_start (String.t): Lower inclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which start on or after this date are returned. 
-  - range_end (String.t): Upper exclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which end before this date are returned. 
+  - range_start (String.t): Lower inclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which start on or after this date are returned.
+  - range_end (String.t): Upper exclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which end before this date are returned.
   - opts (KeywordList): [optional] Optional parameters
     - :fields (String.t): A comma-separated list of field identifiers.
     - :order (String.t): The sort order to apply, either <code>ASC</code> for ascending, or <code>DESC</code> for descending.
     - :sort (String.t): Specifies the field for sorting the results.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.EventsResponse.t} on success
@@ -909,7 +909,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:get)
-    |> url("/chronos?action&#x3D;needsAction")
+    |> url("/chronos?action=needsAction")
     |> add_param(:query, :session, session)
     |> add_param(:query, :rangeStart, range_start)
     |> add_param(:query, :rangeEnd, range_end)
@@ -931,13 +931,13 @@ defmodule OpenXchangeClient.Api.Chronos do
   - folder (String.t): ID of the folder who contains the events.
   - timestamp (integer()): Timestamp of the last update of the requested events.
   - opts (KeywordList): [optional] Optional parameters
-    - :range_start (String.t): Lower inclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which start on or after this date are returned. 
-    - :range_end (String.t): Upper exclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which end before this date are returned. 
+    - :range_start (String.t): Lower inclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which start on or after this date are returned.
+    - :range_end (String.t): Upper exclusive limit of the queried range as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\". Only events which end before this date are returned.
     - :fields (String.t): A comma-separated list of field identifiers.
     - :order (String.t): The sort order to apply, either <code>ASC</code> for ascending, or <code>DESC</code> for descending.
     - :sort (String.t): Specifies the field for sorting the results.
     - :expand (boolean()): Defines if event series should be extended or not.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.ChronosUpdatesResponse.t} on success
@@ -958,7 +958,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:get)
-    |> url("/chronos?action&#x3D;updates")
+    |> url("/chronos?action=updates")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :timestamp, timestamp)
@@ -997,7 +997,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   def get_zipped_event_attachments(connection, session, id, folder, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/chronos?action&#x3D;zipAttachments")
+    |> url("/chronos?action=zipAttachments")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :folder, folder)
@@ -1027,7 +1027,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   def languages(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/chronos/schedjoules?action&#x3D;languages")
+    |> url("/chronos/schedjoules?action=languages")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -1051,10 +1051,10 @@ defmodule OpenXchangeClient.Api.Chronos do
     - :check_conflicts (boolean()): Whether to check for conflicts or not.
     - :recurrence_id (String.t): The recurrence identifier.
     - :send_internal_notifications (boolean()): Specifies that attendees should be notified about the changes when saving a meeting or not.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
-    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data 
-    - :range_start (String.t): If expand is set to 'true' this parameter defines a lower inclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which start on or after this date are returned. 
-    - :range_end (String.t): If expand is set to 'true' this parameter defines a upper exclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which end before this date are returned. 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
+    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data
+    - :range_start (String.t): If expand is set to 'true' this parameter defines a lower inclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which start on or after this date are returned.
+    - :range_end (String.t): If expand is set to 'true' this parameter defines a upper exclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which end before this date are returned.
     - :expand (boolean()): Defines if event series should be extended or not.
   ## Returns
 
@@ -1086,7 +1086,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:put)
-    |> url("/chronos?action&#x3D;move")
+    |> url("/chronos?action=move")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -1108,7 +1108,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
-  - body (CalendarAccountProbeData): The properties to check. 
+  - body (CalendarAccountProbeData): The properties to check.
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -1126,7 +1126,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   def probe(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/chronos/account?action&#x3D;probe")
+    |> url("/chronos/account?action=probe")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -1146,7 +1146,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   - id (String.t): ID of the event.
   - opts (KeywordList): [optional] Optional parameters
     - :fields (String.t): A comma-separated list of field identifiers.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.EventResponse.t} on success
@@ -1162,7 +1162,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:get)
-    |> url("/chronos?action&#x3D;resolve")
+    |> url("/chronos?action=resolve")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
@@ -1182,8 +1182,8 @@ defmodule OpenXchangeClient.Api.Chronos do
   - session (String.t): A session ID previously obtained from the login module.
   - query (String.t): The query
   - opts (KeywordList): [optional] Optional parameters
-    - :language (String.t): The language/locale to translate the results to. If none is provided then the locale of the user's session will be used.  If that one is not available then falls back to 'en'. 
-    - :max_rows (integer()): Specifies the maximum amount of results to return. If not specified, then it will fall back to '20' 
+    - :language (String.t): The language/locale to translate the results to. If none is provided then the locale of the user's session will be used.  If that one is not available then falls back to 'en'.
+    - :max_rows (integer()): Specifies the maximum amount of results to return. If not specified, then it will fall back to '20'
   ## Returns
 
   {:ok, OpenXchangeClient.Model.SearchResponse.t} on success
@@ -1199,7 +1199,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:get)
-    |> url("/chronos/schedjoules?action&#x3D;search")
+    |> url("/chronos/schedjoules?action=search")
     |> add_param(:query, :session, session)
     |> add_param(:query, :query, query)
     |> add_optional_params(optional_params, opts)
@@ -1233,7 +1233,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   def set_availability(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/chronos/availability?action&#x3D;set")
+    |> url("/chronos/availability?action=set")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -1252,11 +1252,11 @@ defmodule OpenXchangeClient.Api.Chronos do
   - session (String.t): A session ID previously obtained from the login module.
   - id (String.t): ID of the event.
   - folder (String.t): ID of the folder who contains the events.
-  - alarm_id (integer()): The id of the alarm which shall be snoozed. 
-  - snooze_time (integer()): The duration in milliseconds the alarm should be snoozed by. E.g. 300000 for 5 minutes. 
+  - alarm_id (integer()): The id of the alarm which shall be snoozed.
+  - snooze_time (integer()): The duration in milliseconds the alarm should be snoozed by. E.g. 300000 for 5 minutes.
   - opts (KeywordList): [optional] Optional parameters
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
-    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
+    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data
   ## Returns
 
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
@@ -1281,7 +1281,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:get)
-    |> url("/chronos/alarm?action&#x3D;snooze")
+    |> url("/chronos/alarm?action=snooze")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :folder, folder)
@@ -1322,7 +1322,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   def tentative(connection, session, data_source, description_format, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/chronos/itip?action&#x3D;tentative")
+    |> url("/chronos/itip?action=tentative")
     |> add_param(:query, :session, session)
     |> add_param(:query, :dataSource, data_source)
     |> add_param(:query, :descriptionFormat, description_format)
@@ -1361,7 +1361,7 @@ defmodule OpenXchangeClient.Api.Chronos do
   def update(connection, session, data_source, description_format, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/chronos/itip?action&#x3D;update")
+    |> url("/chronos/itip?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :dataSource, data_source)
     |> add_param(:query, :descriptionFormat, description_format)
@@ -1386,8 +1386,8 @@ defmodule OpenXchangeClient.Api.Chronos do
   - body ([OpenXchangeClient.Model.Alarm.t]): A JSON array containing the alarms.
   - opts (KeywordList): [optional] Optional parameters
     - :recurrence_id (String.t): The recurrence identifier.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
-    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
+    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data
   ## Returns
 
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
@@ -1413,7 +1413,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:put)
-    |> url("/chronos/alarm?action&#x3D;updateAlarms")
+    |> url("/chronos/alarm?action=updateAlarms")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -1437,15 +1437,15 @@ defmodule OpenXchangeClient.Api.Chronos do
   - folder (String.t): ID of the folder who contains the events.
   - id (String.t): ID of the event.
   - timestamp (integer()): Timestamp of the last update of the event.
-  - body (AttendeeAndAlarm): 
+  - body (AttendeeAndAlarm):
   - opts (KeywordList): [optional] Optional parameters
     - :recurrence_id (String.t): The recurrence identifier.
     - :send_internal_notifications (boolean()): Specifies that attendees should be notified about the changes when saving a meeting or not.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
-    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
+    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data
     - :check_conflicts (boolean()): Whether to check for conflicts or not.
-    - :range_start (String.t): If expand is set to 'true' this parameter defines a lower inclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which start on or after this date are returned. 
-    - :range_end (String.t): If expand is set to 'true' this parameter defines a upper exclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which end before this date are returned. 
+    - :range_start (String.t): If expand is set to 'true' this parameter defines a lower inclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which start on or after this date are returned.
+    - :range_end (String.t): If expand is set to 'true' this parameter defines a upper exclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which end before this date are returned.
     - :expand (boolean()): Defines if event series should be extended or not.
   ## Returns
 
@@ -1477,7 +1477,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:put)
-    |> url("/chronos?action&#x3D;updateAttendee")
+    |> url("/chronos?action=updateAttendee")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -1501,18 +1501,18 @@ defmodule OpenXchangeClient.Api.Chronos do
   - folder (String.t): ID of the folder who contains the events.
   - id (String.t): ID of the event.
   - timestamp (integer()): Timestamp of the last update of the event.
-  - update_body (InlineObject1): 
+  - update_body (InlineObject1):
   - opts (KeywordList): [optional] Optional parameters
     - :recurrence_id (String.t): The recurrence identifier.
     - :recurrence_range (String.t): The targeted range specified with the recurrence id.
     - :check_conflicts (boolean()): Whether to check for conflicts or not.
     - :send_internal_notifications (boolean()): Specifies that attendees should be notified about the changes when saving a meeting or not.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
-    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data 
-    - :range_start (String.t): If expand is set to 'true' this parameter defines a lower inclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which start on or after this date are returned. 
-    - :range_end (String.t): If expand is set to 'true' this parameter defines a upper exclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which end before this date are returned. 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
+    - :push_token (String.t): The client's push token to allow filtering of push events for modified calendar data
+    - :range_start (String.t): If expand is set to 'true' this parameter defines a lower inclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which start on or after this date are returned.
+    - :range_end (String.t): If expand is set to 'true' this parameter defines a upper exclusive limit as a utc date-time value as specified in rfc 5545 chapter 3.3.5. E.g. \"20170708T220000Z\".  Only events which end before this date are returned.
     - :expand (boolean()): Defines if event series should be extended or not.
-    - :used_groups (String.t): In case the client resolves groups into single attendees the client can provide the ids  of the groups he used (resolved) as a comma separated list. This way the usecount of those groups will be increased. 
+    - :used_groups (String.t): In case the client resolves groups into single attendees the client can provide the ids  of the groups he used (resolved) as a comma separated list. This way the usecount of those groups will be increased.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.ChronosCalendarResultResponse.t} on success
@@ -1545,7 +1545,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:put)
-    |> url("/chronos?action&#x3D;update")
+    |> url("/chronos?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -1561,7 +1561,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
   @doc """
   Updates an event and its attachments.
-  #### Note It is possible to update multiple attachments at once. Therefore add additional form fields and replace \"[index]\" in `file_[index]`  with the appropriate index, like `file_1`. The index always starts with 0 (mandatory attachment object). There can only be one json payload describing the EventData, the rest json payloads (if present) will simply be ignored. If the event already has attachments, then for each of those attachments their valid manageId must be provided as part of the attachment metadata. The absense of an already existing attachment for the event will result in the deletion of that attachment. 
+  #### Note It is possible to update multiple attachments at once. Therefore add additional form fields and replace \"[index]\" in `file_[index]`  with the appropriate index, like `file_1`. The index always starts with 0 (mandatory attachment object). There can only be one json payload describing the EventData, the rest json payloads (if present) will simply be ignored. If the event already has attachments, then for each of those attachments their valid manageId must be provided as part of the attachment metadata. The absense of an already existing attachment for the event will result in the deletion of that attachment.
 
   ## Parameters
 
@@ -1570,14 +1570,14 @@ defmodule OpenXchangeClient.Api.Chronos do
   - folder (String.t): ID of the folder who contains the events.
   - id (String.t): ID of the event.
   - timestamp (integer()): Timestamp of the last update of the event.
-  - json0 (String.t): A JSON object containing an optional comment for the user to provide information about the update of the event under the key 'comment' and  the event's data as described in [EventData](#/definitions/EventData) under the key 'data'. 
+  - json0 (String.t): A JSON object containing an optional comment for the user to provide information about the update of the event under the key 'comment' and  the event's data as described in [EventData](#/definitions/EventData) under the key 'data'.
   - file0 (String.t): The attachment file as per `<input type=\\\"file\\\" />`.
   - opts (KeywordList): [optional] Optional parameters
     - :recurrence_id (String.t): The recurrence identifier.
     - :check_conflicts (boolean()): Whether to check for conflicts or not.
     - :send_internal_notifications (boolean()): Specifies that attendees should be notified about the changes when saving a meeting or not.
-    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user. 
-    - :used_groups (String.t): In case the client resolves groups into single attendees the client can provide the ids  of the groups he used (resolved) as a comma separated list. This way the usecount of those groups will be increased. 
+    - :extended_entities (boolean()): If set to 'true' attendees of internal users will be extended by a 'contact' field, which contains some of the contact fields of this user.
+    - :used_groups (String.t): In case the client resolves groups into single attendees the client can provide the ids  of the groups he used (resolved) as a comma separated list. This way the usecount of those groups will be increased.
   ## Returns
 
   {:ok, String.t} on success
@@ -1613,7 +1613,7 @@ defmodule OpenXchangeClient.Api.Chronos do
 
     %{}
     |> method(:post)
-    |> url("/chronos?action&#x3D;update")
+    |> url("/chronos?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)

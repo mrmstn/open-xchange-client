@@ -18,7 +18,7 @@ defmodule OpenXchangeClient.Api.MailCategories do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - category_id (String.t): The identifier of a category.
-  - body ([OpenXchangeClient.Model.MailCategoriesMoveBody.t]): 'A JSON array of mail identifier, e.g.: [{\"id\":ID, \"folder_id\":FID},{\"id\":ID2, \"folder_id\":FID2}, {...}]'  
+  - body ([OpenXchangeClient.Model.MailCategoriesMoveBody.t]): 'A JSON array of mail identifier, e.g.: [{\"id\":ID, \"folder_id\":FID},{\"id\":ID2, \"folder_id\":FID2}, {...}]'
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -35,7 +35,7 @@ defmodule OpenXchangeClient.Api.MailCategories do
   def move_mails(connection, session, category_id, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/mail/categories?action&#x3D;move")
+    |> url("/mail/categories?action=move")
     |> add_param(:query, :session, session)
     |> add_param(:query, :category_id, category_id)
     |> add_param(:body, :body, body)
@@ -55,7 +55,7 @@ defmodule OpenXchangeClient.Api.MailCategories do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - category_id (String.t): The identifier of a category.
-  - body (MailCategoriesTrainBody): 'A JSON object containing a \"from\" field which contains an array of mail addresses.'  
+  - body (MailCategoriesTrainBody): 'A JSON object containing a \"from\" field which contains an array of mail addresses.'
   - opts (KeywordList): [optional] Optional parameters
     - :apply_for_existing (boolean()): A flag indicating whether old mails should be reorganized. Defaults to 'false'.
     - :apply_for_future_ones (boolean()): A flag indicating whether a rule should be created or not. Defaults to 'true'.
@@ -79,7 +79,7 @@ defmodule OpenXchangeClient.Api.MailCategories do
 
     %{}
     |> method(:put)
-    |> url("/mail/categories?action&#x3D;train")
+    |> url("/mail/categories?action=train")
     |> add_param(:query, :session, session)
     |> add_param(:query, :category_id, category_id)
     |> add_param(:body, :body, body)
@@ -115,7 +115,7 @@ defmodule OpenXchangeClient.Api.MailCategories do
 
     %{}
     |> method(:get)
-    |> url("/mail/categories?action&#x3D;unread")
+    |> url("/mail/categories?action=unread")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])

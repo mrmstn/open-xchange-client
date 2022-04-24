@@ -28,7 +28,7 @@ defmodule OpenXchangeClient.Api.Capabilities do
   def get_all_capabilities(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/capabilities?action&#x3D;all")
+    |> url("/capabilities?action=all")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -56,7 +56,7 @@ defmodule OpenXchangeClient.Api.Capabilities do
   def get_capability(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/capabilities?action&#x3D;get")
+    |> url("/capabilities?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])

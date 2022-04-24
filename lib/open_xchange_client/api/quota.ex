@@ -28,7 +28,7 @@ defmodule OpenXchangeClient.Api.Quota do
   def get_filestore_usage(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/quota?action&#x3D;filestore")
+    |> url("/quota?action=filestore")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -55,7 +55,7 @@ defmodule OpenXchangeClient.Api.Quota do
   def get_mail_usage(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/quota?action&#x3D;mail")
+    |> url("/quota?action=mail")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -89,7 +89,7 @@ defmodule OpenXchangeClient.Api.Quota do
 
     %{}
     |> method(:get)
-    |> url("/quota?action&#x3D;get")
+    |> url("/quota?action=get")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])

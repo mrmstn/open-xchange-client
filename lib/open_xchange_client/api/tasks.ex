@@ -39,7 +39,7 @@ defmodule OpenXchangeClient.Api.Tasks do
   def confirm_task(connection, session, id, folder, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/tasks?action&#x3D;confirm")
+    |> url("/tasks?action=confirm")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :folder, folder)
@@ -75,7 +75,7 @@ defmodule OpenXchangeClient.Api.Tasks do
   def create_task(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/tasks?action&#x3D;new")
+    |> url("/tasks?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -110,7 +110,7 @@ defmodule OpenXchangeClient.Api.Tasks do
   def delete_tasks(connection, session, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/tasks?action&#x3D;delete")
+    |> url("/tasks?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
@@ -148,7 +148,7 @@ defmodule OpenXchangeClient.Api.Tasks do
 
     %{}
     |> method(:get)
-    |> url("/tasks?action&#x3D;all")
+    |> url("/tasks?action=all")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :columns, columns)
@@ -180,7 +180,7 @@ defmodule OpenXchangeClient.Api.Tasks do
   def get_task(connection, session, id, folder, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/tasks?action&#x3D;get")
+    |> url("/tasks?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :folder, folder)
@@ -216,7 +216,7 @@ defmodule OpenXchangeClient.Api.Tasks do
   def get_task_list(connection, session, columns, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/tasks?action&#x3D;list")
+    |> url("/tasks?action=list")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
@@ -263,7 +263,7 @@ defmodule OpenXchangeClient.Api.Tasks do
 
     %{}
     |> method(:get)
-    |> url("/tasks?action&#x3D;updates")
+    |> url("/tasks?action=updates")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :columns, columns)
@@ -308,7 +308,7 @@ defmodule OpenXchangeClient.Api.Tasks do
 
     %{}
     |> method(:put)
-    |> url("/tasks?action&#x3D;search")
+    |> url("/tasks?action=search")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
@@ -349,7 +349,7 @@ defmodule OpenXchangeClient.Api.Tasks do
   def update_task(connection, session, folder, id, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/tasks?action&#x3D;update")
+    |> url("/tasks?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)

@@ -33,7 +33,7 @@ defmodule OpenXchangeClient.Api.Reminder do
   def delete_reminders(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/reminder?action&#x3D;delete")
+    |> url("/reminder?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -69,7 +69,7 @@ defmodule OpenXchangeClient.Api.Reminder do
 
     %{}
     |> method(:get)
-    |> url("/reminder?action&#x3D;range")
+    |> url("/reminder?action=range")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -104,7 +104,7 @@ defmodule OpenXchangeClient.Api.Reminder do
   def remind_again(connection, session, id, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/reminder?action&#x3D;remindAgain")
+    |> url("/reminder?action=remindAgain")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)

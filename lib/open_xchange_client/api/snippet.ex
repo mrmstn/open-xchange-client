@@ -12,7 +12,7 @@ defmodule OpenXchangeClient.Api.Snippet do
 
   @doc """
   Attaches one or more files to an existing snippet.
-  It can be uploaded multiple files at once. Each file must be specified in an own form field (the form field name is arbitrary). 
+  It can be uploaded multiple files at once. Each file must be specified in an own form field (the form field name is arbitrary).
 
   ## Parameters
 
@@ -38,7 +38,7 @@ defmodule OpenXchangeClient.Api.Snippet do
   def add_snippet_attachment(connection, session, id, type, file, _opts \\ []) do
     %{}
     |> method(:post)
-    |> url("/snippet?action&#x3D;attach")
+    |> url("/snippet?action=attach")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :type, type)
@@ -73,7 +73,7 @@ defmodule OpenXchangeClient.Api.Snippet do
   def create_snippet(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/snippet?action&#x3D;new")
+    |> url("/snippet?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -108,7 +108,7 @@ defmodule OpenXchangeClient.Api.Snippet do
 
     %{}
     |> method(:put)
-    |> url("/snippet?action&#x3D;delete")
+    |> url("/snippet?action=delete")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
@@ -142,7 +142,7 @@ defmodule OpenXchangeClient.Api.Snippet do
 
     %{}
     |> method(:get)
-    |> url("/snippet?action&#x3D;all")
+    |> url("/snippet?action=all")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -171,7 +171,7 @@ defmodule OpenXchangeClient.Api.Snippet do
   def get_snippet(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/snippet?action&#x3D;get")
+    |> url("/snippet?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -201,7 +201,7 @@ defmodule OpenXchangeClient.Api.Snippet do
   def get_snippet_attachment(connection, session, id, attachmentid, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/snippet?action&#x3D;getattachment")
+    |> url("/snippet?action=getattachment")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :attachmentid, attachmentid)
@@ -232,7 +232,7 @@ defmodule OpenXchangeClient.Api.Snippet do
   def get_snippet_list(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/snippet?action&#x3D;list")
+    |> url("/snippet?action=list")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -267,7 +267,7 @@ defmodule OpenXchangeClient.Api.Snippet do
   def remove_snippet_attachments(connection, session, id, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/snippet?action&#x3D;detach")
+    |> url("/snippet?action=detach")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
@@ -303,7 +303,7 @@ defmodule OpenXchangeClient.Api.Snippet do
   def update_snippet(connection, session, id, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/snippet?action&#x3D;update")
+    |> url("/snippet?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)

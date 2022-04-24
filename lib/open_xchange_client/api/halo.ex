@@ -12,7 +12,7 @@ defmodule OpenXchangeClient.Api.Halo do
 
   @doc """
   Gets a contact picture.
-  <b>Important:</b> This endpoint is deprecated and will be removed in the future. Use the new /contacts/picture endpoint instead.  At least one of the optional search parameters should be set. All parameters are connected by OR during the search. More specific parameters like `user_id` or `id` are prioritized in case of multiple matches. 
+  <b>Important:</b> This endpoint is deprecated and will be removed in the future. Use the new /contacts/picture endpoint instead.  At least one of the optional search parameters should be set. All parameters are connected by OR during the search. More specific parameters like `user_id` or `id` are prioritized in case of multiple matches.
 
   ## Parameters
 
@@ -95,7 +95,7 @@ defmodule OpenXchangeClient.Api.Halo do
   def get_halo_services(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/halo/contact?action&#x3D;services")
+    |> url("/halo/contact?action=services")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -153,7 +153,7 @@ defmodule OpenXchangeClient.Api.Halo do
 
     %{}
     |> method(:get)
-    |> url("/halo/contact?action&#x3D;investigate")
+    |> url("/halo/contact?action=investigate")
     |> add_param(:query, :session, session)
     |> add_param(:query, :provider, provider)
     |> add_param(:query, :columns, columns)
@@ -255,14 +255,14 @@ defmodule OpenXchangeClient.Api.Halo do
     - :telephone_ip (String.t): The IP telephone number.
     - :telephone_assistant (String.t): The assistant telephone number.
     - :company (String.t): The company name.
-    - :image1 (String.t): 
+    - :image1 (String.t):
     - :image1_content_type (String.t): The content type of the image (like \\\"image/png\\\").
     - :image1_url (String.t): The url to the image.
     - :number_of_images (integer()): The number of images.
     - :image_last_modified (integer()): The last modification of the image.
     - :distribution_list ([OpenXchangeClient.Model.DistributionListMember.t]): If this contact is a distribution list, then this field is an array of objects. Each object describes a member of the list.
     - :number_of_distribution_list (integer()): The number of objects in the distribution list.
-    - :mark_as_distributionlist (boolean()): 
+    - :mark_as_distributionlist (boolean()):
     - :file_as (String.t): The file name.
     - :default_address (integer()): The default address.
     - :use_count (integer()): In case of sorting purposes the column 609 is also available, which places global address book contacts at the beginning of the result. If 609 is used, the order direction (ASC, DESC) is ignored.
@@ -450,7 +450,7 @@ defmodule OpenXchangeClient.Api.Halo do
 
     %{}
     |> method(:put)
-    |> url("/halo/contact?action&#x3D;investigate")
+    |> url("/halo/contact?action=investigate")
     |> add_param(:query, :session, session)
     |> add_param(:query, :provider, provider)
     |> add_param(:query, :columns, columns)

@@ -29,7 +29,7 @@ defmodule OpenXchangeClient.Api.Certificate do
   def delete_all_certificates(connection, session, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/certificate?action&#x3D;deleteAll")
+    |> url("/certificate?action=deleteAll")
     |> add_param(:query, :session, session)
     |> ensure_body()
     |> Enum.into([])
@@ -64,7 +64,7 @@ defmodule OpenXchangeClient.Api.Certificate do
 
     %{}
     |> method(:put)
-    |> url("/certificate?action&#x3D;delete")
+    |> url("/certificate?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:query, :fingerprint, fingerprint)
     |> add_optional_params(optional_params, opts)
@@ -96,7 +96,7 @@ defmodule OpenXchangeClient.Api.Certificate do
   def examine_certificate(connection, session, fingerprint, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/certificate?action&#x3D;examine")
+    |> url("/certificate?action=examine")
     |> add_param(:query, :session, session)
     |> add_param(:query, :fingerprint, fingerprint)
     |> Enum.into([])
@@ -125,7 +125,7 @@ defmodule OpenXchangeClient.Api.Certificate do
   def get_all_certificates(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/certificate?action&#x3D;all")
+    |> url("/certificate?action=all")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -159,7 +159,7 @@ defmodule OpenXchangeClient.Api.Certificate do
 
     %{}
     |> method(:get)
-    |> url("/certificate?action&#x3D;get")
+    |> url("/certificate?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :fingerprint, fingerprint)
     |> add_optional_params(optional_params, opts)
@@ -203,7 +203,7 @@ defmodule OpenXchangeClient.Api.Certificate do
 
     %{}
     |> method(:put)
-    |> url("/certificate?action&#x3D;store")
+    |> url("/certificate?action=store")
     |> add_param(:query, :session, session)
     |> add_param(:query, :fingerprint, fingerprint)
     |> add_param(:query, :hostname, hostname)
@@ -244,7 +244,7 @@ defmodule OpenXchangeClient.Api.Certificate do
   def store_certificate_0(connection, session, fingerprint, hostname, trust, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/certificate?action&#x3D;update")
+    |> url("/certificate?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :fingerprint, fingerprint)
     |> add_param(:query, :hostname, hostname)

@@ -35,7 +35,7 @@ defmodule OpenXchangeClient.Api.Messaging do
   def create_messaging_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/messaging/account?action&#x3D;new")
+    |> url("/messaging/account?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -66,7 +66,7 @@ defmodule OpenXchangeClient.Api.Messaging do
   def delete_messaging_account(connection, session, messaging_service, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/messaging/account?action&#x3D;delete")
+    |> url("/messaging/account?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:query, :messagingService, messaging_service)
     |> add_param(:query, :id, id)
@@ -100,7 +100,7 @@ defmodule OpenXchangeClient.Api.Messaging do
 
     %{}
     |> method(:get)
-    |> url("/messaging/account?action&#x3D;all")
+    |> url("/messaging/account?action=all")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -143,7 +143,7 @@ defmodule OpenXchangeClient.Api.Messaging do
 
     %{}
     |> method(:get)
-    |> url("/messaging/message?action&#x3D;all")
+    |> url("/messaging/message?action=all")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_param(:query, :folder, folder)
@@ -173,7 +173,7 @@ defmodule OpenXchangeClient.Api.Messaging do
   def get_all_messaging_services(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/messaging/service?action&#x3D;all")
+    |> url("/messaging/service?action=all")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -202,7 +202,7 @@ defmodule OpenXchangeClient.Api.Messaging do
   def get_messaging_account(connection, session, messaging_service, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/messaging/account?action&#x3D;get")
+    |> url("/messaging/account?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :messagingService, messaging_service)
     |> add_param(:query, :id, id)
@@ -215,7 +215,7 @@ defmodule OpenXchangeClient.Api.Messaging do
 
   @doc """
   Gets a messaging message.
-  A messaging message consists of some metadata, headers and a content. The content attribute varies by the content-type header. If the content-type is `text/*` it is a string, if it is `multipart/*` it is an array of objects, each representing a part of the multipart. If it is anything else it is considered binary and is a Base64 encoded string.  The folder ID of a message follows a predefined format: `[messagingService]://[accountId]/[path]`, like `com.openexchange.messaging.twitter://535/defaultTimeline/directMessages`. 
+  A messaging message consists of some metadata, headers and a content. The content attribute varies by the content-type header. If the content-type is `text/*` it is a string, if it is `multipart/*` it is an array of objects, each representing a part of the multipart. If it is anything else it is considered binary and is a Base64 encoded string.  The folder ID of a message follows a predefined format: `[messagingService]://[accountId]/[path]`, like `com.openexchange.messaging.twitter://535/defaultTimeline/directMessages`.
 
   ## Parameters
 
@@ -239,7 +239,7 @@ defmodule OpenXchangeClient.Api.Messaging do
 
     %{}
     |> method(:get)
-    |> url("/messaging/message?action&#x3D;get")
+    |> url("/messaging/message?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :folder, folder)
@@ -277,7 +277,7 @@ defmodule OpenXchangeClient.Api.Messaging do
   def get_messaging_message_list(connection, session, columns, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/messaging/message?action&#x3D;list")
+    |> url("/messaging/message?action=list")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
@@ -307,7 +307,7 @@ defmodule OpenXchangeClient.Api.Messaging do
   def get_messaging_service(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/messaging/service?action&#x3D;get")
+    |> url("/messaging/service?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -319,7 +319,7 @@ defmodule OpenXchangeClient.Api.Messaging do
 
   @doc """
   Performs a certain messaging action on a message.
-  On actions of type \"message\" the body should contain the JSON representation of the message the action should be applied to. To invoke a messaging action of type \"storage\" the folder and id are needed in URL parameters. Messaging actions of type \"none\" need a messaging message and account. 
+  On actions of type \"message\" the body should contain the JSON representation of the message the action should be applied to. To invoke a messaging action of type \"storage\" the folder and id are needed in URL parameters. Messaging actions of type \"none\" need a messaging message and account.
 
   ## Parameters
 
@@ -354,7 +354,7 @@ defmodule OpenXchangeClient.Api.Messaging do
 
     %{}
     |> method(:put)
-    |> url("/messaging/message?action&#x3D;perform")
+    |> url("/messaging/message?action=perform")
     |> add_param(:query, :session, session)
     |> add_param(:query, :messageAction, message_action)
     |> add_param(:body, :body, body)
@@ -396,7 +396,7 @@ defmodule OpenXchangeClient.Api.Messaging do
 
     %{}
     |> method(:put)
-    |> url("/messaging/message?action&#x3D;send")
+    |> url("/messaging/message?action=send")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -432,7 +432,7 @@ defmodule OpenXchangeClient.Api.Messaging do
   def update_messaging_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/messaging/account?action&#x3D;update")
+    |> url("/messaging/account?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])

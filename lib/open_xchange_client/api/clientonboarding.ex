@@ -17,7 +17,7 @@ defmodule OpenXchangeClient.Api.Clientonboarding do
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
-  - type (String.t): The identifier of profile to download; one of - caldav - carddav - dav 
+  - type (String.t): The identifier of profile to download; one of - caldav - carddav - dav
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -29,7 +29,7 @@ defmodule OpenXchangeClient.Api.Clientonboarding do
   def download_client_onboarding_profile(connection, session, type, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/onboarding?action&#x3D;download")
+    |> url("/onboarding?action=download")
     |> add_param(:query, :session, session)
     |> add_param(:query, :type, type)
     |> Enum.into([])
@@ -47,7 +47,7 @@ defmodule OpenXchangeClient.Api.Clientonboarding do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - id (String.t): The compiste identifier of device and scenario pair; e.g. \"apple.iphone/davsync\"
-  - action_id (String.t): The identifier of action to perform; one of - download - email - sms - display or - link 
+  - action_id (String.t): The identifier of action to perform; one of - download - email - sms - display or - link
   - opts (KeywordList): [optional] Optional parameters
     - :body (String.t): An optional JSON object containing additional data for the action.
   ## Returns
@@ -69,7 +69,7 @@ defmodule OpenXchangeClient.Api.Clientonboarding do
 
     %{}
     |> method(:put)
-    |> url("/onboarding?action&#x3D;execute")
+    |> url("/onboarding?action=execute")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :action_id, action_id)
@@ -89,7 +89,7 @@ defmodule OpenXchangeClient.Api.Clientonboarding do
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
-  - type (String.t): The identifier of profile to download; one of - caldav - carddav - dav 
+  - type (String.t): The identifier of profile to download; one of - caldav - carddav - dav
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -105,7 +105,7 @@ defmodule OpenXchangeClient.Api.Clientonboarding do
   def generate_download_link_for_client_onboarding_profile(connection, session, type, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/onboarding?action&#x3D;link")
+    |> url("/onboarding?action=link")
     |> add_param(:query, :session, session)
     |> add_param(:query, :type, type)
     |> Enum.into([])
@@ -133,7 +133,7 @@ defmodule OpenXchangeClient.Api.Clientonboarding do
   def get_client_onboarding_config(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/onboarding?action&#x3D;config")
+    |> url("/onboarding?action=config")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()

@@ -18,8 +18,8 @@ defmodule OpenXchangeClient.Api.Pns do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - token (String.t): The token to use when sending out notifications using specified transport
-  - transport (String.t): The identifer of the transport; currently supported: - \\\"apn\\\" - \\\"gcm\\\" - \\\"wns\\\" and - \\\"websocket\\\" 
-  - topics ([String.t]): An array of topic identifiers or wild-cards, to which the subscription signals interest. E.g. [\\\"ox:mail:*\\\",\\\"ox:calendar:new\\\"] interest for all mail-related events and for newly created appointments 
+  - transport (String.t): The identifer of the transport; currently supported: - \\\"apn\\\" - \\\"gcm\\\" - \\\"wns\\\" and - \\\"websocket\\\"
+  - topics ([String.t]): An array of topic identifiers or wild-cards, to which the subscription signals interest. E.g. [\\\"ox:mail:*\\\",\\\"ox:calendar:new\\\"] interest for all mail-related events and for newly created appointments
   - opts (KeywordList): [optional] Optional parameters
     - :client (String.t): The client identifier; e.g. \\\"open-xchange-appsuite\\\". If not specified, session-associated client identifier is considered
   ## Returns
@@ -42,7 +42,7 @@ defmodule OpenXchangeClient.Api.Pns do
 
     %{}
     |> method(:put)
-    |> url("/pns?action&#x3D;subscribe")
+    |> url("/pns?action=subscribe")
     |> add_param(:query, :session, session)
     |> add_param(:form, :token, token)
     |> add_param(:form, :transport, transport)
@@ -63,7 +63,7 @@ defmodule OpenXchangeClient.Api.Pns do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - token (String.t): The token to use when sending out notifications using specified transport
-  - transport (String.t): The identifer of the transport; currently supported: - \\\"apn\\\" - \\\"gcm\\\" - \\\"wns\\\" and - \\\"websocket\\\" 
+  - transport (String.t): The identifer of the transport; currently supported: - \\\"apn\\\" - \\\"gcm\\\" - \\\"wns\\\" and - \\\"websocket\\\"
   - opts (KeywordList): [optional] Optional parameters
     - :client (String.t): The client identifier; e.g. \\\"open-xchange-appsuite\\\". If not specified, session-associated client identifier is considered
   ## Returns
@@ -80,7 +80,7 @@ defmodule OpenXchangeClient.Api.Pns do
 
     %{}
     |> method(:put)
-    |> url("/pns?action&#x3D;unsubscribe")
+    |> url("/pns?action=unsubscribe")
     |> add_param(:query, :session, session)
     |> add_param(:form, :token, token)
     |> add_param(:form, :transport, transport)

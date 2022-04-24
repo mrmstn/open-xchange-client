@@ -12,7 +12,7 @@ defmodule OpenXchangeClient.Api.Passwordchange do
 
   @doc """
   Updates or changes the password of the current use.
-  #### Note The new password will be set without any checks. The client must ensure that it is the password the user wants to set. 
+  #### Note The new password will be set without any checks. The client must ensure that it is the password the user wants to set.
 
   ## Parameters
 
@@ -34,7 +34,7 @@ defmodule OpenXchangeClient.Api.Passwordchange do
   def update_password(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/passwordchange?action&#x3D;update")
+    |> url("/passwordchange?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])

@@ -38,7 +38,7 @@ defmodule OpenXchangeClient.Api.Folders do
   def check_limits(connection, session, id, type, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/folders?action&#x3D;checklimits")
+    |> url("/folders?action=checklimits")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :type, type)
@@ -78,7 +78,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:put)
-    |> url("/folders?action&#x3D;clear")
+    |> url("/folders?action=clear")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -97,7 +97,7 @@ defmodule OpenXchangeClient.Api.Folders do
   - connection (OpenXchangeClient.Connection): Connection to server
   - folder_id (String.t): The parent folder object ID of the newly created folder.
   - session (String.t): A session ID previously obtained from the login module.
-  - body (NewFolderBody): JSON object with \"folder\" object containing the modified fields and optional \"notification\" object to let added permission entities be notified about newly shared folders for all modules except mail. (Example: {\"folder\":{\"module\":\"infostore\",\"subscribed\":true,\"title\":\"Test123\"}} or  {\"folder\":{\"module\":\"infostore\",\"subscribed\":true,\"title\":\"Test123\",\"permissions\":[{\"bits\":403710016,\"entity\":84,\"group\":false}]},\"notification\":{\"transport\":\"mail\",\"message\":\"The message\"}}) 
+  - body (NewFolderBody): JSON object with \"folder\" object containing the modified fields and optional \"notification\" object to let added permission entities be notified about newly shared folders for all modules except mail. (Example: {\"folder\":{\"module\":\"infostore\",\"subscribed\":true,\"title\":\"Test123\"}} or  {\"folder\":{\"module\":\"infostore\",\"subscribed\":true,\"title\":\"Test123\",\"permissions\":[{\"bits\":403710016,\"entity\":84,\"group\":false}]},\"notification\":{\"transport\":\"mail\",\"message\":\"The message\"}})
   - opts (KeywordList): [optional] Optional parameters
     - :tree (String.t): The identifier of the folder tree. If missing \"0\" (primary folder tree) is assumed.
     - :allowed_modules (String.t): An array of modules (either numbers or strings; e.g. \"tasks,calendar,contacts,mail\") supported by requesting client. If missing, all available modules are considered.
@@ -123,7 +123,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:put)
-    |> url("/folders?action&#x3D;new")
+    |> url("/folders?action=new")
     |> add_param(:query, :folder_id, folder_id)
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
@@ -147,9 +147,9 @@ defmodule OpenXchangeClient.Api.Folders do
     - :tree (String.t): The identifier of the folder tree. If missing \"0\" (primary folder tree) is assumed.
     - :timestamp (integer()): The optional timestamp of the last update of the deleted folders.
     - :allowed_modules (String.t): An array of modules (either numbers or strings; e.g. \"tasks,calendar,contacts,mail\") supported by requesting client. If missing, all available modules are considered.
-    - :hard_delete (boolean()): If set to `true`, the folders are deleted permanently. Otherwise, and if the underlying storage supports a trash folder and the folders are not yet located below the trash folder, they are moved to the trash folder. 
-    - :fail_on_error (boolean()): If an error occured for one folder and this parameter is set to `true` the process will abort and throw an error.  If this parameter is set to 'false' the process will continue for the remaining folders and will add a warning to the response instead. 
-    - :extended_response (boolean()): If this parameter is set to `true` a different response will be returned. The response contains an array of json objects, which can contain the following fields:   <ul>     <li><code>new_path</code> - The new path of the folder in case of a trash operation.</li>     <li><code>path</code> - The old path.</li>     <li><code>hasFailed</code> - A boolean flag indicating that the delete operation has failed.</li>     <li><code>isTrashed</code> - A boolean flag indicating that the folder has been trashed.</li>     <li><code>isSuppoprted</code> - A boolean flag indicating that the folder storage supports trashing.</li>   </ul> 
+    - :hard_delete (boolean()): If set to `true`, the folders are deleted permanently. Otherwise, and if the underlying storage supports a trash folder and the folders are not yet located below the trash folder, they are moved to the trash folder.
+    - :fail_on_error (boolean()): If an error occured for one folder and this parameter is set to `true` the process will abort and throw an error.  If this parameter is set to 'false' the process will continue for the remaining folders and will add a warning to the response instead.
+    - :extended_response (boolean()): If this parameter is set to `true` a different response will be returned. The response contains an array of json objects, which can contain the following fields:   <ul>     <li><code>new_path</code> - The new path of the folder in case of a trash operation.</li>     <li><code>path</code> - The old path.</li>     <li><code>hasFailed</code> - A boolean flag indicating that the delete operation has failed.</li>     <li><code>isTrashed</code> - A boolean flag indicating that the folder has been trashed.</li>     <li><code>isSuppoprted</code> - A boolean flag indicating that the folder storage supports trashing.</li>   </ul>
     - :push_token (String.t): The client's push token to restrict the generated drive event
   ## Returns
 
@@ -171,7 +171,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:put)
-    |> url("/folders?action&#x3D;delete")
+    |> url("/folders?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -210,7 +210,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:get)
-    |> url("/folders?action&#x3D;get")
+    |> url("/folders?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
@@ -259,7 +259,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:get)
-    |> url("/folders?action&#x3D;updates")
+    |> url("/folders?action=updates")
     |> add_param(:query, :session, session)
     |> add_param(:query, :parent, parent)
     |> add_param(:query, :timestamp, timestamp)
@@ -301,7 +301,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:get)
-    |> url("/folders?action&#x3D;path")
+    |> url("/folders?action=path")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :columns, columns)
@@ -339,7 +339,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:get)
-    |> url("/folders?action&#x3D;root")
+    |> url("/folders?action=root")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
@@ -379,7 +379,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:get)
-    |> url("/folders?action&#x3D;shares")
+    |> url("/folders?action=shares")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_param(:query, :content_type, content_type)
@@ -405,7 +405,7 @@ defmodule OpenXchangeClient.Api.Folders do
     - :tree (String.t): The identifier of the folder tree. If missing \"0\" (primary folder tree) is assumed.
     - :allowed_modules (String.t): An array of modules (either numbers or strings; e.g. \"tasks,calendar,contacts,mail\") supported by requesting client. If missing, all available modules are considered.
     - :language (String.t): Optional locale to use instead of the currently configured locale of the user.
-    - :error_on_duplicate_name (boolean()): 
+    - :error_on_duplicate_name (boolean()):
   ## Returns
 
   {:ok, OpenXchangeClient.Model.FoldersResponse.t} on success
@@ -424,7 +424,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:get)
-    |> url("/folders?action&#x3D;list")
+    |> url("/folders?action=list")
     |> add_param(:query, :session, session)
     |> add_param(:query, :parent, parent)
     |> add_param(:query, :columns, columns)
@@ -463,7 +463,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:get)
-    |> url("/folders?action&#x3D;allVisible")
+    |> url("/folders?action=allVisible")
     |> add_param(:query, :session, session)
     |> add_param(:query, :content_type, content_type)
     |> add_param(:query, :columns, columns)
@@ -483,7 +483,7 @@ defmodule OpenXchangeClient.Api.Folders do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - id (String.t): Object ID of the shared folder to notify about.
-  - body (FolderSharingNotificationBody): JSON object providing the JSON array `entities`, which holds the entity ID(s) of the users or groups that should be notified. To send a custom message to the recipients, an additional JSON object `notification` may be included, inside of which an optional message can be passed (otherwise, some default message is used). (Example: {\"entities\":[\"2332\"]} or {\"entities\":[\"2332\"],\"notification\":{\"transport\":\"mail\",\"message\":\"The message\"}}) 
+  - body (FolderSharingNotificationBody): JSON object providing the JSON array `entities`, which holds the entity ID(s) of the users or groups that should be notified. To send a custom message to the recipients, an additional JSON object `notification` may be included, inside of which an optional message can be passed (otherwise, some default message is used). (Example: {\"entities\":[\"2332\"]} or {\"entities\":[\"2332\"],\"notification\":{\"transport\":\"mail\",\"message\":\"The message\"}})
   - opts (KeywordList): [optional] Optional parameters
     - :tree (String.t): The identifier of the folder tree. If missing \"0\" (primary folder tree) is assumed.
   ## Returns
@@ -507,7 +507,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:put)
-    |> url("/folders?action&#x3D;notify")
+    |> url("/folders?action=notify")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
@@ -544,7 +544,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:put)
-    |> url("/folders?action&#x3D;restore")
+    |> url("/folders?action=restore")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
@@ -563,13 +563,13 @@ defmodule OpenXchangeClient.Api.Folders do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - id (String.t): Object ID of the updated folder.
-  - body (FolderBody): JSON object with \"folder\" object containing the modified fields and optional \"notification\" object to let added permission entities be notified about newly shared folders for all modules except mail. (Example: {\"folder\":{\"title\":\"test123\"}} or {\"folder\":{\"permissions\":[{\"bits\":403710016,\"entity\":84,\"group\":false}]},\"notification\":{\"transport\":\"mail\",\"message\":\"The message\"}}) 
+  - body (FolderBody): JSON object with \"folder\" object containing the modified fields and optional \"notification\" object to let added permission entities be notified about newly shared folders for all modules except mail. (Example: {\"folder\":{\"title\":\"test123\"}} or {\"folder\":{\"permissions\":[{\"bits\":403710016,\"entity\":84,\"group\":false}]},\"notification\":{\"transport\":\"mail\",\"message\":\"The message\"}})
   - opts (KeywordList): [optional] Optional parameters
     - :allow_enqueue (boolean()): Optional flag that specifies whether the request is allowed for being submitted to job queue.
     - :timestamp (integer()): Timestamp of the updated folder. If the folder was modified after the specified timestamp, then the update must fail.
     - :tree (String.t): The identifier of the folder tree. If missing \"0\" (primary folder tree) is assumed.
     - :allowed_modules (String.t): An array of modules (either numbers or strings; e.g. \"tasks,calendar,contacts,mail\") supported by requesting client. If missing, all available modules are considered.
-    - :cascade_permissions (boolean()): `true` to cascade permissions to all sub-folders. The user must have administrative permissions to all sub-folders subject to change. If one permission change fails, the entire operation fails. 
+    - :cascade_permissions (boolean()): `true` to cascade permissions to all sub-folders. The user must have administrative permissions to all sub-folders subject to change. If one permission change fails, the entire operation fails.
     - :push_token (String.t): The client's push token to restrict the generated drive event
   ## Returns
 
@@ -598,7 +598,7 @@ defmodule OpenXchangeClient.Api.Folders do
 
     %{}
     |> method(:put)
-    |> url("/folders?action&#x3D;update")
+    |> url("/folders?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)

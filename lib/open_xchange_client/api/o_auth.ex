@@ -12,7 +12,7 @@ defmodule OpenXchangeClient.Api.OAuth do
 
   @doc """
   Creates an OAuth account.
-  This action is typically called by provided call-back URL and is only intended for manual invocation if \"outOfBand\" interaction is returned by preceeding [/oauth/account?action=init](#operation--oauth-accounts-action-init-get) step. 
+  This action is typically called by provided call-back URL and is only intended for manual invocation if \"outOfBand\" interaction is returned by preceeding [/oauth/account?action=init](#operation--oauth-accounts-action-init-get) step.
 
   ## Parameters
 
@@ -53,7 +53,7 @@ defmodule OpenXchangeClient.Api.OAuth do
 
     %{}
     |> method(:put)
-    |> url("/oauth/accounts?action&#x3D;create")
+    |> url("/oauth/accounts?action=create")
     |> add_param(:query, :session, session)
     |> add_param(:query, :oauth_token, oauth_token)
     |> add_param(:query, :uuid, uuid)
@@ -88,7 +88,7 @@ defmodule OpenXchangeClient.Api.OAuth do
   def delete_o_auth_account(connection, session, id, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/oauth/accounts?action&#x3D;delete")
+    |> url("/oauth/accounts?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> ensure_body()
@@ -122,7 +122,7 @@ defmodule OpenXchangeClient.Api.OAuth do
 
     %{}
     |> method(:get)
-    |> url("/oauth/accounts?action&#x3D;all")
+    |> url("/oauth/accounts?action=all")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -150,7 +150,7 @@ defmodule OpenXchangeClient.Api.OAuth do
   def get_all_o_auth_grants(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/oauth/grants?action&#x3D;all")
+    |> url("/oauth/grants?action=all")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -177,7 +177,7 @@ defmodule OpenXchangeClient.Api.OAuth do
   def get_all_o_auth_services(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/oauth/services?action&#x3D;all")
+    |> url("/oauth/services?action=all")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -205,7 +205,7 @@ defmodule OpenXchangeClient.Api.OAuth do
   def get_o_auth_account(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/oauth/accounts?action&#x3D;get")
+    |> url("/oauth/accounts?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -234,7 +234,7 @@ defmodule OpenXchangeClient.Api.OAuth do
   def get_o_auth_service(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/oauth/services?action&#x3D;get")
+    |> url("/oauth/services?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -273,7 +273,7 @@ defmodule OpenXchangeClient.Api.OAuth do
   def init_o_auth_account(connection, session, service_id, display_name, scopes, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/oauth/accounts?action&#x3D;init")
+    |> url("/oauth/accounts?action=init")
     |> add_param(:query, :session, session)
     |> add_param(:query, :serviceId, service_id)
     |> add_param(:query, :displayName, display_name)
@@ -312,7 +312,7 @@ defmodule OpenXchangeClient.Api.OAuth do
   def reauthorize_o_auth_account(connection, session, id, service_id, scopes, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/oauth/accounts?action&#x3D;reauthorize")
+    |> url("/oauth/accounts?action=reauthorize")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :serviceId, service_id)
@@ -344,7 +344,7 @@ defmodule OpenXchangeClient.Api.OAuth do
   def revoke_o_auth_grant(connection, session, client, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/oauth/grants?action&#x3D;revoke")
+    |> url("/oauth/grants?action=revoke")
     |> add_param(:query, :session, session)
     |> add_param(:query, :client, client)
     |> Enum.into([])
@@ -380,7 +380,7 @@ defmodule OpenXchangeClient.Api.OAuth do
   def update_o_auth_account(connection, session, id, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/oauth/accounts?action&#x3D;update")
+    |> url("/oauth/accounts?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)

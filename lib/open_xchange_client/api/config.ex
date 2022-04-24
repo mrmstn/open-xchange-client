@@ -12,7 +12,7 @@ defmodule OpenXchangeClient.Api.Config do
 
   @doc """
   Gets data of a configuration node.
-  The configuration is stored in a tree. Each node of the tree has a name and a value. The values of leaf nodes are strings which store the actual configuration data. The values of inner nodes are defined recursively as objects with one field for each child node. The name and the value of each field is the name and the value of the corresponding child node, respectively. 
+  The configuration is stored in a tree. Each node of the tree has a name and a value. The values of leaf nodes are strings which store the actual configuration data. The values of inner nodes are defined recursively as objects with one field for each child node. The name and the value of each field is the name and the value of the corresponding child node, respectively.
 
   ## Parameters
 
@@ -58,7 +58,7 @@ defmodule OpenXchangeClient.Api.Config do
   def get_config_property(connection, session, name, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/config?action&#x3D;get_property")
+    |> url("/config?action=get_property")
     |> add_param(:query, :session, session)
     |> add_param(:query, :name, name)
     |> Enum.into([])
@@ -70,7 +70,7 @@ defmodule OpenXchangeClient.Api.Config do
 
   @doc """
   Sets the value of a configuration node.
-  The configuration is stored in a tree. Each node of the tree has a name and a value. The values of leaf nodes are strings which store the actual configuration data. The values of inner nodes are defined recursively as objects with one field for each child node. The name and the value of each field is the name and the value of the corresponding child node, respectively. 
+  The configuration is stored in a tree. Each node of the tree has a name and a value. The values of leaf nodes are strings which store the actual configuration data. The values of inner nodes are defined recursively as objects with one field for each child node. The name and the value of each field is the name and the value of the corresponding child node, respectively.
 
   ## Parameters
 
@@ -129,7 +129,7 @@ defmodule OpenXchangeClient.Api.Config do
   def set_config_property(connection, session, name, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/config?action&#x3D;set_property")
+    |> url("/config?action=set_property")
     |> add_param(:query, :session, session)
     |> add_param(:query, :name, name)
     |> add_param(:body, :body, body)

@@ -33,7 +33,7 @@ defmodule OpenXchangeClient.Api.Jump do
 
     %{}
     |> method(:get)
-    |> url("/jump?action&#x3D;identityToken")
+    |> url("/jump?action=identityToken")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])

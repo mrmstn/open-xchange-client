@@ -36,7 +36,7 @@ defmodule OpenXchangeClient.Api.Export do
 
     %{}
     |> method(:get)
-    |> url("/export?action&#x3D;CSV")
+    |> url("/export?action=CSV")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
@@ -71,7 +71,7 @@ defmodule OpenXchangeClient.Api.Export do
   def export_as_csv_0(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/export?action&#x3D;CSV")
+    |> url("/export?action=CSV")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -100,7 +100,7 @@ defmodule OpenXchangeClient.Api.Export do
   def export_as_i_cal(connection, session, folder, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/export?action&#x3D;ICAL")
+    |> url("/export?action=ICAL")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> Enum.into([])
@@ -134,7 +134,7 @@ defmodule OpenXchangeClient.Api.Export do
   def export_as_i_cal_0(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/export?action&#x3D;ICAL")
+    |> url("/export?action=ICAL")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -167,7 +167,7 @@ defmodule OpenXchangeClient.Api.Export do
 
     %{}
     |> method(:get)
-    |> url("/export?action&#x3D;VCARD")
+    |> url("/export?action=VCARD")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -201,7 +201,7 @@ defmodule OpenXchangeClient.Api.Export do
   def export_as_v_card_0(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/export?action&#x3D;VCARD")
+    |> url("/export?action=VCARD")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])

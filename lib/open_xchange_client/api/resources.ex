@@ -33,7 +33,7 @@ defmodule OpenXchangeClient.Api.Resources do
   def create_resource(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/resource?action&#x3D;new")
+    |> url("/resource?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -68,7 +68,7 @@ defmodule OpenXchangeClient.Api.Resources do
   def delete_resources(connection, session, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/resource?action&#x3D;delete")
+    |> url("/resource?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
@@ -97,7 +97,7 @@ defmodule OpenXchangeClient.Api.Resources do
   def get_all_resources(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/resource?action&#x3D;all")
+    |> url("/resource?action=all")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -125,7 +125,7 @@ defmodule OpenXchangeClient.Api.Resources do
   def get_resource(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/resource?action&#x3D;get")
+    |> url("/resource?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -158,7 +158,7 @@ defmodule OpenXchangeClient.Api.Resources do
   def get_resource_list(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/resource?action&#x3D;list")
+    |> url("/resource?action=list")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -187,7 +187,7 @@ defmodule OpenXchangeClient.Api.Resources do
   def get_resource_updates(connection, session, timestamp, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/resource?action&#x3D;updates")
+    |> url("/resource?action=updates")
     |> add_param(:query, :session, session)
     |> add_param(:query, :timestamp, timestamp)
     |> Enum.into([])
@@ -220,7 +220,7 @@ defmodule OpenXchangeClient.Api.Resources do
   def search_resources(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/resource?action&#x3D;search")
+    |> url("/resource?action=search")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -257,7 +257,7 @@ defmodule OpenXchangeClient.Api.Resources do
   def update_resource(connection, session, id, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/resource?action&#x3D;update")
+    |> url("/resource?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :timestamp, timestamp)

@@ -28,7 +28,7 @@ defmodule OpenXchangeClient.Api.Sessionmanagement do
   def all(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/sessionmanagement?action&#x3D;all")
+    |> url("/sessionmanagement?action=all")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -54,7 +54,7 @@ defmodule OpenXchangeClient.Api.Sessionmanagement do
   def clear(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/sessionmanagement?action&#x3D;clear")
+    |> url("/sessionmanagement?action=clear")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -82,7 +82,7 @@ defmodule OpenXchangeClient.Api.Sessionmanagement do
   def delete(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/sessionmanagement?action&#x3D;delete")
+    |> url("/sessionmanagement?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])

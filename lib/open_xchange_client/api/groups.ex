@@ -33,7 +33,7 @@ defmodule OpenXchangeClient.Api.Groups do
   def create_group(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/group?action&#x3D;new")
+    |> url("/group?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -68,7 +68,7 @@ defmodule OpenXchangeClient.Api.Groups do
   def delete_group(connection, session, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/group?action&#x3D;delete")
+    |> url("/group?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
@@ -98,7 +98,7 @@ defmodule OpenXchangeClient.Api.Groups do
   def get_all_groups(connection, session, columns, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/group?action&#x3D;all")
+    |> url("/group?action=all")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> ensure_body()
@@ -128,7 +128,7 @@ defmodule OpenXchangeClient.Api.Groups do
   def get_group(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/group?action&#x3D;get")
+    |> url("/group?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -161,7 +161,7 @@ defmodule OpenXchangeClient.Api.Groups do
   def get_group_list(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/group?action&#x3D;list")
+    |> url("/group?action=list")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -190,7 +190,7 @@ defmodule OpenXchangeClient.Api.Groups do
   def get_group_updates(connection, session, timestamp, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/group?action&#x3D;updates")
+    |> url("/group?action=updates")
     |> add_param(:query, :session, session)
     |> add_param(:query, :timestamp, timestamp)
     |> Enum.into([])
@@ -223,7 +223,7 @@ defmodule OpenXchangeClient.Api.Groups do
   def search_groups(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/group?action&#x3D;search")
+    |> url("/group?action=search")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -260,7 +260,7 @@ defmodule OpenXchangeClient.Api.Groups do
   def update_group(connection, session, id, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/group?action&#x3D;update")
+    |> url("/group?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :timestamp, timestamp)

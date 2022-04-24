@@ -39,7 +39,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:put)
-    |> url("/mailfilter?action&#x3D;new")
+    |> url("/mailfilter?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -79,7 +79,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:put)
-    |> url("/mailfilter/v2?action&#x3D;new")
+    |> url("/mailfilter/v2?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -118,7 +118,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:put)
-    |> url("/mailfilter?action&#x3D;delete")
+    |> url("/mailfilter?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -157,7 +157,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:put)
-    |> url("/mailfilter/v2?action&#x3D;delete")
+    |> url("/mailfilter/v2?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -192,7 +192,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:put)
-    |> url("/mailfilter?action&#x3D;deletescript")
+    |> url("/mailfilter?action=deletescript")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
@@ -227,7 +227,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:put)
-    |> url("/mailfilter/v2?action&#x3D;deletescript")
+    |> url("/mailfilter/v2?action=deletescript")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
@@ -240,7 +240,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
   @doc """
   Gets the configuration of the mail filter backend.
-  A mail filter can have different rules each containing one command. A command has a test condition and actions that are executed if the condition is true. The list of available comparisions (that can be used in test conditions) and the list of available actions depends on a given test and the mail filter server configuration and must be determined at runtime.  All those dynamic values can be fetched via a config object at startup, which shows the capabilities of the server to the client. 
+  A mail filter can have different rules each containing one command. A command has a test condition and actions that are executed if the condition is true. The list of available comparisions (that can be used in test conditions) and the list of available actions depends on a given test and the mail filter server configuration and must be determined at runtime.  All those dynamic values can be fetched via a config object at startup, which shows the capabilities of the server to the client.
 
   ## Parameters
 
@@ -262,7 +262,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:get)
-    |> url("/mailfilter?action&#x3D;config")
+    |> url("/mailfilter?action=config")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -274,7 +274,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
   @doc """
   Gets the configuration of the mail filter backend.
-  A mail filter can have different rules each containing one command. A command has a test condition and actions that are executed if the condition is true. The list of available comparisions (that can be used in test conditions) and the list of available actions depends on a given test and the mail filter server configuration and must be determined at runtime.  All those dynamic values can be fetched via a config object at startup, which shows the capabilities of the server to the client. 
+  A mail filter can have different rules each containing one command. A command has a test condition and actions that are executed if the condition is true. The list of available comparisions (that can be used in test conditions) and the list of available actions depends on a given test and the mail filter server configuration and must be determined at runtime.  All those dynamic values can be fetched via a config object at startup, which shows the capabilities of the server to the client.
 
   ## Parameters
 
@@ -296,7 +296,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:get)
-    |> url("/mailfilter/v2?action&#x3D;config")
+    |> url("/mailfilter/v2?action=config")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -331,7 +331,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:get)
-    |> url("/mailfilter?action&#x3D;list")
+    |> url("/mailfilter?action=list")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -366,7 +366,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:get)
-    |> url("/mailfilter/v2?action&#x3D;list")
+    |> url("/mailfilter/v2?action=list")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -400,7 +400,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:put)
-    |> url("/mailfilter?action&#x3D;getscript")
+    |> url("/mailfilter?action=getscript")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
@@ -435,7 +435,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:put)
-    |> url("/mailfilter/v2?action&#x3D;getscript")
+    |> url("/mailfilter/v2?action=getscript")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
@@ -470,7 +470,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:put)
-    |> url("/mailfilter?action&#x3D;reorder")
+    |> url("/mailfilter?action=reorder")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -505,7 +505,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:put)
-    |> url("/mailfilter/v2?action&#x3D;reorder")
+    |> url("/mailfilter/v2?action=reorder")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -544,7 +544,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:put)
-    |> url("/mailfilter?action&#x3D;update")
+    |> url("/mailfilter?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -583,7 +583,7 @@ defmodule OpenXchangeClient.Api.Mailfilter do
 
     %{}
     |> method(:put)
-    |> url("/mailfilter/v2?action&#x3D;update")
+    |> url("/mailfilter/v2?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)

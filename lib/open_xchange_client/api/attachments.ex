@@ -12,7 +12,7 @@ defmodule OpenXchangeClient.Api.Attachments do
 
   @doc """
   Creates an attachment.
-  #### Note It is possible to create multiple attachments at once. Therefor add additional form fields and replace \"[index]\" in `json_[index]` and `file_[index]` with the appropriate index, like `json_1`, `file_1`. The index always starts with 0 (mandatory attachment object). 
+  #### Note It is possible to create multiple attachments at once. Therefor add additional form fields and replace \"[index]\" in `json_[index]` and `file_[index]` with the appropriate index, like `json_1`, `file_1`. The index always starts with 0 (mandatory attachment object).
 
   ## Parameters
 
@@ -31,7 +31,7 @@ defmodule OpenXchangeClient.Api.Attachments do
   def create_attachment(connection, session, json0, file0, _opts \\ []) do
     %{}
     |> method(:post)
-    |> url("/attachment?action&#x3D;attach")
+    |> url("/attachment?action=attach")
     |> add_param(:query, :session, session)
     |> add_param(:form, :json_0, json0)
     |> add_param(:file, :file_0, file0)
@@ -71,7 +71,7 @@ defmodule OpenXchangeClient.Api.Attachments do
   def delete_attachments(connection, session, attached, folder, module, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/attachment?action&#x3D;detach")
+    |> url("/attachment?action=detach")
     |> add_param(:query, :session, session)
     |> add_param(:query, :attached, attached)
     |> add_param(:query, :folder, folder)
@@ -120,7 +120,7 @@ defmodule OpenXchangeClient.Api.Attachments do
 
     %{}
     |> method(:get)
-    |> url("/attachment?action&#x3D;all")
+    |> url("/attachment?action=all")
     |> add_param(:query, :session, session)
     |> add_param(:query, :attached, attached)
     |> add_param(:query, :folder, folder)
@@ -163,7 +163,7 @@ defmodule OpenXchangeClient.Api.Attachments do
   def get_attachment(connection, session, id, attached, folder, module, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/attachment?action&#x3D;get")
+    |> url("/attachment?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :attached, attached)
@@ -178,7 +178,7 @@ defmodule OpenXchangeClient.Api.Attachments do
 
   @doc """
   Gets an attachment's document/filedata.
-  It is possible to add a filename to the request's URI like `/attachment/{filename}?action=document`. The filename may be added to the customary attachment path to suggest a filename to a Save-As dialog. 
+  It is possible to add a filename to the request's URI like `/attachment/{filename}?action=document`. The filename may be added to the customary attachment path to suggest a filename to a Save-As dialog.
 
   ## Parameters
 
@@ -190,7 +190,7 @@ defmodule OpenXchangeClient.Api.Attachments do
   - id (String.t): Object ID of the requested attachment.
   - opts (KeywordList): [optional] Optional parameters
     - :content_type (String.t): If present the response declares the given `content_type` in the Content-Type header and not the attachments file MIME type.
-    - :scan (boolean()): Flag to request an Anti-Virus scan for the specified attachment before downloading it. 
+    - :scan (boolean()): Flag to request an Anti-Virus scan for the specified attachment before downloading it.
   ## Returns
 
   {:ok, String.t} on success
@@ -213,7 +213,7 @@ defmodule OpenXchangeClient.Api.Attachments do
 
     %{}
     |> method(:get)
-    |> url("/attachment?action&#x3D;document")
+    |> url("/attachment?action=document")
     |> add_param(:query, :session, session)
     |> add_param(:query, :attached, attached)
     |> add_param(:query, :folder, folder)
@@ -267,7 +267,7 @@ defmodule OpenXchangeClient.Api.Attachments do
       ) do
     %{}
     |> method(:put)
-    |> url("/attachment?action&#x3D;list")
+    |> url("/attachment?action=list")
     |> add_param(:query, :session, session)
     |> add_param(:query, :attached, attached)
     |> add_param(:query, :folder, folder)
@@ -322,7 +322,7 @@ defmodule OpenXchangeClient.Api.Attachments do
 
     %{}
     |> method(:get)
-    |> url("/attachment?action&#x3D;updates")
+    |> url("/attachment?action=updates")
     |> add_param(:query, :session, session)
     |> add_param(:query, :attached, attached)
     |> add_param(:query, :folder, folder)
@@ -373,7 +373,7 @@ defmodule OpenXchangeClient.Api.Attachments do
       ) do
     %{}
     |> method(:put)
-    |> url("/attachment?action&#x3D;zipDocuments")
+    |> url("/attachment?action=zipDocuments")
     |> add_param(:query, :session, session)
     |> add_param(:query, :attached, attached)
     |> add_param(:query, :folder, folder)

@@ -17,7 +17,7 @@ defmodule OpenXchangeClient.Api.ICal do
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
-  - body (CalendarAccountProbeData): The properties to check. 
+  - body (CalendarAccountProbeData): The properties to check.
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -35,7 +35,7 @@ defmodule OpenXchangeClient.Api.ICal do
   def probe(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/chronos/account?action&#x3D;probe")
+    |> url("/chronos/account?action=probe")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])

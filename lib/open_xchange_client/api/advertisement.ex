@@ -28,7 +28,7 @@ defmodule OpenXchangeClient.Api.Advertisement do
   def get_advertisement_config(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/advertisement?action&#x3D;get")
+    |> url("/advertisement?action=get")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()

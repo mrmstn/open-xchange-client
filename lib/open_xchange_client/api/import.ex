@@ -12,7 +12,7 @@ defmodule OpenXchangeClient.Api.Import do
 
   @doc """
   Imports contact data from CSV file.
-  #### Example CSV ``` \"Given name\",\"Sur name\" \"Günther\",\"Mustermann\" \"Hildegard\",\"Musterfrau\" ``` The delimiter may be any CSV-valid character (e.g. \",\" or \";\"). The first line must contain the column titles that are related to the corresponding fields of the ContactData model (see [getContact](#contacts/getContact) request). See [Detailed contact data](#detailed-contact-data) for a mapping of fields to CSV column titles. 
+  #### Example CSV ``` \"Given name\",\"Sur name\" \"Günther\",\"Mustermann\" \"Hildegard\",\"Musterfrau\" ``` The delimiter may be any CSV-valid character (e.g. \",\" or \";\"). The first line must contain the column titles that are related to the corresponding fields of the ContactData model (see [getContact](#contacts/getContact) request). See [Detailed contact data](#detailed-contact-data) for a mapping of fields to CSV column titles.
 
   ## Parameters
 
@@ -36,7 +36,7 @@ defmodule OpenXchangeClient.Api.Import do
 
     %{}
     |> method(:post)
-    |> url("/import?action&#x3D;CSV")
+    |> url("/import?action=CSV")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:file, :file, file)
@@ -77,7 +77,7 @@ defmodule OpenXchangeClient.Api.Import do
 
     %{}
     |> method(:post)
-    |> url("/import?action&#x3D;ICAL")
+    |> url("/import?action=ICAL")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:file, :file, file)
@@ -91,7 +91,7 @@ defmodule OpenXchangeClient.Api.Import do
 
   @doc """
   Imports contact data from an Outlook CSV file.
-  #### Example: exported Outlook CSV ``` First Name,Last Name Günther,Mustermann Hildegard,Musterfrau ``` The column titles in the first line of the CSV file may be those used by the English, French or German version of Outlook. 
+  #### Example: exported Outlook CSV ``` First Name,Last Name Günther,Mustermann Hildegard,Musterfrau ``` The column titles in the first line of the CSV file may be those used by the English, French or German version of Outlook.
 
   ## Parameters
 
@@ -115,7 +115,7 @@ defmodule OpenXchangeClient.Api.Import do
 
     %{}
     |> method(:post)
-    |> url("/import?action&#x3D;OUTLOOK_CSV")
+    |> url("/import?action=OUTLOOK_CSV")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:file, :file, file)
@@ -129,7 +129,7 @@ defmodule OpenXchangeClient.Api.Import do
 
   @doc """
   Imports data from vCard file.
-  #### Supported vCard formats  * vCard 2.1  * vCard 3.0  * vCalendar 1.0 
+  #### Supported vCard formats  * vCard 2.1  * vCard 3.0  * vCalendar 1.0
 
   ## Parameters
 
@@ -148,7 +148,7 @@ defmodule OpenXchangeClient.Api.Import do
   def import_v_card(connection, session, folder, file, _opts \\ []) do
     %{}
     |> method(:post)
-    |> url("/import?action&#x3D;VCARD")
+    |> url("/import?action=VCARD")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:file, :file, file)

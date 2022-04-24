@@ -30,7 +30,7 @@ defmodule OpenXchangeClient.Api.Userfeedback do
   def store(connection, session, type, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/userfeedback?action&#x3D;store")
+    |> url("/userfeedback?action=store")
     |> add_param(:query, :session, session)
     |> add_param(:query, :type, type)
     |> add_param(:body, :body, body)

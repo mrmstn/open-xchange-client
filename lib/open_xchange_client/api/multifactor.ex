@@ -28,7 +28,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
   def multifactor_device_action_all(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/multifactor/device?action&#x3D;all")
+    |> url("/multifactor/device?action=all")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -63,7 +63,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
   def multifactor_device_action_delete(connection, session, provider_name, device_id, _opts \\ []) do
     %{}
     |> method(:delete)
-    |> url("/multifactor/device?action&#x3D;delete")
+    |> url("/multifactor/device?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:query, :providerName, provider_name)
     |> add_param(:query, :deviceId, device_id)
@@ -82,7 +82,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - provider_name (String.t): The name of the multifactor provider
-  - body (MultifactorDevice): A device containing the device ID, and the new name. 
+  - body (MultifactorDevice): A device containing the device ID, and the new name.
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -100,7 +100,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
   def multifactor_device_action_rename(connection, session, provider_name, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/multifactor/device?action&#x3D;rename")
+    |> url("/multifactor/device?action=rename")
     |> add_param(:query, :session, session)
     |> add_param(:query, :providerName, provider_name)
     |> add_param(:body, :body, body)
@@ -144,7 +144,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
       ) do
     %{}
     |> method(:get)
-    |> url("/multifactor/device?action&#x3D;startAuthentication")
+    |> url("/multifactor/device?action=startAuthentication")
     |> add_param(:query, :session, session)
     |> add_param(:query, :providerName, provider_name)
     |> add_param(:query, :deviceId, device_id)
@@ -163,7 +163,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - opts (KeywordList): [optional] Optional parameters
-    - :body (MultifactorDevice): A device which should be registered as new multifactor device. 
+    - :body (MultifactorDevice): A device which should be registered as new multifactor device.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.MultifactorStartRegistrationResponse.t} on success
@@ -179,7 +179,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
 
     %{}
     |> method(:put)
-    |> url("/multifactor/device?action&#x3D;startRegistration")
+    |> url("/multifactor/device?action=startRegistration")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
@@ -199,7 +199,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
   - session (String.t): A session ID previously obtained from the login module.
   - provider_name (String.t): The name of the multifactor provider
   - device_id (String.t): The ID of the multifactor device
-  - body (MultifactorFinishAuthenticationData): The information required to finish the registration of a new multifactor device. 
+  - body (MultifactorFinishAuthenticationData): The information required to finish the registration of a new multifactor device.
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -224,7 +224,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
       ) do
     %{}
     |> method(:put)
-    |> url("/multifactor/device?action&#x3D;finishAuthentication")
+    |> url("/multifactor/device?action=finishAuthentication")
     |> add_param(:query, :session, session)
     |> add_param(:query, :providerName, provider_name)
     |> add_param(:query, :deviceId, device_id)
@@ -245,7 +245,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
   - session (String.t): A session ID previously obtained from the login module.
   - provider_name (String.t): The name of the multifactor provider
   - device_id (String.t): The ID of the multifactor device
-  - body (MultifactorFinishRegistrationData): The information required to finish the registration of a new multifactor device. 
+  - body (MultifactorFinishRegistrationData): The information required to finish the registration of a new multifactor device.
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -272,7 +272,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
       ) do
     %{}
     |> method(:put)
-    |> url("/multifactor/device?action&#x3D;finishRegistration")
+    |> url("/multifactor/device?action=finishRegistration")
     |> add_param(:query, :session, session)
     |> add_param(:query, :providerName, provider_name)
     |> add_param(:query, :deviceId, device_id)
@@ -292,7 +292,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - opts (KeywordList): [optional] Optional parameters
-    - :providers (String.t): A comma separated list of provider names to return. Omit to return all available providers. 
+    - :providers (String.t): A comma separated list of provider names to return. Omit to return all available providers.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.MultifactorProvidersResponse.t} on success
@@ -308,7 +308,7 @@ defmodule OpenXchangeClient.Api.Multifactor do
 
     %{}
     |> method(:get)
-    |> url("/multifactor/provider?action&#x3D;all")
+    |> url("/multifactor/provider?action=all")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])

@@ -36,7 +36,7 @@ defmodule OpenXchangeClient.Api.User do
 
     %{}
     |> method(:get)
-    |> url("/user?action&#x3D;all")
+    |> url("/user?action=all")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
@@ -70,7 +70,7 @@ defmodule OpenXchangeClient.Api.User do
 
     %{}
     |> method(:get)
-    |> url("/user?action&#x3D;get")
+    |> url("/user?action=get")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -101,7 +101,7 @@ defmodule OpenXchangeClient.Api.User do
   def get_user_attribute(connection, session, id, name, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/user?action&#x3D;getAttribute")
+    |> url("/user?action=getAttribute")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :name, name)
@@ -132,7 +132,7 @@ defmodule OpenXchangeClient.Api.User do
   def get_user_list(connection, session, columns, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/user?action&#x3D;list")
+    |> url("/user?action=list")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
@@ -175,7 +175,7 @@ defmodule OpenXchangeClient.Api.User do
 
     %{}
     |> method(:put)
-    |> url("/user?action&#x3D;search")
+    |> url("/user?action=search")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
@@ -189,7 +189,7 @@ defmodule OpenXchangeClient.Api.User do
 
   @doc """
   Sets a user attribute.
-  Sets a custom user attribute consisting of a name and a value. The attribute can later be retrieved using the [/user?action=getAttribute](#operation--user-action-getAttribute-get) request. 
+  Sets a custom user attribute consisting of a name and a value. The attribute can later be retrieved using the [/user?action=getAttribute](#operation--user-action-getAttribute-get) request.
 
   ## Parameters
 
@@ -218,7 +218,7 @@ defmodule OpenXchangeClient.Api.User do
 
     %{}
     |> method(:put)
-    |> url("/user?action&#x3D;setAttribute")
+    |> url("/user?action=setAttribute")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
@@ -257,7 +257,7 @@ defmodule OpenXchangeClient.Api.User do
   def update_user(connection, session, id, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/user?action&#x3D;update")
+    |> url("/user?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :timestamp, timestamp)

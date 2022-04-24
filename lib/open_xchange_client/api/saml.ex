@@ -12,13 +12,13 @@ defmodule OpenXchangeClient.Api.SAML do
 
   @doc """
   Assertion Consumer Service
-  SAML 2.0 Assertion Consumer Service. Accepts `<Response>` messages of the Web Browser SSO Profile per `HTTP-POST` binding. 
+  SAML 2.0 Assertion Consumer Service. Accepts `<Response>` messages of the Web Browser SSO Profile per `HTTP-POST` binding.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
-  - tenant (String.t): In a multi-tenant environment, where different tenants might connect to different identity providers, this parameter denotes the tenant to start a SAML flow for. In single-tenant environments this parameter is superfluous. 
-  - u_nknownbasetype (UNKNOWN_BASE_TYPE): 
+  - tenant (String.t): In a multi-tenant environment, where different tenants might connect to different identity providers, this parameter denotes the tenant to start a SAML flow for. In single-tenant environments this parameter is superfluous.
+  - u_nknownbasetype (UNKNOWN_BASE_TYPE):
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -46,16 +46,16 @@ defmodule OpenXchangeClient.Api.SAML do
 
   @doc """
   Initiate SAML 2.0 HTTP binding flows
-  Initiates any supported SAML 2.0 login and logout flow as described in https://documentation.open-xchange.com/latest/middleware/login/02_saml.html. 
+  Initiates any supported SAML 2.0 login and logout flow as described in https://documentation.open-xchange.com/latest/middleware/login/02_saml.html.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
-  - tenant (String.t): In a multi-tenant environment, where different tenants might connect to different identity providers, this parameter denotes the tenant to start a SAML flow for. In single-tenant environments this parameter is superfluous. 
+  - tenant (String.t): In a multi-tenant environment, where different tenants might connect to different identity providers, this parameter denotes the tenant to start a SAML flow for. In single-tenant environments this parameter is superfluous.
   - opts (KeywordList): [optional] Optional parameters
-    - :flow (String.t): One of `login`, `relogin` or `logout` to start the respective flow. 
+    - :flow (String.t): One of `login`, `relogin` or `logout` to start the respective flow.
     - :session (String.t): Required for flow `logout`. A session ID to determine the correct session.
-    - :redirect (String.t): Responds with `302 Found` and sets the response header `Location` to the actual redirect URI. 
+    - :redirect (String.t): Responds with `302 Found` and sets the response header `Location` to the actual redirect URI.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.InlineResponse2003.t} on success
@@ -88,12 +88,12 @@ defmodule OpenXchangeClient.Api.SAML do
 
   @doc """
   Metadata Service
-  SAML 2.0 Metadata Service. Provides an `<EntityDescriptor>` XML document describing the built-in service provider configuration. 
+  SAML 2.0 Metadata Service. Provides an `<EntityDescriptor>` XML document describing the built-in service provider configuration.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
-  - tenant (String.t): In a multi-tenant environment, where different tenants might connect to different identity providers, this parameter denotes the tenant to start a SAML flow for. In single-tenant environments this parameter is superfluous. 
+  - tenant (String.t): In a multi-tenant environment, where different tenants might connect to different identity providers, this parameter denotes the tenant to start a SAML flow for. In single-tenant environments this parameter is superfluous.
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -116,16 +116,16 @@ defmodule OpenXchangeClient.Api.SAML do
 
   @doc """
   Create App Suite session after SAML login flow
-  This API call is typically the result of a redirect created by the server. It does not need to be explicitly implemented by clients!  After a successful SAML login flow, the client (web browser) is redirected to this endpoint, where the actual App Suite session gets created. As a result, the user gets redirected to `https://<webmail-domain>/<login-path>#session=<session-id>`. The redirect response has App Suite session cookies set. 
+  This API call is typically the result of a redirect created by the server. It does not need to be explicitly implemented by clients!  After a successful SAML login flow, the client (web browser) is redirected to this endpoint, where the actual App Suite session gets created. As a result, the user gets redirected to `https://<webmail-domain>/<login-path>#session=<session-id>`. The redirect response has App Suite session cookies set.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - token (String.t): A valid session reservation token
   - opts (KeywordList): [optional] Optional parameters
-    - :client (String.t): Identifier of the client using the HTTP/JSON interface. Default: Value of configuration property `com.openexchange.ajax.login.http-auth.client` 
+    - :client (String.t): Identifier of the client using the HTTP/JSON interface. Default: Value of configuration property `com.openexchange.ajax.login.http-auth.client`
     - :client_user_agent (String.t): Parameter to override the user agent used for session creation. By default the `User-Agent` request header is evaluated.
-    - :login_path (String.t): The login path to be set on the resulting `Location` response header as part of the redirect response. Default: Value of configuration property `com.openexchange.UIWebPath`. 
+    - :login_path (String.t): The login path to be set on the resulting `Location` response header as part of the redirect response. Default: Value of configuration property `com.openexchange.UIWebPath`.
     - :shard (String.t): Shard identifier to route the requiest accordingly
   ## Returns
 
@@ -144,7 +144,7 @@ defmodule OpenXchangeClient.Api.SAML do
 
     %{}
     |> method(:get)
-    |> url("/login?action&#x3D;samlLogin")
+    |> url("/login?action=samlLogin")
     |> add_param(:query, :token, token)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -159,7 +159,7 @@ defmodule OpenXchangeClient.Api.SAML do
 
   @doc """
   Terminates an App Suite session after SAML logout flow
-  This API call is typically the result of a redirect created by the server. It does not need to be explicitly implemented by clients!  After a successful SAML logout flow, the client (web browser) is redirected to this endpoint, where the actual App Suite session gets terminated. As a result, the user gets usually redirected to an environment-specific location, for example a portal page. The redirect response removes all App Suite session cookies. 
+  This API call is typically the result of a redirect created by the server. It does not need to be explicitly implemented by clients!  After a successful SAML logout flow, the client (web browser) is redirected to this endpoint, where the actual App Suite session gets terminated. As a result, the user gets usually redirected to an environment-specific location, for example a portal page. The redirect response removes all App Suite session cookies.
 
   ## Parameters
 
@@ -176,7 +176,7 @@ defmodule OpenXchangeClient.Api.SAML do
   def saml_logout(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/login?action&#x3D;samlLogout")
+    |> url("/login?action=samlLogout")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -188,12 +188,12 @@ defmodule OpenXchangeClient.Api.SAML do
 
   @doc """
   Single Logout Service for Logout Requests
-  SAML 2.0 Single Logout Service. Accepts `<LogoutRequest>` messages from the IdP per `HTTP-Redirect` binding. 
+  SAML 2.0 Single Logout Service. Accepts `<LogoutRequest>` messages from the IdP per `HTTP-Redirect` binding.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
-  - tenant (String.t): In a multi-tenant environment, where different tenants might connect to different identity providers, this parameter denotes the tenant to start a SAML flow for. In single-tenant environments this parameter is superfluous. 
+  - tenant (String.t): In a multi-tenant environment, where different tenants might connect to different identity providers, this parameter denotes the tenant to start a SAML flow for. In single-tenant environments this parameter is superfluous.
   - s_aml_request (String.t): Base64 encoded SAML 2.0 `<LogoutRequest>` message.
   - opts (KeywordList): [optional] Optional parameters
     - :sig_alg (String.t): Message signature algorithm ID
@@ -230,13 +230,13 @@ defmodule OpenXchangeClient.Api.SAML do
 
   @doc """
   Single Logout Service for Logout Responses
-  SAML 2.0 Single Logout Service. Accepts `<LogoutResponse>` messages of the Single Logout Profile per `HTTP-POST` binding. 
+  SAML 2.0 Single Logout Service. Accepts `<LogoutResponse>` messages of the Single Logout Profile per `HTTP-POST` binding.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
-  - tenant (String.t): In a multi-tenant environment, where different tenants might connect to different identity providers, this parameter denotes the tenant to start a SAML flow for. In single-tenant environments this parameter is superfluous. 
-  - u_nknownbasetype (UNKNOWN_BASE_TYPE): 
+  - tenant (String.t): In a multi-tenant environment, where different tenants might connect to different identity providers, this parameter denotes the tenant to start a SAML flow for. In single-tenant environments this parameter is superfluous.
+  - u_nknownbasetype (UNKNOWN_BASE_TYPE):
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 

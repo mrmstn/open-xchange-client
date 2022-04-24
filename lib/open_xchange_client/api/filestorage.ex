@@ -12,7 +12,7 @@ defmodule OpenXchangeClient.Api.Filestorage do
 
   @doc """
   Creates a file storage account.
-  #### Example for creating a new OAuth-based file storage account First, get the description of the file storage service for which a new account is supposed to be created: `GET /ajax/fileservice?action=get&id=boxcom&session=...`  The response might be: ```json {   id: \"boxcom\",   displayName: \"Box File Storage Service\",   configuration: {     widget: \"oauthAccount\",     options: {       type: \"com.openexchange.oauth.boxcom\"     },     name: \"account\",     displayName: \"Select an existing account\",     mandatory: true   } } ``` Next get the associated OAuth account information: `GET /ajax/oauth/accounts?action=all&serviceId=com.openexchange.oauth.boxcom&session=...`  The response might be: ```json {   \"data\":[     {       \"id\":333,       \"displayName\":\"My Box.com account\",       \"serviceId\":\"com.openexchange.oauth.boxcom\"     }   ] } ``` Finally, create the file storage account: ``` PUT /ajax/fileaccount?action=new&session=...  {   \"filestorageService\":\"boxcom\",   \"displayName\":\"My box.com account\",   \"configuration\":{     \"account\":\"333\",     \"type\":\"com.openexchange.oauth.boxcom\"   } } ``` The response provides the relative identifier of the newly created account. 
+  #### Example for creating a new OAuth-based file storage account First, get the description of the file storage service for which a new account is supposed to be created: `GET /ajax/fileservice?action=get&id=boxcom&session=...`  The response might be: ```json {   id: \"boxcom\",   displayName: \"Box File Storage Service\",   configuration: {     widget: \"oauthAccount\",     options: {       type: \"com.openexchange.oauth.boxcom\"     },     name: \"account\",     displayName: \"Select an existing account\",     mandatory: true   } } ``` Next get the associated OAuth account information: `GET /ajax/oauth/accounts?action=all&serviceId=com.openexchange.oauth.boxcom&session=...`  The response might be: ```json {   \"data\":[     {       \"id\":333,       \"displayName\":\"My Box.com account\",       \"serviceId\":\"com.openexchange.oauth.boxcom\"     }   ] } ``` Finally, create the file storage account: ``` PUT /ajax/fileaccount?action=new&session=...  {   \"filestorageService\":\"boxcom\",   \"displayName\":\"My box.com account\",   \"configuration\":{     \"account\":\"333\",     \"type\":\"com.openexchange.oauth.boxcom\"   } } ``` The response provides the relative identifier of the newly created account.
 
   ## Parameters
 
@@ -35,7 +35,7 @@ defmodule OpenXchangeClient.Api.Filestorage do
   def create_file_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/fileaccount?action&#x3D;new")
+    |> url("/fileaccount?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -65,7 +65,7 @@ defmodule OpenXchangeClient.Api.Filestorage do
   def delete_file_account(connection, session, filestorage_service, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/fileaccount?action&#x3D;delete")
+    |> url("/fileaccount?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:query, :filestorageService, filestorage_service)
     |> add_param(:query, :id, id)
@@ -99,7 +99,7 @@ defmodule OpenXchangeClient.Api.Filestorage do
 
     %{}
     |> method(:get)
-    |> url("/fileaccount?action&#x3D;all")
+    |> url("/fileaccount?action=all")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -127,7 +127,7 @@ defmodule OpenXchangeClient.Api.Filestorage do
   def get_all_file_services(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/fileservice?action&#x3D;all")
+    |> url("/fileservice?action=all")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -156,7 +156,7 @@ defmodule OpenXchangeClient.Api.Filestorage do
   def get_file_account(connection, session, filestorage_service, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/fileaccount?action&#x3D;get")
+    |> url("/fileaccount?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :filestorageService, filestorage_service)
     |> add_param(:query, :id, id)
@@ -186,7 +186,7 @@ defmodule OpenXchangeClient.Api.Filestorage do
   def get_file_service(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/fileservice?action&#x3D;get")
+    |> url("/fileservice?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -220,7 +220,7 @@ defmodule OpenXchangeClient.Api.Filestorage do
   def update_file_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/fileaccount?action&#x3D;update")
+    |> url("/fileaccount?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])

@@ -34,7 +34,7 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   def create_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/account?action&#x3D;new")
+    |> url("/account?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -63,7 +63,7 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   def delete_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/account?action&#x3D;delete")
+    |> url("/account?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -92,7 +92,7 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   def get_account(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/account?action&#x3D;get")
+    |> url("/account?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -121,7 +121,7 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   def get_all_accounts(connection, session, columns, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/account?action&#x3D;all")
+    |> url("/account?action=all")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> Enum.into([])
@@ -154,7 +154,7 @@ defmodule OpenXchangeClient.Api.Mailaccount do
 
     %{}
     |> method(:get)
-    |> url("/account?action&#x3D;status")
+    |> url("/account?action=status")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -188,7 +188,7 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   def update_account(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/account?action&#x3D;update")
+    |> url("/account?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -207,7 +207,7 @@ defmodule OpenXchangeClient.Api.Mailaccount do
   - session (String.t): A session ID previously obtained from the login module.
   - body (MailAccountData): A JSON object describing the account to validate.
   - opts (KeywordList): [optional] Optional parameters
-    - :tree (boolean()): Indicates whether on successful validation the folder tree shall be returned (or `null`on failure) or if set to `false` or missing only a boolean is returned which indicates validation result. 
+    - :tree (boolean()): Indicates whether on successful validation the folder tree shall be returned (or `null`on failure) or if set to `false` or missing only a boolean is returned which indicates validation result.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.MailAccountValidationResponse.t} on success
@@ -228,7 +228,7 @@ defmodule OpenXchangeClient.Api.Mailaccount do
 
     %{}
     |> method(:put)
-    |> url("/account?action&#x3D;validate")
+    |> url("/account?action=validate")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)

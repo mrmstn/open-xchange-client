@@ -28,7 +28,7 @@ defmodule OpenXchangeClient.Api.Jobqueue do
   def all_jobs(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/jobs?action&#x3D;all")
+    |> url("/jobs?action=all")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -56,7 +56,7 @@ defmodule OpenXchangeClient.Api.Jobqueue do
   def cancel_job(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/jobs?action&#x3D;cancel")
+    |> url("/jobs?action=cancel")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -87,7 +87,7 @@ defmodule OpenXchangeClient.Api.Jobqueue do
   def get_job(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/jobs?action&#x3D;get")
+    |> url("/jobs?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -117,7 +117,7 @@ defmodule OpenXchangeClient.Api.Jobqueue do
   def info_job(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/jobs?action&#x3D;info")
+    |> url("/jobs?action=info")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])

@@ -29,7 +29,7 @@ defmodule OpenXchangeClient.Api.File do
   def get_file(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/file?action&#x3D;get")
+    |> url("/file?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -42,7 +42,7 @@ defmodule OpenXchangeClient.Api.File do
 
   @doc """
   Updates a file's last access timestamp and keeps it alive.
-  By updating the last access timestamp the file is prevented from being deleted from both session and disk storage. 
+  By updating the last access timestamp the file is prevented from being deleted from both session and disk storage.
 
   ## Parameters
 
@@ -60,7 +60,7 @@ defmodule OpenXchangeClient.Api.File do
   def keep_alive(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/file?action&#x3D;keepalive")
+    |> url("/file?action=keepalive")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -72,7 +72,7 @@ defmodule OpenXchangeClient.Api.File do
 
   @doc """
   Uploads a file.
-  It can be uploaded multiple files at once. Each file must be specified in an own form field (the form field name is arbitrary). 
+  It can be uploaded multiple files at once. Each file must be specified in an own form field (the form field name is arbitrary).
 
   ## Parameters
 
@@ -92,7 +92,7 @@ defmodule OpenXchangeClient.Api.File do
   def upload_file(connection, session, module, type, file, _opts \\ []) do
     %{}
     |> method(:post)
-    |> url("/file?action&#x3D;new")
+    |> url("/file?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:query, :module, module)
     |> add_param(:query, :type, type)

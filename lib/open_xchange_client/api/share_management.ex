@@ -35,7 +35,7 @@ defmodule OpenXchangeClient.Api.ShareManagement do
   def delete_share_link(connection, session, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/share/management?action&#x3D;deleteLink")
+    |> url("/share/management?action=deleteLink")
     |> add_param(:query, :session, session)
     |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
@@ -69,7 +69,7 @@ defmodule OpenXchangeClient.Api.ShareManagement do
   def get_share_link(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/share/management?action&#x3D;getLink")
+    |> url("/share/management?action=getLink")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -86,7 +86,7 @@ defmodule OpenXchangeClient.Api.ShareManagement do
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
-  - body (ShareLinkSendBody): A JSON object containing the share target and a list of recipients specified in a field `recipients` that is a JSON array with a nested two-elements array containing the recipient information (first element is personal name, second is email address). An optional field `message` can contain a notification. 
+  - body (ShareLinkSendBody): A JSON object containing the share target and a list of recipients specified in a field `recipients` that is a JSON array with a nested two-elements array containing the recipient information (first element is personal name, second is email address). An optional field `message` can contain a notification.
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -102,7 +102,7 @@ defmodule OpenXchangeClient.Api.ShareManagement do
   def send_share_link(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/share/management?action&#x3D;sendLink")
+    |> url("/share/management?action=sendLink")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -137,7 +137,7 @@ defmodule OpenXchangeClient.Api.ShareManagement do
   def update_share_link(connection, session, timestamp, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/share/management?action&#x3D;updateLink")
+    |> url("/share/management?action=updateLink")
     |> add_param(:query, :session, session)
     |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)

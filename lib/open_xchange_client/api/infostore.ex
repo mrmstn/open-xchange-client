@@ -29,7 +29,7 @@ defmodule OpenXchangeClient.Api.Infostore do
   def check_name(connection, session, name, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/infostore?action&#x3D;checkname")
+    |> url("/infostore?action=checkname")
     |> add_param(:query, :session, session)
     |> add_param(:query, :name, name)
     |> Enum.into([])
@@ -41,7 +41,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
   @doc """
   Copies an infoitem.
-  This request cannot change or add files. Therefore it is necessary to use the `POST` method. 
+  This request cannot change or add files. Therefore it is necessary to use the `POST` method.
 
   ## Parameters
 
@@ -70,7 +70,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;copy")
+    |> url("/infostore?action=copy")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
@@ -84,7 +84,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
   @doc """
   Copies an infoitem.
-  Copies an infoitem's data with the possibility to change the file. The normal request body must be placed as form-data using the content-type `multipart/form-data`. The form field `json` contains the infoitem's data while the file must be placed in a file field named `file` (see also [File uploads](#file-uploads)). 
+  Copies an infoitem's data with the possibility to change the file. The normal request body must be placed as form-data using the content-type `multipart/form-data`. The form field `json` contains the infoitem's data while the file must be placed in a file field named `file` (see also [File uploads](#file-uploads)).
 
   ## Parameters
 
@@ -115,7 +115,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:post)
-    |> url("/infostore?action&#x3D;copy")
+    |> url("/infostore?action=copy")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:form, :json, json)
@@ -130,7 +130,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
   @doc """
   Creates an infoitem.
-  Creates a new infoitem. This request cannot add a file to the infoitem. Therefor it is necessary to use the `POST` method. 
+  Creates a new infoitem. This request cannot add a file to the infoitem. Therefor it is necessary to use the `POST` method.
 
   ## Parameters
 
@@ -161,7 +161,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;new")
+    |> url("/infostore?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :timestamp, timestamp)
@@ -176,7 +176,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
   @doc """
   Creates an infoitem.
-  Creates a new infoitem with a file. The normal request body must be placed as form-data using the content-type `multipart/form-data`. The form field `json` contains the infoitem's data while the file must be placed in a file field named `file` (see also [File uploads](#file-uploads)). 
+  Creates a new infoitem with a file. The normal request body must be placed as form-data using the content-type `multipart/form-data`. The form field `json` contains the infoitem's data while the file must be placed in a file field named `file` (see also [File uploads](#file-uploads)).
 
   ## Parameters
 
@@ -207,7 +207,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:post)
-    |> url("/infostore?action&#x3D;new")
+    |> url("/infostore?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:form, :json, json)
     |> add_param(:file, :file, file)
@@ -251,7 +251,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;revert")
+    |> url("/infostore?action=revert")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :folder, folder)
@@ -267,7 +267,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
   @doc """
   Deletes versions of an infoitem.
-  #### Note When the current version of a document is deleted the new current version will be the latest version. 
+  #### Note When the current version of a document is deleted the new current version will be the latest version.
 
   ## Parameters
 
@@ -300,7 +300,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;detach")
+    |> url("/infostore?action=detach")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :folder, folder)
@@ -346,7 +346,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;delete")
+    |> url("/infostore?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:query, :timestamp, timestamp)
     |> add_param(:body, :body, body)
@@ -393,7 +393,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:get)
-    |> url("/infostore?action&#x3D;all")
+    |> url("/infostore?action=all")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :columns, columns)
@@ -434,7 +434,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:get)
-    |> url("/infostore?action&#x3D;versions")
+    |> url("/infostore?action=versions")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :columns, columns)
@@ -455,7 +455,7 @@ defmodule OpenXchangeClient.Api.Infostore do
   - session (String.t): A session ID previously obtained from the login module.
   - body ([OpenXchangeClient.Model.InfoItemZipElement.t]): A JSON array of JSON objects with the id, folder and optionally the documents' versions to include in the requested ZIP archive (if missing, it refers to the latest/current version).
   - opts (KeywordList): [optional] Optional parameters
-    - :scan (boolean()): Flag to request an Anti-Virus scan for the specified documents before downloading them.  
+    - :scan (boolean()): Flag to request an Anti-Virus scan for the specified documents before downloading them.
   ## Returns
 
   {:ok, String.t} on success
@@ -474,7 +474,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;zipdocuments")
+    |> url("/infostore?action=zipdocuments")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -487,7 +487,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
   @doc """
   Gets a ZIP archive containing all ifoitems of a denoted folder.
-  It is possible to add a filename to the request's URI like `/infostore/{filename}?action=zipfolder`. The filename may be added to the customary infostore path to suggest a filename to a Save-As dialog. 
+  It is possible to add a filename to the request's URI like `/infostore/{filename}?action=zipfolder`. The filename may be added to the customary infostore path to suggest a filename to a Save-As dialog.
 
   ## Parameters
 
@@ -496,7 +496,7 @@ defmodule OpenXchangeClient.Api.Infostore do
   - folder (String.t): Object ID of the folder who contains the infoitems.
   - opts (KeywordList): [optional] Optional parameters
     - :recursive (boolean()): `true` to also include subfolders and their infoitems respectively; otherwise `false` to only consider the infoitems of specified.
-    - :scan (boolean()): Flag to request an Anti-Virus scan for the ifoitems in the specified folder before downloading them. 
+    - :scan (boolean()): Flag to request an Anti-Virus scan for the ifoitems in the specified folder before downloading them.
   ## Returns
 
   {:ok, String.t} on success
@@ -512,7 +512,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:get)
-    |> url("/infostore?action&#x3D;zipfolder")
+    |> url("/infostore?action=zipfolder")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
@@ -543,7 +543,7 @@ defmodule OpenXchangeClient.Api.Infostore do
   def get_info_item(connection, session, id, folder, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/infostore?action&#x3D;get")
+    |> url("/infostore?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :folder, folder)
@@ -556,7 +556,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
   @doc """
   Gets an infoitem document.
-  It is possible to add a filename to the request's URI like `/infostore/{filename}?action=document`. The filename may be added to the customary infostore path to suggest a filename to a Save-As dialog.  If the file is an image file then it is possible to use the image transformation parameters. 
+  It is possible to add a filename to the request's URI like `/infostore/{filename}?action=document`. The filename may be added to the customary infostore path to suggest a filename to a Save-As dialog.  If the file is an image file then it is possible to use the image transformation parameters.
 
   ## Parameters
 
@@ -567,13 +567,13 @@ defmodule OpenXchangeClient.Api.Infostore do
   - opts (KeywordList): [optional] Optional parameters
     - :version (integer()): If present the infoitem data describes the given version. Otherwise the current version is returned.
     - :content_type (String.t): If present the response declares the given `content_type` in the Content-Type header.
-    - :scan (boolean()): Flag to request an Anti-Virus scan for the specified document before downloading them.  
-    - :format (String.t): Allows to set \"metadata\" as value to retrieve an image's metadata information (EXIF directory, etc.) as a JSON structure. If there are no metadata available (e.g. infoitem document is not an image) 404 Not Found is returned.  
+    - :scan (boolean()): Flag to request an Anti-Virus scan for the specified document before downloading them.
+    - :format (String.t): Allows to set \"metadata\" as value to retrieve an image's metadata information (EXIF directory, etc.) as a JSON structure. If there are no metadata available (e.g. infoitem document is not an image) 404 Not Found is returned.
     - :rotate (boolean()): Adds a 'rotate' transformation, leading to the image being rotated according to the contained EXIF information.
     - :width (integer()): The maximum width of the target image.
     - :height (integer()): The maximum height of the target image.
     - :shrink_only (boolean()): Set to true to only scale images 'greater than' target size.
-    - :scale_type (String.t): Defines the scale type. Possible value:  <ul>   <li><code>cover</code> - The \"cover\" scale type, specifying the minimum target dimensions. <br>   The source image will be resized in a way that the resulting image covers the target resolution entirely, with the original aspect ratio being preserved.    For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"cover\", will result in the picture being resized to 267x200 pixels.</li>    <li><code>contain</code> - The \"contain\" scale type, specifying the maximum target dimensions. <br>   The source image will be resized in a way that the resulting image fits into the target resolution entirely, with the original aspect ratio being preserved.    For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"contain\", will result in the picture being resized to 200x150 pixels.</li>    <li><code>containforcedimension</code> - The \"containforcedimension\" scale type, specifying the maximum target dimensions. <br>   The source image will be resized in a way that the resulting image fits into the target resolution entirely, with the original aspect ratio being preserved while smaller sides get    padded to fit exact dimension. For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"containforcedimension\", will result in the picture being    first resized to 200x150 pixels, then height gets padded by 25 pixels per side resulting in exactly 200x200 pixels.</li>    <li><code>coverandcrop</code> - The \"coverandcrop\" scale type, specifying the target dimensions. <br>   If the source image is bigger than the target dimension, in a first step the image will be resized in a way that the resulting image covers the target resolution entirely,    with the original aspect ratio being preserved. In a second step the image will be cropped to fit the target dimension. For example, scaling an image with an original resolution    of 640x480 pixels to 200x200 pixels and type \"coverandcrop\", will result in the picture being resized to 267x200 pixels and then cropped to fit 200x200.    In case the image is smaller than then target dimension the image will not be resized and instead it gets padded to fit exact dimension. For example,    with an original resolution of 100x100 pixels and a target dimension of 200x200 pixels and type \"coverandcrop\", will result in the picture being padded on all sides with 50 pixels.</li>    <li><code>auto</code> - The \"auto\" scale type.<br></li> </ul> 
+    - :scale_type (String.t): Defines the scale type. Possible value:  <ul>   <li><code>cover</code> - The \"cover\" scale type, specifying the minimum target dimensions. <br>   The source image will be resized in a way that the resulting image covers the target resolution entirely, with the original aspect ratio being preserved.    For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"cover\", will result in the picture being resized to 267x200 pixels.</li>    <li><code>contain</code> - The \"contain\" scale type, specifying the maximum target dimensions. <br>   The source image will be resized in a way that the resulting image fits into the target resolution entirely, with the original aspect ratio being preserved.    For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"contain\", will result in the picture being resized to 200x150 pixels.</li>    <li><code>containforcedimension</code> - The \"containforcedimension\" scale type, specifying the maximum target dimensions. <br>   The source image will be resized in a way that the resulting image fits into the target resolution entirely, with the original aspect ratio being preserved while smaller sides get    padded to fit exact dimension. For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"containforcedimension\", will result in the picture being    first resized to 200x150 pixels, then height gets padded by 25 pixels per side resulting in exactly 200x200 pixels.</li>    <li><code>coverandcrop</code> - The \"coverandcrop\" scale type, specifying the target dimensions. <br>   If the source image is bigger than the target dimension, in a first step the image will be resized in a way that the resulting image covers the target resolution entirely,    with the original aspect ratio being preserved. In a second step the image will be cropped to fit the target dimension. For example, scaling an image with an original resolution    of 640x480 pixels to 200x200 pixels and type \"coverandcrop\", will result in the picture being resized to 267x200 pixels and then cropped to fit 200x200.    In case the image is smaller than then target dimension the image will not be resized and instead it gets padded to fit exact dimension. For example,    with an original resolution of 100x100 pixels and a target dimension of 200x200 pixels and type \"coverandcrop\", will result in the picture being padded on all sides with 50 pixels.</li>    <li><code>auto</code> - The \"auto\" scale type.<br></li> </ul>
     - :crop_width (integer()): The width of the specified rectangular region.
     - :crop_height (integer()): The height of the specified rectangular region.
     - :crop_x (integer()): The X coordinate of the upper-left corner of the specified rectangular region.
@@ -604,7 +604,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:get)
-    |> url("/infostore?action&#x3D;document")
+    |> url("/infostore?action=document")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -646,7 +646,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;list")
+    |> url("/infostore?action=list")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
@@ -691,7 +691,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:get)
-    |> url("/infostore?action&#x3D;updates")
+    |> url("/infostore?action=updates")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :columns, columns)
@@ -731,7 +731,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:get)
-    |> url("/infostore?action&#x3D;shares")
+    |> url("/infostore?action=shares")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_optional_params(optional_params, opts)
@@ -753,7 +753,7 @@ defmodule OpenXchangeClient.Api.Infostore do
   - folder (integer()): The folder ID of the object.
   - module (integer()): The module type of the object: 1 (appointment), 4 (task), 7 (contact), 137 (infostore).
   - attachment (String.t): The ID of the attachment to save.
-  - body ([OpenXchangeClient.Model.InfoItemBody.t]): A JSON object describing the attachment's infoitem. The field `id`is not included. The fields in this infoitem object override values from the attachment. The folder_id must be given. It is possible to let added object permission entities be notified about newly shared files. In that case add a \"notification\" object. 
+  - body ([OpenXchangeClient.Model.InfoItemBody.t]): A JSON object describing the attachment's infoitem. The field `id`is not included. The fields in this infoitem object override values from the attachment. The folder_id must be given. It is possible to let added object permission entities be notified about newly shared files. In that case add a \"notification\" object.
   - opts (KeywordList): [optional] Optional parameters
     - :push_token (String.t): The client's push token to restrict the generated drive event
   ## Returns
@@ -787,7 +787,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;saveAs")
+    |> url("/infostore?action=saveAs")
     |> add_param(:query, :session, session)
     |> add_param(:query, :attached, attached)
     |> add_param(:query, :folder, folder)
@@ -826,7 +826,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:get)
-    |> url("/infostore?action&#x3D;lock")
+    |> url("/infostore?action=lock")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_optional_params(optional_params, opts)
@@ -863,7 +863,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:get)
-    |> url("/infostore?action&#x3D;move")
+    |> url("/infostore?action=move")
     |> add_param(:query, :session, session)
     |> add_param(:query, :timestamp, timestamp)
     |> add_param(:query, :folder, folder)
@@ -906,7 +906,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;move")
+    |> url("/infostore?action=move")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:body, :body, body)
@@ -926,7 +926,7 @@ defmodule OpenXchangeClient.Api.Infostore do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - id (String.t): Object ID of the shared infoitem to notify about.
-  - body (InfoItemSharingNotificationBody): JSON object providing the JSON array `entities`, which holds the entity ID(s) of the users or groups that should be notified. To send a custom message to the recipients, an additional JSON object `notification` may be included, inside of which an optional message can be passed (otherwise, some default message is used). (Example: {\"entities\":[\"2332\"]} or {\"entities\":[\"2332\"],\"notification\":{\"transport\":\"mail\",\"message\":\"The message\"}}) 
+  - body (InfoItemSharingNotificationBody): JSON object providing the JSON array `entities`, which holds the entity ID(s) of the users or groups that should be notified. To send a custom message to the recipients, an additional JSON object `notification` may be included, inside of which an optional message can be passed (otherwise, some default message is used). (Example: {\"entities\":[\"2332\"]} or {\"entities\":[\"2332\"],\"notification\":{\"transport\":\"mail\",\"message\":\"The message\"}})
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -945,7 +945,7 @@ defmodule OpenXchangeClient.Api.Infostore do
   def notify_about_shared_info_item(connection, session, id, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;notify")
+    |> url("/infostore?action=notify")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:body, :body, body)
@@ -984,7 +984,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;restore")
+    |> url("/infostore?action=restore")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -1037,7 +1037,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;search")
+    |> url("/infostore?action=search")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
@@ -1068,7 +1068,7 @@ defmodule OpenXchangeClient.Api.Infostore do
   def unlock_info_item(connection, session, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/infostore?action&#x3D;unlock")
+    |> url("/infostore?action=unlock")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> Enum.into([])
@@ -1080,7 +1080,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
   @doc """
   Updates an infoitem.
-  Updates an infoitem's data. This request cannot change or add files. Therefore it is necessary to use the `POST` method. 
+  Updates an infoitem's data. This request cannot change or add files. Therefore it is necessary to use the `POST` method.
 
   ## Parameters
 
@@ -1111,7 +1111,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;update")
+    |> url("/infostore?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :timestamp, timestamp)
@@ -1126,7 +1126,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
   @doc """
   Updates an infoitem.
-  Updates an infoitem's data and file. The normal request body must be placed as form-data using the content-type `multipart/form-data`. The form field `json` contains the infoitem's data while the file must be placed in a file field named `file` (see also [File uploads](#file-uploads)). 
+  Updates an infoitem's data and file. The normal request body must be placed as form-data using the content-type `multipart/form-data`. The form field `json` contains the infoitem's data while the file must be placed in a file field named `file` (see also [File uploads](#file-uploads)).
 
   ## Parameters
 
@@ -1161,7 +1161,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:post)
-    |> url("/infostore?action&#x3D;update")
+    |> url("/infostore?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :timestamp, timestamp)
@@ -1177,7 +1177,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
   @doc """
   Creates or updates an infoitem.
-  Creates or updates an infoitem with a file. 
+  Creates or updates an infoitem with a file.
 
   ## Parameters
 
@@ -1187,7 +1187,7 @@ defmodule OpenXchangeClient.Api.Infostore do
   - filename (String.t): The name of the file.
   - binary (String.t): The binary file
   - opts (KeywordList): [optional] Optional parameters
-    - :timestamp (integer()): Timestamp of the last update of the infoitem. If the infoitem was modified after the specified timestamp, then the update must fail. Note: This must only be set for updates of existing infoitems. 
+    - :timestamp (integer()): Timestamp of the last update of the infoitem. If the infoitem was modified after the specified timestamp, then the update must fail. Note: This must only be set for updates of existing infoitems.
     - :id (String.t): The id of the file in case of an update.
     - :title (String.t): The title of the file.
     - :file_mimetype (String.t): The mimetype of the file.
@@ -1201,7 +1201,7 @@ defmodule OpenXchangeClient.Api.Infostore do
     - :file_size (integer()): The size of the document in bytes.
     - :try_add_version (boolean()): Add new file version if file name exists
     - :ignore_warnings (boolean()): In case of an update indicates whether warnings should be ignored or not
-    - :offset (integer()): Optionally sets the start offset in bytes where to append the data to the document, must be equal to the actual document's length.  Only available if the underlying File storage account supports the \"RANDOM_FILE_ACCESS\" capability.  If set the id parameter must also be set to the id previously recieved from the first/starting request. 
+    - :offset (integer()): Optionally sets the start offset in bytes where to append the data to the document, must be equal to the actual document's length.  Only available if the underlying File storage account supports the \"RANDOM_FILE_ACCESS\" capability.  If set the id parameter must also be set to the id previously recieved from the first/starting request.
     - :push_token (String.t): The client's push token to restrict the generated drive event
   ## Returns
 
@@ -1238,7 +1238,7 @@ defmodule OpenXchangeClient.Api.Infostore do
 
     %{}
     |> method(:put)
-    |> url("/infostore?action&#x3D;upload&amp;binary&#x3D;true")
+    |> url("/infostore?action=upload&amp;binary=true")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder_id, folder_id)
     |> add_param(:query, :filename, filename)

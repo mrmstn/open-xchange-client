@@ -22,7 +22,7 @@ defmodule OpenXchangeClient.Api.Mail do
     - :nested_msgs ([OpenXchangeClient.Model.NestedMailData.t]): An array containing additional mails that are attached to this mail.
     - :security_info ([OpenXchangeClient.Model.GuardSecurityInfo.t]): Information if mail is encrypted or signed.  Requires Guard
     - :security ([OpenXchangeClient.Model.GuardSecurityResult.t]): Information regarding signature verification or decryption type after processed by Guard
-    - :authenticity (OpenXchangeClient.Model.AuthenticationResult.t): 
+    - :authenticity (OpenXchangeClient.Model.AuthenticationResult.t):
     - :color_label (integer()): Color number used by Outlook to label the object. The assignment of colors to numbers is arbitrary and specified by the client. The numbers are integer numbers between 0 and 10 (inclusive).
     - :id (String.t): Object ID of the mail.
     - :folder_id (String.t): Object ID of the parent folder.
@@ -101,7 +101,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:put)
-    |> url("/mail?action&#x3D;autosave")
+    |> url("/mail?action=autosave")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
@@ -136,7 +136,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:put)
-    |> url("/mail?action&#x3D;clear")
+    |> url("/mail?action=clear")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -174,7 +174,7 @@ defmodule OpenXchangeClient.Api.Mail do
   def copy_mail(connection, session, id, folder, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/mail?action&#x3D;copy")
+    |> url("/mail?action=copy")
     |> add_param(:query, :session, session)
     |> add_param(:query, :id, id)
     |> add_param(:query, :folder, folder)
@@ -218,7 +218,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:put)
-    |> url("/mail?action&#x3D;delete")
+    |> url("/mail?action=delete")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -248,7 +248,7 @@ defmodule OpenXchangeClient.Api.Mail do
   def examine(connection, session, folder, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;examine")
+    |> url("/mail?action=examine")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> Enum.into([])
@@ -290,7 +290,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;forward")
+    |> url("/mail?action=forward")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -343,7 +343,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;all")
+    |> url("/mail?action=all")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :columns, columns)
@@ -366,7 +366,7 @@ defmodule OpenXchangeClient.Api.Mail do
   - id (String.t): Object ID of the mail which contains the attachments.
   - attachment (String.t): A comma-separated list of IDs of the requested attachments.
   - opts (KeywordList): [optional] Optional parameters
-    - :scan (boolean()): Flag to request an Anti-Virus scan for the specified e-mail attachments before downloading them. 
+    - :scan (boolean()): Flag to request an Anti-Virus scan for the specified e-mail attachments before downloading them.
   ## Returns
 
   {:ok, String.t} on success
@@ -387,7 +387,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;zip_attachments")
+    |> url("/mail?action=zip_attachments")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -412,7 +412,7 @@ defmodule OpenXchangeClient.Api.Mail do
     - :id (String.t): Object ID of the requested mail (can be substituded by `message_id` parameter).
     - :message_id (String.t): The value of \"Message-Id\" header of the requested mail. This parameter is a substitute for \"id\" parameter.
     - :edit (integer()): 1 indicates that this request should fill the message compose dialog to edit a message and thus display-specific date is going to be withheld.
-    - :view (String.t): \"Specifies the view of the mail's body:  raw (returns the content as it is, meaning no preparation are performed and thus no guarantee for safe contents is given),  text ( forces the server to deliver a text-only version of the requested mail's body, even if content is HTML),  textNoHtmlAttach (is the same as 'text', but does not deliver the HTML part as attachment in case of multipart/alternative content),  html (to allow a possible HTML mail body being transferred as it is (but white-list filter applied)),  noimg (to allow a possible HTML content being transferred but without original image src attributes which references external images;  can be used to prevent loading external linked images (spam privacy protection)).  document (to have a inline HTML representation of message's content in a separate window) **If set, the corresponding gui config setting will be ignored.**\" 
+    - :view (String.t): \"Specifies the view of the mail's body:  raw (returns the content as it is, meaning no preparation are performed and thus no guarantee for safe contents is given),  text ( forces the server to deliver a text-only version of the requested mail's body, even if content is HTML),  textNoHtmlAttach (is the same as 'text', but does not deliver the HTML part as attachment in case of multipart/alternative content),  html (to allow a possible HTML mail body being transferred as it is (but white-list filter applied)),  noimg (to allow a possible HTML content being transferred but without original image src attributes which references external images;  can be used to prevent loading external linked images (spam privacy protection)).  document (to have a inline HTML representation of message's content in a separate window) **If set, the corresponding gui config setting will be ignored.**\"
     - :force_images (boolean()): Use `true` to enforce that images are allowed in HTML content. Only applicable in case `view` parameter is `document`
     - :unseen (boolean()): Use `true` to leave an unseen mail as unseen although its content is requested.
     - :max_size (integer()): A positive integer number (greater than 10000) to specify how many characters of the message content will be returned. If the number is smaller than 10000 the value will be ignored and 10000 used.
@@ -448,7 +448,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;get")
+    |> url("/mail?action=get")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
@@ -474,7 +474,7 @@ defmodule OpenXchangeClient.Api.Mail do
     - :save (integer()): 1 overwrites the defined mimetype for this attachment to force the download dialog, otherwise 0.
     - :filter (integer()): 1 to apply HTML white-list filter rules if and only if requested attachment is of MIME type `text/htm*` **AND** parameter `save` is set to 0.
     - :allow_nested_messages (boolean()): A value of \"false\" leads to light-weight JSON objects for nested messages containing only the \"id\" field
-    - :scan (boolean()): Flag to request an Anti-Virus scan for the specified e-mail attachment before downloading it.  Note that if there is a max file limitation set on the middleware, the URL parameter 'exact_length' has to be set to 'true' to instruct the middleware to calculate the attachment's size before passing it to the Anti-Virus scanner. 
+    - :scan (boolean()): Flag to request an Anti-Virus scan for the specified e-mail attachment before downloading it.  Note that if there is a max file limitation set on the middleware, the URL parameter 'exact_length' has to be set to 'true' to instruct the middleware to calculate the attachment's size before passing it to the Anti-Virus scanner.
     - :as_json (boolean()): Nested messages are parsed into full JSON objects. Can lead to longer loading times, for multiple nested messages.
     - :decrypt (boolean()): If true, and the object is encrypted, an attempt will be made to decrypt the object.  An error will be thrown if needed authentication isn't available. (Guard Required)
     - :crypto_auth (String.t): Authentication token used for Guard in order to decrypt or sign items.  Required if the token is not attached to the session and the decrypt flag was sent.
@@ -482,7 +482,7 @@ defmodule OpenXchangeClient.Api.Mail do
     - :width (integer()): The maximum width of the target image.
     - :height (integer()): The maximum height of the target image.
     - :shrink_only (boolean()): Set to true to only scale images 'greater than' target size.
-    - :scale_type (String.t): Defines the scale type. Possible value:  <ul>   <li><code>cover</code> - The \"cover\" scale type, specifying the minimum target dimensions. <br>   The source image will be resized in a way that the resulting image covers the target resolution entirely, with the original aspect ratio being preserved.    For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"cover\", will result in the picture being resized to 267x200 pixels.</li>    <li><code>contain</code> - The \"contain\" scale type, specifying the maximum target dimensions. <br>   The source image will be resized in a way that the resulting image fits into the target resolution entirely, with the original aspect ratio being preserved.    For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"contain\", will result in the picture being resized to 200x150 pixels.</li>    <li><code>containforcedimension</code> - The \"containforcedimension\" scale type, specifying the maximum target dimensions. <br>   The source image will be resized in a way that the resulting image fits into the target resolution entirely, with the original aspect ratio being preserved while smaller sides get    padded to fit exact dimension. For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"containforcedimension\", will result in the picture being    first resized to 200x150 pixels, then height gets padded by 25 pixels per side resulting in exactly 200x200 pixels.</li>    <li><code>coverandcrop</code> - The \"coverandcrop\" scale type, specifying the target dimensions. <br>   If the source image is bigger than the target dimension, in a first step the image will be resized in a way that the resulting image covers the target resolution entirely,    with the original aspect ratio being preserved. In a second step the image will be cropped to fit the target dimension. For example, scaling an image with an original resolution    of 640x480 pixels to 200x200 pixels and type \"coverandcrop\", will result in the picture being resized to 267x200 pixels and then cropped to fit 200x200.    In case the image is smaller than then target dimension the image will not be resized and instead it gets padded to fit exact dimension. For example,    with an original resolution of 100x100 pixels and a target dimension of 200x200 pixels and type \"coverandcrop\", will result in the picture being padded on all sides with 50 pixels.</li>    <li><code>auto</code> - The \"auto\" scale type.<br></li> </ul> 
+    - :scale_type (String.t): Defines the scale type. Possible value:  <ul>   <li><code>cover</code> - The \"cover\" scale type, specifying the minimum target dimensions. <br>   The source image will be resized in a way that the resulting image covers the target resolution entirely, with the original aspect ratio being preserved.    For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"cover\", will result in the picture being resized to 267x200 pixels.</li>    <li><code>contain</code> - The \"contain\" scale type, specifying the maximum target dimensions. <br>   The source image will be resized in a way that the resulting image fits into the target resolution entirely, with the original aspect ratio being preserved.    For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"contain\", will result in the picture being resized to 200x150 pixels.</li>    <li><code>containforcedimension</code> - The \"containforcedimension\" scale type, specifying the maximum target dimensions. <br>   The source image will be resized in a way that the resulting image fits into the target resolution entirely, with the original aspect ratio being preserved while smaller sides get    padded to fit exact dimension. For example, scaling an image with an original resolution of 640x480 pixels to 200x200 pixels and type \"containforcedimension\", will result in the picture being    first resized to 200x150 pixels, then height gets padded by 25 pixels per side resulting in exactly 200x200 pixels.</li>    <li><code>coverandcrop</code> - The \"coverandcrop\" scale type, specifying the target dimensions. <br>   If the source image is bigger than the target dimension, in a first step the image will be resized in a way that the resulting image covers the target resolution entirely,    with the original aspect ratio being preserved. In a second step the image will be cropped to fit the target dimension. For example, scaling an image with an original resolution    of 640x480 pixels to 200x200 pixels and type \"coverandcrop\", will result in the picture being resized to 267x200 pixels and then cropped to fit 200x200.    In case the image is smaller than then target dimension the image will not be resized and instead it gets padded to fit exact dimension. For example,    with an original resolution of 100x100 pixels and a target dimension of 200x200 pixels and type \"coverandcrop\", will result in the picture being padded on all sides with 50 pixels.</li>    <li><code>auto</code> - The \"auto\" scale type.<br></li> </ul>
     - :crop_width (integer()): The width of the specified rectangular region.
     - :crop_height (integer()): The height of the specified rectangular region.
     - :crop_x (integer()): The X coordinate of the upper-left corner of the specified rectangular region.
@@ -518,7 +518,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;attachment")
+    |> url("/mail?action=attachment")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -575,7 +575,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;threadedAll")
+    |> url("/mail?action=threadedAll")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :columns, columns)
@@ -606,7 +606,7 @@ defmodule OpenXchangeClient.Api.Mail do
   def get_mail_count(connection, session, folder, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;count")
+    |> url("/mail?action=count")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> Enum.into([])
@@ -618,7 +618,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
   @doc """
   Gets the message headers as plain text.
-  #### Note By setting the query parameter `hdr` to 1 the response type of the request action changes. Then it is returned a JSON object with the field `data` containing the (formatted) message headers as plain text. The parameters below specify the ones that have an effect on the request. 
+  #### Note By setting the query parameter `hdr` to 1 the response type of the request action changes. Then it is returned a JSON object with the field `data` containing the (formatted) message headers as plain text. The parameters below specify the ones that have an effect on the request.
 
   ## Parameters
 
@@ -645,7 +645,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;get&amp;hdr&#x3D;1")
+    |> url("/mail?action=get&amp;hdr=1")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
@@ -686,7 +686,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:put)
-    |> url("/mail?action&#x3D;list")
+    |> url("/mail?action=list")
     |> add_param(:query, :session, session)
     |> add_param(:query, :columns, columns)
     |> add_param(:body, :body, body)
@@ -700,7 +700,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
   @doc """
   Gets the complete message source as plain text.
-  #### Note By setting the query parameter `src` to 1 the response type of the request action changes. Then it is returned a JSON object with the field `data` containing the complete message source as plain text. The parameters below specify the ones that have an effect on the request. 
+  #### Note By setting the query parameter `src` to 1 the response type of the request action changes. Then it is returned a JSON object with the field `data` containing the complete message source as plain text. The parameters below specify the ones that have an effect on the request.
 
   ## Parameters
 
@@ -729,7 +729,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;get&amp;src&#x3D;1")
+    |> url("/mail?action=get&amp;src=1")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_optional_params(optional_params, opts)
@@ -742,7 +742,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
   @doc """
   Gets updated mails.
-  Provides a list of updated mails.   **Attention**: This does **not** work for IMAP mail accounts. In case of imap accounts an empty list is returned.  
+  Provides a list of updated mails.   **Attention**: This does **not** work for IMAP mail accounts. In case of imap accounts an empty list is returned.
 
   ## Parameters
 
@@ -768,7 +768,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;updates")
+    |> url("/mail?action=updates")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :columns, columns)
@@ -800,7 +800,7 @@ defmodule OpenXchangeClient.Api.Mail do
   def get_mails_as_zip(connection, session, folder, id, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;zip_messages")
+    |> url("/mail?action=zip_messages")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -843,7 +843,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;thread_references")
+    |> url("/mail?action=thread_references")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :columns, columns)
@@ -857,7 +857,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
   @doc """
   Import of mails as MIME data block ([RFC822](https://tools.ietf.org/html/rfc822)).
-  This request can be used to store a single or a lot of mails in the OX mail storage backend. This action should be used instead of [/mail?action=new](#operation--mail-action-new-post) because it is faster and tolerant to 8-bit encoded emails.  To import multiple mails add further form-data fields. 
+  This request can be used to store a single or a lot of mails in the OX mail storage backend. This action should be used instead of [/mail?action=new](#operation--mail-action-new-post) because it is faster and tolerant to 8-bit encoded emails.  To import multiple mails add further form-data fields.
 
   ## Parameters
 
@@ -883,7 +883,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:post)
-    |> url("/mail?action&#x3D;import")
+    |> url("/mail?action=import")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:file, :file, file)
@@ -914,7 +914,7 @@ defmodule OpenXchangeClient.Api.Mail do
   def mark_all_mails_as_read(connection, session, folder, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/mail?action&#x3D;all_seen")
+    |> url("/mail?action=all_seen")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> ensure_body()
@@ -936,7 +936,7 @@ defmodule OpenXchangeClient.Api.Mail do
   - id (String.t): Object ID of the mail which contains the attachment.
   - attachment (String.t): ID of the requested attachment.
   - dest_folder (String.t): Object ID of the folder in which the attachment should be stored.
-  - body (PutAttachmentBody): A possible empty JSON object containing the optional fields `description` and `filename`. The filename and description values will be used for the newly created file in the drive module. 
+  - body (PutAttachmentBody): A possible empty JSON object containing the optional fields `description` and `filename`. The filename and description values will be used for the newly created file in the drive module.
   - opts (KeywordList): [optional] Optional parameters
   ## Returns
 
@@ -965,7 +965,7 @@ defmodule OpenXchangeClient.Api.Mail do
       ) do
     %{}
     |> method(:put)
-    |> url("/mail?action&#x3D;attachment")
+    |> url("/mail?action=attachment")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -1003,7 +1003,7 @@ defmodule OpenXchangeClient.Api.Mail do
   def receipt_mail_ack(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/mail?action&#x3D;receipt_ack")
+    |> url("/mail?action=receipt_ack")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -1047,7 +1047,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;replyall")
+    |> url("/mail?action=replyall")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -1093,7 +1093,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:get)
-    |> url("/mail?action&#x3D;reply")
+    |> url("/mail?action=reply")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :id, id)
@@ -1130,7 +1130,7 @@ defmodule OpenXchangeClient.Api.Mail do
   def resolve_share_reference(connection, session, body, _opts \\ []) do
     %{}
     |> method(:put)
-    |> url("/mail?action&#x3D;resolve_share_reference")
+    |> url("/mail?action=resolve_share_reference")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> Enum.into([])
@@ -1149,7 +1149,7 @@ defmodule OpenXchangeClient.Api.Mail do
   - session (String.t): A session ID previously obtained from the login module.
   - folder (String.t): Object ID of the folder who contains the mails.
   - columns (String.t): A comma-separated list of either columns or header names to return, like \"600,601,X-Custom-Header\". Each column is specified by a numeric column identifier, see [Detailed mail data](#detailed-mail-data).
-  - body (String.t): A JSON object describing the search term as described in [Advanced search](#advanced-search). Example: `{\"filter\":[\"and\",[\"=\", {\"field\":\"to\"},\"test1@example.com\"],[\"not\",[\"=\",{\"attachment\":\"name\"},\"document.pdf\"]]]}` which represents 'to = \"test1@example.com\" AND NOT from = \"test2@example.com\"'. Available field names are `from`, `to`, `cc`, `bcc`, `subject`, `received_date`, `sent_date`, `size`, `flags`, `content`, `content_type`, `disp`, and `priority`. 
+  - body (String.t): A JSON object describing the search term as described in [Advanced search](#advanced-search). Example: `{\"filter\":[\"and\",[\"=\", {\"field\":\"to\"},\"test1@example.com\"],[\"not\",[\"=\",{\"attachment\":\"name\"},\"document.pdf\"]]]}` which represents 'to = \"test1@example.com\" AND NOT from = \"test2@example.com\"'. Available field names are `from`, `to`, `cc`, `bcc`, `subject`, `received_date`, `sent_date`, `size`, `flags`, `content`, `content_type`, `disp`, and `priority`.
   - opts (KeywordList): [optional] Optional parameters
     - :headers (String.t): A comma-separated list of header names to return, like \"From,X-Custom-Header\". This parameter can be used in addition to the columns parameter.
     - :unseen (boolean()): If `true` only mails without the `\\Seen` flag are returned.
@@ -1180,7 +1180,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:put)
-    |> url("/mail?action&#x3D;search")
+    |> url("/mail?action=search")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:query, :columns, columns)
@@ -1195,13 +1195,13 @@ defmodule OpenXchangeClient.Api.Mail do
 
   @doc """
   Sends a mail.
-  The request accepts file fields in upload form that denote referenced files that are going to be appended as attachments. For \"text/plain\" mail bodies, the JSON boolean field \"raw\" may be specified inside the body's JSON representation to signal that the text content shall be kept as-is; meaning to keep all formatting intact. 
+  The request accepts file fields in upload form that denote referenced files that are going to be appended as attachments. For \"text/plain\" mail bodies, the JSON boolean field \"raw\" may be specified inside the body's JSON representation to signal that the text content shall be kept as-is; meaning to keep all formatting intact.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
-  - json0 (String.t): 'Contains the rudimentary mail as JSON object as described in [Detailed mail data](#detailed-mail-data) with just its message body (as html content) defined in nested JSON array `attachments` and its header data (from, to, subject, etc.). The field \\\"content_type\\\" defines whether the mail ought to be sent as plain text (\\\"text/plain\\\"), as html (\\\"text/html\\\") or as multipart/alternative (\\\"ALTERNATIVE\\\"). Sending a mail requires some special fields inside JSON mail object. The field \\\"infostore_ids\\\" defines a JSON array of infostore document ID(s) that ought to be appended to this mail as attachments. The field \\\"msgref\\\" indicates the ID of the referenced original mail. Moreover the field \\\"sendtype\\\" indicates the type of the message: <br> 0 (normal new mail),<br> 1 (a reply mail, field `msgref` must be present),<br> 2 (a forward mail, field `msgref` must be present),<br> 3 (draft edit operation, field `msgref` must be present in order to delete previous draft message since e.g. IMAP does not support changing/replacing a message but requires a delete-and-insert sequence),<br> 4 (transport of a draft mail, field `msgref` must be present),<br> 6 (signals that user intends to send out a saved draft message and expects the draft message (referenced by `msgref` field) being deleted after successful transport).'  
+  - json0 (String.t): 'Contains the rudimentary mail as JSON object as described in [Detailed mail data](#detailed-mail-data) with just its message body (as html content) defined in nested JSON array `attachments` and its header data (from, to, subject, etc.). The field \\\"content_type\\\" defines whether the mail ought to be sent as plain text (\\\"text/plain\\\"), as html (\\\"text/html\\\") or as multipart/alternative (\\\"ALTERNATIVE\\\"). Sending a mail requires some special fields inside JSON mail object. The field \\\"infostore_ids\\\" defines a JSON array of infostore document ID(s) that ought to be appended to this mail as attachments. The field \\\"msgref\\\" indicates the ID of the referenced original mail. Moreover the field \\\"sendtype\\\" indicates the type of the message: <br> 0 (normal new mail),<br> 1 (a reply mail, field `msgref` must be present),<br> 2 (a forward mail, field `msgref` must be present),<br> 3 (draft edit operation, field `msgref` must be present in order to delete previous draft message since e.g. IMAP does not support changing/replacing a message but requires a delete-and-insert sequence),<br> 4 (transport of a draft mail, field `msgref` must be present),<br> 6 (signals that user intends to send out a saved draft message and expects the draft message (referenced by `msgref` field) being deleted after successful transport).'
   - opts (KeywordList): [optional] Optional parameters
     - :line_wrap_after (integer()): An integer value specifying the line-wrap setting (only effective for plain-text content); if absent the setting is taken from user's mail settings.
   ## Returns
@@ -1218,7 +1218,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:post)
-    |> url("/mail?action&#x3D;new")
+    |> url("/mail?action=new")
     |> add_param(:query, :session, session)
     |> add_param(:form, :json_0, json0)
     |> add_optional_params(optional_params, opts)
@@ -1237,8 +1237,8 @@ defmodule OpenXchangeClient.Api.Mail do
   - connection (OpenXchangeClient.Connection): Connection to server
   - session (String.t): A session ID previously obtained from the login module.
   - opts (KeywordList): [optional] Optional parameters
-    - :folder (String.t): In case the mail should not be sent out, but saved in a specific folder, the \"folder\" parameter can be used. If the mail should be sent out to the recipient, the \"folder\" parameter must not be included and the mail is stored in the folder \"Sent Items\". 
-    - :flags (String.t): In case the mail should be stored with status \"read\" (e.g. mail has been read already in the client inbox), the parameter \"flags\" has to be included. If no `folder` parameter is specified, this parameter must not be included. For information about mail flags see [Mail data](#/definitions/MailData) model. 
+    - :folder (String.t): In case the mail should not be sent out, but saved in a specific folder, the \"folder\" parameter can be used. If the mail should be sent out to the recipient, the \"folder\" parameter must not be included and the mail is stored in the folder \"Sent Items\".
+    - :flags (String.t): In case the mail should be stored with status \"read\" (e.g. mail has been read already in the client inbox), the parameter \"flags\" has to be included. If no `folder` parameter is specified, this parameter must not be included. For information about mail flags see [Mail data](#/definitions/MailData) model.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.MailDestinationResponse.t} on success
@@ -1254,7 +1254,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:put)
-    |> url("/mail?action&#x3D;new")
+    |> url("/mail?action=new")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> ensure_body()
@@ -1267,7 +1267,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
   @doc """
   Updates a mail or a folder's messages and/or moves a mail to another folder.
-  The update request can perform an update of the color label and flags of one mail object. Beside it is possible to change the mail's folder, meaning move the mail to another folder. Both operations can be performed at once too.  If neither parameter `id` nor parameter `message_id` is specified, all folder's messages are updated accordingly. 
+  The update request can perform an update of the color label and flags of one mail object. Beside it is possible to change the mail's folder, meaning move the mail to another folder. Both operations can be performed at once too.  If neither parameter `id` nor parameter `message_id` is specified, all folder's messages are updated accordingly.
 
   ## Parameters
 
@@ -1298,7 +1298,7 @@ defmodule OpenXchangeClient.Api.Mail do
 
     %{}
     |> method(:put)
-    |> url("/mail?action&#x3D;update")
+    |> url("/mail?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:query, :folder, folder)
     |> add_param(:body, :body, body)

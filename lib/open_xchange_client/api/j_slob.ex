@@ -33,7 +33,7 @@ defmodule OpenXchangeClient.Api.JSlob do
 
     %{}
     |> method(:get)
-    |> url("/jslob?action&#x3D;all")
+    |> url("/jslob?action=all")
     |> add_param(:query, :session, session)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -67,7 +67,7 @@ defmodule OpenXchangeClient.Api.JSlob do
 
     %{}
     |> method(:put)
-    |> url("/jslob?action&#x3D;list")
+    |> url("/jslob?action=list")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -105,7 +105,7 @@ defmodule OpenXchangeClient.Api.JSlob do
 
     %{}
     |> method(:put)
-    |> url("/jslob?action&#x3D;set")
+    |> url("/jslob?action=set")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)
@@ -142,7 +142,7 @@ defmodule OpenXchangeClient.Api.JSlob do
 
     %{}
     |> method(:put)
-    |> url("/jslob?action&#x3D;update")
+    |> url("/jslob?action=update")
     |> add_param(:query, :session, session)
     |> add_param(:body, :body, body)
     |> add_optional_params(optional_params, opts)

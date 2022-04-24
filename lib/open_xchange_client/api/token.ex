@@ -12,7 +12,7 @@ defmodule OpenXchangeClient.Api.Token do
 
   @doc """
   Gets a login token.
-  With a valid session it is possible to acquire a secret. Using this secret another system is able to generate a valid session (see [login?action=redeemToken](#operation--login-action-redeemToken-post)). 
+  With a valid session it is possible to acquire a secret. Using this secret another system is able to generate a valid session (see [login?action=redeemToken](#operation--login-action-redeemToken-post)).
 
   ## Parameters
 
@@ -29,7 +29,7 @@ defmodule OpenXchangeClient.Api.Token do
   def acquire_token(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/token?action&#x3D;acquireToken")
+    |> url("/token?action=acquireToken")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()

@@ -12,7 +12,7 @@ defmodule OpenXchangeClient.Api.Login do
 
   @doc """
   Accesses a session that was previously created with the token login.
-  This request allows clients to access a session created with the `/login?action=tokenLogin` request. When accessing the session its life time is extended equally to every other session. 
+  This request allows clients to access a session created with the `/login?action=tokenLogin` request. When accessing the session its life time is extended equally to every other session.
 
   ## Parameters
 
@@ -31,7 +31,7 @@ defmodule OpenXchangeClient.Api.Login do
   def access_session(connection, server_token, client_token, client, _opts \\ []) do
     %{}
     |> method(:post)
-    |> url("/login?action&#x3D;tokens")
+    |> url("/login?action=tokens")
     |> add_param(:form, :serverToken, server_token)
     |> add_param(:form, :clientToken, client_token)
     |> add_param(:form, :client, client)
@@ -44,13 +44,13 @@ defmodule OpenXchangeClient.Api.Login do
 
   @doc """
   Reuse old session saved in cookies by store request
-  If the session ID was stored in a cookie before via the store request,  the user can reuse his old session by using the autologin request. 
+  If the session ID was stored in a cookie before via the store request,  the user can reuse his old session by using the autologin request.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - opts (KeywordList): [optional] Optional parameters
-    - :auth_id (String.t): Identifier for tracing every single login request passed between different systems in a cluster. The value should be some token that is unique for every login request. This parameter must be given as URL parameter and not inside the body of the POST request. (IS OPTIONAL, meaning can be empty) 
+    - :auth_id (String.t): Identifier for tracing every single login request passed between different systems in a cluster. The value should be some token that is unique for every login request. This parameter must be given as URL parameter and not inside the body of the POST request. (IS OPTIONAL, meaning can be empty)
     - :client (String.t): Identifier of the client using the HTTP/JSON interface. This is for statistic evaluations what clients are used with Open-Xchange.
     - :rampup (boolean()): Determines whether client specific rampup data should be returned with a successfull login request or not.
     - :rampup_for (String.t): Optional client identifier which is used to retrieve the rampup data.
@@ -71,7 +71,7 @@ defmodule OpenXchangeClient.Api.Login do
 
     %{}
     |> method(:get)
-    |> url("/login?action&#x3D;autologin")
+    |> url("/login?action=autologin")
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -82,7 +82,7 @@ defmodule OpenXchangeClient.Api.Login do
 
   @doc """
   Change IP of client host in a session.
-  The following request is especially for integration with systems located in the providers infrastructure. If those systems create a session with the following request the client host IP address in the session can be changed. The IP check for following requests will be done using this newly set client host IP address. 
+  The following request is especially for integration with systems located in the providers infrastructure. If those systems create a session with the following request the client host IP address in the session can be changed. The IP check for following requests will be done using this newly set client host IP address.
 
   ## Parameters
 
@@ -100,7 +100,7 @@ defmodule OpenXchangeClient.Api.Login do
   def change_ip(connection, session, client_ip, _opts \\ []) do
     %{}
     |> method(:post)
-    |> url("/login?action&#x3D;changeip")
+    |> url("/login?action=changeip")
     |> add_param(:query, :session, session)
     |> add_param(:query, :clientIP, client_ip)
     |> ensure_body()
@@ -113,23 +113,23 @@ defmodule OpenXchangeClient.Api.Login do
 
   @doc """
   Login to the web frontend using a simple HTML form.
-  This request implements a possible login to the web frontend by only using a simple HTML form. The response contains a redirect link to the Web-UI. See [OXSessionFormLogin](http://oxpedia.org/wiki/index.php?title=OXSessionFormLogin) for details. An example for such a form can be found in the backend's documentation folder (/usr/share/doc/open-xchange-core) under examples/login.html. 
+  This request implements a possible login to the web frontend by only using a simple HTML form. The response contains a redirect link to the Web-UI. See [OXSessionFormLogin](http://oxpedia.org/wiki/index.php?title=OXSessionFormLogin) for details. An example for such a form can be found in the backend's documentation folder (/usr/share/doc/open-xchange-core) under examples/login.html.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
-  - auth_id (String.t): Identifier for tracing every single login request passed between different systems in a cluster. The value should be some token that is unique for every login request. This parameter must be given as URL parameter and not inside the body of the POST request. 
+  - auth_id (String.t): Identifier for tracing every single login request passed between different systems in a cluster. The value should be some token that is unique for every login request. This parameter must be given as URL parameter and not inside the body of the POST request.
   - login (String.t): The login name.
   - password (String.t): The password.
-  - client (String.t): Identifier of the client using the HTTP/JSON interface. This is for statistic evaluations what clients are used with Open-Xchange. If the autologin request should work the client must be the same as the client sent by the UI in the normal login request. 
+  - client (String.t): Identifier of the client using the HTTP/JSON interface. This is for statistic evaluations what clients are used with Open-Xchange. If the autologin request should work the client must be the same as the client sent by the UI in the normal login request.
   - version (String.t): Used version of the HTTP/JSON interface client.
-  - autologin (boolean()): True or false. True tells the UI to issue a store request for the session cookie. This store request is necessary if you want the autologin request not to fail. 
+  - autologin (boolean()): True or false. True tells the UI to issue a store request for the session cookie. This store request is necessary if you want the autologin request not to fail.
   - opts (KeywordList): [optional] Optional parameters
     - :rampup (boolean()): Determines whether client specific rampup data should be returned with a successfull login request or not.
     - :rampup_for (String.t): Optional client identifier which is used to retrieve the rampup data.
-    - :ui_web_path (String.t): Defines another path on the web server where the UI is located. If this parameter is not defined the configured default of the backend is used. 
-    - :client_ip (String.t): IP address of the client host for that the session is created. If this parameter is not specified the IP address of the HTTP client doing this request is used. 
-    - :client_user_agent (String.t): Value of the User-Agent header of the client host for that the session is created. If this parameter is not specified the User-Agent of the current HTTP client doing this request is used. 
+    - :ui_web_path (String.t): Defines another path on the web server where the UI is located. If this parameter is not defined the configured default of the backend is used.
+    - :client_ip (String.t): IP address of the client host for that the session is created. If this parameter is not specified the IP address of the HTTP client doing this request is used.
+    - :client_user_agent (String.t): Value of the User-Agent header of the client host for that the session is created. If this parameter is not specified the User-Agent of the current HTTP client doing this request is used.
   ## Returns
 
   {:ok, String.t} on success
@@ -156,7 +156,7 @@ defmodule OpenXchangeClient.Api.Login do
 
     %{}
     |> method(:post)
-    |> url("/login?action&#x3D;formlogin")
+    |> url("/login?action=formlogin")
     |> add_param(:query, :authId, auth_id)
     |> add_param(:form, :login, login)
     |> add_param(:form, :password, password)
@@ -173,7 +173,7 @@ defmodule OpenXchangeClient.Api.Login do
 
   @doc """
   Login with user credentials.
-  The login module is used to obtain a session from the user's login credentials. Parameters are normally expected in the POST request body. 
+  The login module is used to obtain a session from the user's login credentials. Parameters are normally expected in the POST request body.
 
   ## Parameters
 
@@ -181,7 +181,7 @@ defmodule OpenXchangeClient.Api.Login do
   - name (String.t): The login name.
   - password (String.t): The password (MUST be placed in the request body, otherwise the login request will be denied).
   - opts (KeywordList): [optional] Optional parameters
-    - :auth_id (String.t): Identifier for tracing every single login request passed between different systems in a cluster. The value should be some token that is unique for every login request. This parameter must be given as URL parameter and not inside the body of the POST request. (IS OPTIONAL, meaning can be empty) 
+    - :auth_id (String.t): Identifier for tracing every single login request passed between different systems in a cluster. The value should be some token that is unique for every login request. This parameter must be given as URL parameter and not inside the body of the POST request. (IS OPTIONAL, meaning can be empty)
     - :rampup (boolean()): Determines whether client specific rampup data should be returned with a successfull login request or not.
     - :rampup_for (String.t): Optional client identifier which is used to retrieve the rampup data.
     - :client (String.t): Identifier of the client using the HTTP/JSON interface. This is for statistic evaluations what clients are used with Open-Xchange.
@@ -208,7 +208,7 @@ defmodule OpenXchangeClient.Api.Login do
 
     %{}
     |> method(:post)
-    |> url("/login?action&#x3D;login")
+    |> url("/login?action=login")
     |> add_param(:form, :name, name)
     |> add_param(:form, :password, password)
     |> add_optional_params(optional_params, opts)
@@ -238,7 +238,7 @@ defmodule OpenXchangeClient.Api.Login do
   def do_logout(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/login?action&#x3D;logout")
+    |> url("/login?action=logout")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -250,22 +250,22 @@ defmodule OpenXchangeClient.Api.Login do
 
   @doc """
   Login for a very short living session.
-  This request allows every possible client to create a very short living session. This session can then be transferred to any other client preferably a browser entering then the normal web interface. Then the sessions life time will be extended equally to every other session.  Compared to the login mechanism using the random token, this request is more secure because two tokens are used. One of these tokens is only known to the client and one is generated by the server. Only the combination of both tokens allows to use the session. The combination of both tokens must be done by the client creating the session.  **DISCLAIMER:** This request MUST NOT be used by some server side instance. If some server side instance uses this request to create a session for a browser on some client machine, then you have to transfer the full URL with server and client token over some connection to the client. This creates a **VULNERABILITY** if this is done. The token login method is only secure if this request is already sent from the same machine that later runs the browser using the created session. 
+  This request allows every possible client to create a very short living session. This session can then be transferred to any other client preferably a browser entering then the normal web interface. Then the sessions life time will be extended equally to every other session.  Compared to the login mechanism using the random token, this request is more secure because two tokens are used. One of these tokens is only known to the client and one is generated by the server. Only the combination of both tokens allows to use the session. The combination of both tokens must be done by the client creating the session.  **DISCLAIMER:** This request MUST NOT be used by some server side instance. If some server side instance uses this request to create a session for a browser on some client machine, then you have to transfer the full URL with server and client token over some connection to the client. This creates a **VULNERABILITY** if this is done. The token login method is only secure if this request is already sent from the same machine that later runs the browser using the created session.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
-  - auth_id (String.t): Identifier for tracing every single login request passed between different systems in a cluster. The value should be some token that is unique for every login request. This parameter must be given as URL parameter and not inside the body of the POST request. 
+  - auth_id (String.t): Identifier for tracing every single login request passed between different systems in a cluster. The value should be some token that is unique for every login request. This parameter must be given as URL parameter and not inside the body of the POST request.
   - login (String.t): The login information.
   - password (String.t): The password (MUST be placed in the request body, otherwise the login request will be denied).
   - client_token (String.t): Client side identifier for accessing the session later. The value should be some token that is unique for every login request.
   - client (String.t): Identifier of the client using the HTTP/JSON interface. This is for statistic evaluations what clients are used with Open-Xchange.
   - version (String.t): Version of the HTTP/JSON interface client. Only for statistic evaluations.
-  - autologin (boolean()): '’True’ or ’false’. True tells the UI to issue a store request for the session cookie. This store request is necessary if you want the autologin request not to fail. This must be enabled on the server and a client can test with the autologin request if it is enabled or not.' 
+  - autologin (boolean()): '’True’ or ’false’. True tells the UI to issue a store request for the session cookie. This store request is necessary if you want the autologin request not to fail. This must be enabled on the server and a client can test with the autologin request if it is enabled or not.'
   - opts (KeywordList): [optional] Optional parameters
-    - :ui_web_path (String.t): Defines another path on the web server where the UI is located. If this parameter is not defined the configured default of the backend is used. 
+    - :ui_web_path (String.t): Defines another path on the web server where the UI is located. If this parameter is not defined the configured default of the backend is used.
     - :client_ip (String.t): IP address of the client host for that the session is created. If this parameter is not specified the IP address of the HTTP client doing this request is used.
-    - :client_user_agent (String.t): Value of the User-Agent header of the client host for that the session is created. If this parameter is not specified the User-Agent of the current HTTP client doing this request is used. 
+    - :client_user_agent (String.t): Value of the User-Agent header of the client host for that the session is created. If this parameter is not specified the User-Agent of the current HTTP client doing this request is used.
     - :json_response (boolean()): ’True’ or ’false’ (default). Defines the returned data type as JSON. Default `false` will return a redirect.
   ## Returns
 
@@ -303,7 +303,7 @@ defmodule OpenXchangeClient.Api.Login do
 
     %{}
     |> method(:post)
-    |> url("/login?action&#x3D;tokenLogin")
+    |> url("/login?action=tokenLogin")
     |> add_param(:query, :authId, auth_id)
     |> add_param(:form, :login, login)
     |> add_param(:form, :password, password)
@@ -321,16 +321,16 @@ defmodule OpenXchangeClient.Api.Login do
 
   @doc """
   Initiate SAML 2.0 HTTP binding flows
-  Initiates any supported SAML 2.0 login and logout flow as described in https://documentation.open-xchange.com/latest/middleware/login/02_saml.html. 
+  Initiates any supported SAML 2.0 login and logout flow as described in https://documentation.open-xchange.com/latest/middleware/login/02_saml.html.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
-  - tenant (String.t): In a multi-tenant environment, where different tenants might connect to different identity providers, this parameter denotes the tenant to start a SAML flow for. In single-tenant environments this parameter is superfluous. 
+  - tenant (String.t): In a multi-tenant environment, where different tenants might connect to different identity providers, this parameter denotes the tenant to start a SAML flow for. In single-tenant environments this parameter is superfluous.
   - opts (KeywordList): [optional] Optional parameters
-    - :flow (String.t): One of `login`, `relogin` or `logout` to start the respective flow. 
+    - :flow (String.t): One of `login`, `relogin` or `logout` to start the respective flow.
     - :session (String.t): Required for flow `logout`. A session ID to determine the correct session.
-    - :redirect (String.t): Responds with `302 Found` and sets the response header `Location` to the actual redirect URI. 
+    - :redirect (String.t): Responds with `302 Found` and sets the response header `Location` to the actual redirect URI.
   ## Returns
 
   {:ok, OpenXchangeClient.Model.InlineResponse2003.t} on success
@@ -363,12 +363,12 @@ defmodule OpenXchangeClient.Api.Login do
 
   @doc """
   Redeem Token Login.
-  With a valid session it is possible to acquire a secret (see `token?action=acquireToken`). Using this secret another system is able to generate a valid session. This session may also contain the users password (configurable). The system in question needs to be registered at the server and has to identify itself with a key configured at the open-xchange server. This is only for internal communication and by default no keys are available. 
+  With a valid session it is possible to acquire a secret (see `token?action=acquireToken`). Using this secret another system is able to generate a valid session. This session may also contain the users password (configurable). The system in question needs to be registered at the server and has to identify itself with a key configured at the open-xchange server. This is only for internal communication and by default no keys are available.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
-  - auth_id (String.t): Identifier for tracing every single login request passed between different systems in a cluster. The value should be some token that is unique for every login request. This parameter must be given as URL parameter and not inside the body of the POST request. 
+  - auth_id (String.t): Identifier for tracing every single login request passed between different systems in a cluster. The value should be some token that is unique for every login request. This parameter must be given as URL parameter and not inside the body of the POST request.
   - token (String.t): The token created with `token?action=acquireToken`.
   - client (String.t): Identifier of the client using the HTTP/JSON interface. The client must identifier must be the same for each request after creating the login session.
   - secret (String.t): The value of the secret string for token logins. This is configured through the tokenlogin-secrets configuration file.
@@ -389,7 +389,7 @@ defmodule OpenXchangeClient.Api.Login do
   def redeem_token(connection, auth_id, token, client, secret, _opts \\ []) do
     %{}
     |> method(:post)
-    |> url("/login?action&#x3D;redeemToken")
+    |> url("/login?action=redeemToken")
     |> add_param(:query, :authId, auth_id)
     |> add_param(:form, :token, token)
     |> add_param(:form, :client, client)
@@ -403,12 +403,12 @@ defmodule OpenXchangeClient.Api.Login do
 
   @doc """
   Refresh auto-login cookie
-  **SECURITY WARNING!** Utilizing this request is **INSECURE!** This request allows to access a session with a single one time token. This one time token may be delivered to the wrong client if the protocol has an error or Apache or the load balancer make a mistake. This will cause a wrong user to be in a wrong session. **IMMEDIATELY** consider not to use this request anymore. You have been warned. Use instead the FormLogin that does not need to use the redirect request. 
+  **SECURITY WARNING!** Utilizing this request is **INSECURE!** This request allows to access a session with a single one time token. This one time token may be delivered to the wrong client if the protocol has an error or Apache or the load balancer make a mistake. This will cause a wrong user to be in a wrong session. **IMMEDIATELY** consider not to use this request anymore. You have been warned. Use instead the FormLogin that does not need to use the redirect request.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
-  - random (String.t): A session random token to jump into the session. This random token is part of the login response. Only a very short configurable time after the login it is allowed to jump into the session with the random token. 
+  - random (String.t): A session random token to jump into the session. This random token is part of the login response. Only a very short configurable time after the login it is allowed to jump into the session with the random token.
   - opts (KeywordList): [optional] Optional parameters
     - :client (String.t): The client can be defined here newly if it is not correct on the login request itself.
     - :store (boolean()): Tells the UI to do a store request after login to be able to use autologin request.
@@ -429,7 +429,7 @@ defmodule OpenXchangeClient.Api.Login do
 
     %{}
     |> method(:get)
-    |> url("/login;jsessionid&#x3D;1157370816112.OX1?action&#x3D;redirect")
+    |> url("/login;jsessionid=1157370816112.OX1?action=redirect")
     |> add_param(:query, :random, random)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -457,7 +457,7 @@ defmodule OpenXchangeClient.Api.Login do
   def refresh_auto_login_cookie(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/login?action&#x3D;store")
+    |> url("/login?action=store")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -484,7 +484,7 @@ defmodule OpenXchangeClient.Api.Login do
   def refresh_secret_cookie(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/login?action&#x3D;refreshSecret")
+    |> url("/login?action=refreshSecret")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
@@ -495,16 +495,16 @@ defmodule OpenXchangeClient.Api.Login do
 
   @doc """
   Create App Suite session after SAML login flow
-  This API call is typically the result of a redirect created by the server. It does not need to be explicitly implemented by clients!  After a successful SAML login flow, the client (web browser) is redirected to this endpoint, where the actual App Suite session gets created. As a result, the user gets redirected to `https://<webmail-domain>/<login-path>#session=<session-id>`. The redirect response has App Suite session cookies set. 
+  This API call is typically the result of a redirect created by the server. It does not need to be explicitly implemented by clients!  After a successful SAML login flow, the client (web browser) is redirected to this endpoint, where the actual App Suite session gets created. As a result, the user gets redirected to `https://<webmail-domain>/<login-path>#session=<session-id>`. The redirect response has App Suite session cookies set.
 
   ## Parameters
 
   - connection (OpenXchangeClient.Connection): Connection to server
   - token (String.t): A valid session reservation token
   - opts (KeywordList): [optional] Optional parameters
-    - :client (String.t): Identifier of the client using the HTTP/JSON interface. Default: Value of configuration property `com.openexchange.ajax.login.http-auth.client` 
+    - :client (String.t): Identifier of the client using the HTTP/JSON interface. Default: Value of configuration property `com.openexchange.ajax.login.http-auth.client`
     - :client_user_agent (String.t): Parameter to override the user agent used for session creation. By default the `User-Agent` request header is evaluated.
-    - :login_path (String.t): The login path to be set on the resulting `Location` response header as part of the redirect response. Default: Value of configuration property `com.openexchange.UIWebPath`. 
+    - :login_path (String.t): The login path to be set on the resulting `Location` response header as part of the redirect response. Default: Value of configuration property `com.openexchange.UIWebPath`.
     - :shard (String.t): Shard identifier to route the requiest accordingly
   ## Returns
 
@@ -523,7 +523,7 @@ defmodule OpenXchangeClient.Api.Login do
 
     %{}
     |> method(:get)
-    |> url("/login?action&#x3D;samlLogin")
+    |> url("/login?action=samlLogin")
     |> add_param(:query, :token, token)
     |> add_optional_params(optional_params, opts)
     |> Enum.into([])
@@ -538,7 +538,7 @@ defmodule OpenXchangeClient.Api.Login do
 
   @doc """
   Terminates an App Suite session after SAML logout flow
-  This API call is typically the result of a redirect created by the server. It does not need to be explicitly implemented by clients!  After a successful SAML logout flow, the client (web browser) is redirected to this endpoint, where the actual App Suite session gets terminated. As a result, the user gets usually redirected to an environment-specific location, for example a portal page. The redirect response removes all App Suite session cookies. 
+  This API call is typically the result of a redirect created by the server. It does not need to be explicitly implemented by clients!  After a successful SAML logout flow, the client (web browser) is redirected to this endpoint, where the actual App Suite session gets terminated. As a result, the user gets usually redirected to an environment-specific location, for example a portal page. The redirect response removes all App Suite session cookies.
 
   ## Parameters
 
@@ -555,7 +555,7 @@ defmodule OpenXchangeClient.Api.Login do
   def saml_logout(connection, session, _opts \\ []) do
     %{}
     |> method(:get)
-    |> url("/login?action&#x3D;samlLogout")
+    |> url("/login?action=samlLogout")
     |> add_param(:query, :session, session)
     |> Enum.into([])
     |> (&Connection.request(connection, &1)).()
