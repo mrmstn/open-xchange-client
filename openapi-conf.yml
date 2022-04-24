@@ -1,0 +1,11 @@
+generatorName: elixir
+skipValidateSpec: true
+additionalProperties:
+  invokerPackage: OpenXchangeClient
+  packageName: open_xchange_client
+  packageVersion: 0.10.0
+  packageAuthors:
+    - "Michael Ramstein <michael@ramste.in>"
+  packageLicense: "MIT"
+  inputSpec: "/local/openapi.json"
+  output: "/local/"
