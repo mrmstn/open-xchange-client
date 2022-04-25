@@ -10,6 +10,7 @@ config :open_xchange_client, :auth,
   password: env!("OX_PASSWORD", :string)
 
 https_proxy = env!("HTTPS_PROXY", :string, nil)
+
 if(https_proxy != nil) do
   config :tesla, OpenXchangeClient.Connection,
     adapter:

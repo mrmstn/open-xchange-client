@@ -1,6 +1,6 @@
 # OpenXchangeClient
 
-Documentation of the Open-Xchange HTTP API which is used by the new AJAX GUI. 
+Documentation of the Open-Xchange HTTP API which is used by the new AJAX GUI.
 
 ### Building
 
@@ -24,3 +24,24 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/open_xchange_client](https://hexdocs.pm/open_xchange_client).
+
+## Usage
+
+```elixir
+alias OpenXchangeClient.Api
+alias OpenXchangeClient.Model
+
+endpoint = "https://example.com/"
+username = "user@example.com"
+password = "secure-password"
+conn = OpenXchangeClient.Connection.new(endpoint)
+
+# Get a authenticated session for the current user
+{:ok, %{session: session}} = Api.Login.do_login(conn, username, password)
+
+# Use the session for authenticated requests
+{:ok, data: %Model.CurrentUserData{ user_id: uid}} = Api.UserMe.get_current_user(conn, session)
+
+# Don't forget to logout - otherwise you might hit a rate limit from OX
+Api.Login.do_logout(conn, session)
+```

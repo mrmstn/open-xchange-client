@@ -12,8 +12,7 @@ defmodule OpenXchangeClient.Mixfile do
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       package: package(),
-      description:
-        "A elixir client for Open-Xchange",
+      description: "A elixir client for Open-Xchange",
       deps: deps()
     ]
   end
