@@ -13,7 +13,7 @@ defmodule OpenXchangeClient.Mixfile do
       start_permanent: Mix.env() == :prod,
       package: package(),
       description:
-        "Documentation of the Open-Xchange HTTP API which is used by the new AJAX GUI. ",
+        "A elixir client for Open-Xchange",
       deps: deps()
     ]
   end
