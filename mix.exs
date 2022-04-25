@@ -1,10 +1,13 @@
 defmodule OpenXchangeClient.Mixfile do
   use Mix.Project
 
+  @source_url "https://github.com/mrmstn/open-xchange-client"
+  @version "0.10.0"
+
   def project do
     [
       app: :open_xchange_client,
-      version: "7.10.2",
+      version: @version,
       elixir: "~> 1.6",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
@@ -39,15 +42,18 @@ defmodule OpenXchangeClient.Mixfile do
       {:hackney, "~> 1.13", optional: true},
       {:credo, "~> 1.0", only: [:dev, :test]},
       {:dotenvy, "~> 0.6.0", only: [:dev, :test]},
-      {:bypass, "~> 2.1.0", only: [:dev, :test]}
+      {:bypass, "~> 2.1.0", only: [:dev, :test]},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
   defp package() do
     [
       name: "open_xchange_client",
+      maintainers: ["Michael Ramstein"],
       files: ~w(lib mix.exs README* LICENSE*),
-      licenses: ["MIT"]
+      licenses: ["Apache-2.0"],
+      links: %{"GitHub" => @source_url}
     ]
   end
 end
