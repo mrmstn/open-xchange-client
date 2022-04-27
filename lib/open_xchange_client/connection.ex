@@ -31,8 +31,7 @@ defmodule OpenXchangeClient.Connection do
     [
       {Tesla.Middleware.BaseUrl, url},
       {Tesla.Middleware.Headers, [{"User-Agent", "Elixir"}]},
-      # {Tesla.Middleware.EncodeJson, [engine: Poison]},
-      Tesla.Middleware.FormUrlencoded
+      {OpenXchangeClient.Middleware.Encoder, [json: [engine: Poison]]}
       | middleware
     ]
   end
