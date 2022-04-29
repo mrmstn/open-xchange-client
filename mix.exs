@@ -2,7 +2,7 @@ defmodule OpenXchangeClient.Mixfile do
   use Mix.Project
 
   @source_url "https://github.com/mrmstn/open-xchange-client"
-  @version "0.10.2"
+  @version "0.10.3"
 
   def project do
     [
