@@ -42,10 +42,21 @@ defmodule OpenXchangeClient.Helper.FolderColumns do
     3301 => :"com.openexchange.contacts.extendedProperties"
   }
 
+  def translate_results(columns, results) when is_binary(columns) do
+    columns
+    |> String.split(",")
+    |> Enum.map(fn i ->
+      {i, nil} = Integer.parse(i)
+      i
+    end)
+    |> translate_results(results)
+    |> IO.inspect()
+  end
+
   def translate_results(columns, results) when is_list(results) do
     keys =
       columns
-      |> Enum.map(&@mapping[&1])
+      |> Enum.map(fn key when is_integer(key) -> @mapping[key] end)
 
     results
     |> Enum.map(&(reducer(keys, &1) |> Map.new()))
