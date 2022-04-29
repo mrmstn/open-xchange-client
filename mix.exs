@@ -38,6 +38,7 @@ defmodule OpenXchangeClient.Mixfile do
     [
       {:tesla, "~> 1.2"},
       {:poison, "~> 3.0"},
+      {:cookie_jar, "~> 1.0"},
       {:hackney, "~> 1.13", optional: true},
       {:credo, "~> 1.0", only: [:dev, :test]},
       {:dotenvy, "~> 0.6.0", only: [:dev, :test]},
